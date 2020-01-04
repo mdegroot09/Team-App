@@ -2,12 +2,23 @@
 <html>
   <head>
     <link rel="icon" href="http://example.com/favicon.png">
+    <base target="_top">
+    <?!= include('Stylesheet'); ?>
   </head>
   
   <body>
-    Hello world!
-    <br><br>
-    <button onclick="sayHi()" type="button">Click Me!</button>
+    <div class="mainImg">
+      <img style="width: 100%" src="https://www.thetruthaboutmortgage.com/wp-content/uploads/2017/06/homielogo.png" alt="Homie logo"/>
+    </div>
+    <div>
+      <p class="title">
+        Hello world!
+      </p>
+      <button onclick="sayHi()" 
+        style="marginTop: 10px; width: 70px; height: 30px; borderRadius: 8px;" type="button">
+        Click Me!
+      </button>
+    </div>
     <?!= include('JavaScript'); ?>
   </body>
   

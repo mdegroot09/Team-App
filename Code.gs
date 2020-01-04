@@ -1,9 +1,7 @@
 function doGet(request) {
-  return HtmlService.createTemplateFromFile('Page')
-    .evaluate();
+  return HtmlService.createTemplateFromFile('Index').evaluate();
 }
 
 function include(filename) {
-  return HtmlService.createHtmlOutputFromFile(filename)
-    .getContent();
+  return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }

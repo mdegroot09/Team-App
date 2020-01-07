@@ -1,11 +1,21 @@
 <script>
 
 window.addEventListener('load', function() {
-  console.log('Page is loaded');
+  console.log('Page is loaded')
+  //var ss = SpreadsheetApp.openById('1YENd2ZBjwcIGR3fJSla8Av4WFLddDiCuKqdZAyVNMJA')
+  //var val = ss.getSheetByName('Data').getRange('A1').getValue()
+  document.getElementById('idTest').innerHTML = 'not clicked' 
 })
 
 function sayHi(){
-  console.log('hi')
+  try {
+    var ss = SpreadsheetApp.openById('1YENd2ZBjwcIGR3fJSla8Av4WFLddDiCuKqdZAyVNMJA')
+    var val = ss.getSheetByName('Data').getRange('A1').getValue()
+  }
+  catch{
+    alert('error')
+  }
+  document.getElementById('idTest').innerHTML = 'clicked' 
 }
 
 </script>

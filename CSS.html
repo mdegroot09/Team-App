@@ -34,8 +34,8 @@
   }
   
   #darkBack {
-    width: 100vw;
-    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
     background-color: black;
     opacity: .2;
     position: fixed;
@@ -48,8 +48,11 @@
   
   #loading {
     position: fixed;
-    top: calc(50% - 5px);
+    top: calc(50vh - 70px);
     display: none;
+    font-size: 30px;
+    margin: 0;
+    color: black;
   }
 
   .mainImg {

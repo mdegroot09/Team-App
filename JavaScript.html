@@ -2,19 +2,18 @@
 
 window.addEventListener('load', function() {
   console.log('Page is loaded')
-  //var ss = SpreadsheetApp.openById('1YENd2ZBjwcIGR3fJSla8Av4WFLddDiCuKqdZAyVNMJA')
-  //var val = ss.getSheetByName('Data').getRange('A1').getValue()
-//  document.getElementById('idTest').innerHTML = 'not clicked' 
 })
 
 function runGetData(){
   var val = 'click 1'
+  
+  // Get data from spreadsheet 
   google.script.run
-    .withFailureHandler(function(err){
-        console.error("error occured", e);
-    })
     .withSuccessHandler(function(res){
       displayData(res)
+    })
+    .withFailureHandler(function(err){
+      console.error("error occured", e);
     })
     .getData()
 }
@@ -24,7 +23,7 @@ function displayData(data){
   for (var i = 0; i < data.length; i++){
     dataHTML = dataHTML + '<div>' + data[i] + '</div>'
   }
-  document.getElementById('showData').innerHTML = dataHTML
+  document.getElementById('showBuyers').innerHTML = dataHTML
 }
 
 </script>

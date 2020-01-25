@@ -3,6 +3,17 @@
 window.addEventListener('load', function() {
   console.log('Page is loaded')
   runGetData()  
+  
+  // Get user info
+  google.script.run  // if successful, display the data 
+  .withSuccessHandler(function(res){
+    alert("Your email is: " + res.email + '\nYour User Type is: ' + res.userType)
+  })
+  
+  // if error
+  .withFailureHandler(function(err){
+    console.error("error occured", err);
+  }).getUserInfo()
 })
 
 function runGetData(){
@@ -58,10 +69,10 @@ function showData(data){
   document.getElementById('showListingAgents').innerHTML = listingAgentsHTML
 }
 
-function showLoading(bool){
+function showLoading(show){
   var displayBack = ''
   var displayLoading = ''
-  if (bool){
+  if (show){
     displayBack = 'block'
     displayLoading = 'in-line'
   }

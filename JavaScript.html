@@ -20,7 +20,7 @@ function runGetData(){
   
   // if error
   .withFailureHandler(function(err){
-    console.error("error occured", e);
+    console.error("error occured", err);
   })
   
   .getData() // run function in gs file to pull data
@@ -28,11 +28,34 @@ function runGetData(){
 }
 
 function showData(data){
-  var dataHTML = ''
-  for (var i = 0; i < data.length; i++){
-    dataHTML = dataHTML + '<div>' + data[i] + '</div>'
+  // display buyer names
+  var buyerNamesHTML = ''
+  for (var i = 0; i < data.buyerNames.length; i++){
+    buyerNamesHTML += '<div class="row"><span>' + data.buyerNames[i] + '</span></div>'
   }
-  document.getElementById('showBuyers').innerHTML = dataHTML
+  
+  // display buyer agent names
+  var buyerAgentsHTML = ''
+  for (var i = 0; i < data.buyerAgents.length; i++){
+    buyerAgentsHTML += '<div class="row"><span>' + data.buyerAgents[i] + '</span></div>'
+  }
+  
+  // display stages
+  var stagesHTML = ''
+  for (var i = 0; i < data.stages.length; i++){
+    stagesHTML += '<div class="row"><span>' + data.stages[i] + '</span></div>'
+  }
+  
+  // display listing agents
+  var listingAgentsHTML = ''
+  for (var i = 0; i < data.listingAgents.length; i++){
+    listingAgentsHTML += '<div class="row"><span>' + data.listingAgents[i] + '</span></div>'
+  }
+  
+  document.getElementById('showBuyers').innerHTML = buyerNamesHTML
+  document.getElementById('showBuyerAgents').innerHTML = buyerAgentsHTML
+  document.getElementById('showStages').innerHTML = stagesHTML
+  document.getElementById('showListingAgents').innerHTML = listingAgentsHTML
 }
 
 function showLoading(bool){

@@ -24,6 +24,33 @@
   button:active{
     background: #49ccb3;
   }
+  
+  .mainDiv {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #darkBack {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: .2;
+    position: fixed;
+    display: none;
+  }
+  
+  #message {
+  
+  }
+  
+  #loading {
+    position: fixed;
+    top: calc(50% - 5px);
+    display: none;
+  }
 
   .mainImg {
     width: calc(100% - 100px); 
@@ -31,7 +58,7 @@
     margin: 30px;
   }
   
-  .mainDiv {
+  .titleDiv {
     display: flex; 
     flex-direction: column;
     align-items: center;

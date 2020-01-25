@@ -2,28 +2,52 @@
 
 window.addEventListener('load', function() {
   console.log('Page is loaded')
+  runGetData()  
 })
 
 function runGetData(){
-  var val = 'click 1'
+
+  showLoading(true) // show loading view
   
   // Get data from spreadsheet 
   google.script.run
-    .withSuccessHandler(function(res){
-      displayData(res)
-    })
-    .withFailureHandler(function(err){
-      console.error("error occured", e);
-    })
-    .getData()
+  
+  // if successful, display the data 
+  .withSuccessHandler(function(res){
+    showData(res) // show the data
+    showLoading(false) // hide loading view
+  })
+  
+  // if error
+  .withFailureHandler(function(err){
+    console.error("error occured", e);
+  })
+  
+  .getData() // run function in gs file to pull data
+  
 }
 
-function displayData(data){
+function showData(data){
   var dataHTML = ''
   for (var i = 0; i < data.length; i++){
     dataHTML = dataHTML + '<div>' + data[i] + '</div>'
   }
   document.getElementById('showBuyers').innerHTML = dataHTML
+}
+
+function showLoading(bool){
+  var displayBack = ''
+  var displayLoading = ''
+  if (bool){
+    displayBack = 'block'
+    displayLoading = 'in-line'
+  }
+  else {
+    displayBack = 'none'
+    displayLoading = 'none'
+  }
+  document.getElementById('darkBack').style.display = displayBack
+  document.getElementById('loading').style.display = displayBack
 }
 
 </script>

@@ -4,18 +4,27 @@ window.addEventListener('load', function() {
   console.log('Page is loaded')
   //var ss = SpreadsheetApp.openById('1YENd2ZBjwcIGR3fJSla8Av4WFLddDiCuKqdZAyVNMJA')
   //var val = ss.getSheetByName('Data').getRange('A1').getValue()
-  document.getElementById('idTest').innerHTML = 'not clicked' 
+//  document.getElementById('idTest').innerHTML = 'not clicked' 
 })
 
-function sayHi(){
-  try {
-    var ss = SpreadsheetApp.openById('1YENd2ZBjwcIGR3fJSla8Av4WFLddDiCuKqdZAyVNMJA')
-    var val = ss.getSheetByName('Data').getRange('A1').getValue()
+function runGetData(){
+  var val = 'click 1'
+  google.script.run
+    .withFailureHandler(function(err){
+        console.error("error occured", e);
+    })
+    .withSuccessHandler(function(res){
+      displayData(res)
+    })
+    .getData()
+}
+
+function displayData(data){
+  var dataHTML = ''
+  for (var i = 0; i < data.length; i++){
+    dataHTML = dataHTML + '<div>' + data[i] + '</div>'
   }
-  catch{
-    alert('error')
-  }
-  document.getElementById('idTest').innerHTML = 'clicked' 
+  document.getElementById('showData').innerHTML = dataHTML
 }
 
 </script>

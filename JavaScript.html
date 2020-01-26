@@ -2,65 +2,64 @@
 
 window.addEventListener('load', function() {
   console.log('Page is loaded')
-  runGetData()  
+  
+  // show loading view
+  showLoading(true) 
   
   // Get user info
-  google.script.run  // if successful, display the data 
+  google.script.run  
+  // if successful, display the data 
   .withSuccessHandler(function(res){
-    alert("Your email is: " + res.email + '\nYour User Type is: ' + res.userType)
+    document.user = res
+    displayUserInfo(res) // display user info on DOM
+    runGetData(res) // display data based on user info
   })
-  
   // if error
   .withFailureHandler(function(err){
     console.error("error occured", err);
-  }).getUserInfo()
+  })
+  .getUserInfo()
+  
 })
 
-function runGetData(){
+function runGetData(user){
 
   showLoading(true) // show loading view
-  
+
   // Get data from spreadsheet 
   google.script.run
-  
   // if successful, display the data 
   .withSuccessHandler(function(res){
     showData(res) // show the data
     showLoading(false) // hide loading view
   })
-  
   // if error
   .withFailureHandler(function(err){
     console.error("error occured", err);
   })
-  
-  .getData() // run function in gs file to pull data
+  .getData(user) // run function in gs file to pull data
   
 }
 
+function displayUserInfo(user){
+  var userInfoHTML = ''
+  userInfoHTML += '<div>' + user.userName + '</div>'
+  userInfoHTML += '<div id="userType">' + user.userType + '</div>'
+  document.getElementById('userInfo').innerHTML = userInfoHTML
+}
+
 function showData(data){
+
   // display buyer names
   var buyerNamesHTML = ''
-  for (var i = 0; i < data.buyerNames.length; i++){
-    buyerNamesHTML += '<div class="row"><span>' + data.buyerNames[i] + '</span></div>'
-  }
-  
-  // display buyer agent names
   var buyerAgentsHTML = ''
-  for (var i = 0; i < data.buyerAgents.length; i++){
-    buyerAgentsHTML += '<div class="row"><span>' + data.buyerAgents[i] + '</span></div>'
-  }
-  
-  // display stages
   var stagesHTML = ''
-  for (var i = 0; i < data.stages.length; i++){
-    stagesHTML += '<div class="row"><span>' + data.stages[i] + '</span></div>'
-  }
-  
-  // display listing agents
   var listingAgentsHTML = ''
-  for (var i = 0; i < data.listingAgents.length; i++){
-    listingAgentsHTML += '<div class="row"><span>' + data.listingAgents[i] + '</span></div>'
+  for (var i = 0; i < data.length; i++){
+    buyerNamesHTML += '<div class="row"><span>' + data[i].buyerName + '</span></div>'
+    buyerAgentsHTML += '<div class="row"><span>' + data[i].buyerAgent + '</span></div>'
+    stagesHTML += '<div class="row"><span>' + data[i].stage + '</span></div>'
+    listingAgentsHTML += '<div class="row"><span>' + data[i].listingAgent + '</span></div>'
   }
   
   document.getElementById('showBuyers').innerHTML = buyerNamesHTML

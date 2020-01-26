@@ -9,6 +9,7 @@
   
   <body>
     <div class="mainDiv">
+      <div id="userInfo"></div>
       <div id="message"></div>
       <div id="darkBack"></div>
       <div id="loading">loading...</div>
@@ -23,7 +24,7 @@
         <p class="title">
           Referral Tracker
         </p>
-        <button onclick="runGetData()" type="button">
+        <button onclick="runGetData(document.user)" type="button">
           Refresh
         </button>
       </div>

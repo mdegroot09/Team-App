@@ -17,7 +17,7 @@ function getData(user){
   })
   
   var count = buyerNames.length
-  var buyersAll = ss.getSheetByName('Data').getRange('A4:AG' + (count - 1)).getValues()
+  var buyersAll = ss.getSheetByName('Data').getRange('A4:AG' + (count + 3)).getValues()
   
   var buyerData = buyersAll.map(function(buyer){
     return ({

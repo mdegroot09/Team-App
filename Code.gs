@@ -85,18 +85,26 @@ function getData(user){
 function giveEditAccess(){
   var sheets = SpreadsheetApp.getActive().getSheets()
   var userEmail = Session.getActiveUser().getEmail()
-  var i, j, protections;
+  var i, j, protectionRanges, protectionSheets;
 
   // get every sheet
   for (i = 0; i < sheets.length; i++){
     
     // get every protection of each sheet
-    protections = sheets[i].getProtections(SpreadsheetApp.ProtectionType.RANGE)
+    protectionRanges = sheets[i].getProtections(SpreadsheetApp.ProtectionType.RANGE)
+    protectionSheets = sheets[i].getProtections(SpreadsheetApp.ProtectionType.SHEET)
     
-    // give edit access
-    for (j = 0; j < protections.length; j++){
-      if (!protections[j].canEdit()){
-        protections[j].addEditor(userEmail)
+    // add edit access for each range protection
+    for (j = 0; j < protectionRanges.length; j++){
+      if (!protectionRanges[j].canEdit()){
+        protectionRanges[j].addEditor(userEmail)
+      }
+    }
+    
+    // add edit access for each range protection
+    for (j = 0; j < protectionSheets.length; j++){
+      if (!protectionSheets[j].canEdit()){
+        protectionSheets[j].addEditor(userEmail)
       }
     }
   }
@@ -105,18 +113,26 @@ function giveEditAccess(){
 function removeEditAccess(){
   var sheets = SpreadsheetApp.getActive().getSheets()
   var userEmail = Session.getActiveUser().getEmail()
-  var i, j, protections;
+  var i, j, protectionRanges, protectionSheets;
 
   // get every sheet
   for (i = 0; i < sheets.length; i++){
     
     // get every protection of each sheet
-    protections = sheets[i].getProtections(SpreadsheetApp.ProtectionType.RANGE)
+    protectionRanges = sheets[i].getProtections(SpreadsheetApp.ProtectionType.RANGE)
+    protectionSheets = sheets[i].getProtections(SpreadsheetApp.ProtectionType.SHEET)
     
-    // remove edit access
-    for (j = 0; j < protections.length; j++){
-      if (protections[j].canEdit()){
-        protections[j].removeEditor(userEmail)
+    // remove edit access for each range protection
+    for (j = 0; j < protectionRanges.length; j++){
+      if (protectionRanges[j].canEdit()){
+        protectionRanges[j].removeEditor(userEmail)
+      }
+    }
+    
+    // remove edit access for each range protection
+    for (j = 0; j < protectionSheets.length; j++){
+      if (protectionSheets[j].canEdit()){
+        protectionSheets[j].removeEditor(userEmail)
       }
     }
   }

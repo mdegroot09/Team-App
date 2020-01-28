@@ -53,9 +53,10 @@
     min-width: 100vw;
     min-height: 100vh;
     background-color: black;
-    opacity: .2;
+    opacity: .15;
     position: fixed;
     display: none;
+    z-index: 1;
   }
   
   #message {
@@ -69,6 +70,9 @@
     font-size: 30px;
     margin: 0;
     color: black;
+    height: 30px;
+    width: 30px;
+    animation: rotation 1.5s infinite linear;
   }
 
   .mainImg {
@@ -123,6 +127,15 @@
   
   #showBuyers {
     
+  }
+  
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
   }
   
 </style>

@@ -7,6 +7,10 @@ function include(filename) {
 }
 
 function getData(user){
+  
+  // give editing access to non 
+  giveEditAccess()
+  
   var ss = SpreadsheetApp.openById('1YENd2ZBjwcIGR3fJSla8Av4WFLddDiCuKqdZAyVNMJA')
   
   var buyerNamesAll = ss.getSheetByName('Data').getRange('A4:A').getValues() // get every value from A4 down
@@ -54,6 +58,11 @@ function getData(user){
     })
   })
   
+  // Take away editing access if not an admin
+  if (user.userType != 'Admin' && user.userEmail != 'mike.degroot@homie.com'){
+    removeEditAccess()
+  }
+  
   // if userType is Listing Agent, filter for only their stuff
   if (user.userType == 'Listing Agent'){
     var buyerDataPerLA = buyerData.filter(function(buyer){
@@ -70,6 +79,46 @@ function getData(user){
   
   else {
     return {} 
+  }
+}
+
+function giveEditAccess(){
+  var sheets = SpreadsheetApp.getActive().getSheets()
+  var userEmail = Session.getActiveUser().getEmail()
+  var i, j, protections;
+
+  // get every sheet
+  for (i = 0; i < sheets.length; i++){
+    
+    // get every protection of each sheet
+    protections = sheets[i].getProtections(SpreadsheetApp.ProtectionType.RANGE)
+    
+    // give edit access
+    for (j = 0; j < protections.length; j++){
+      if (!protections[j].canEdit()){
+        protections[j].addEditor(userEmail)
+      }
+    }
+  }
+}
+
+function removeEditAccess(){
+  var sheets = SpreadsheetApp.getActive().getSheets()
+  var userEmail = Session.getActiveUser().getEmail()
+  var i, j, protections;
+
+  // get every sheet
+  for (i = 0; i < sheets.length; i++){
+    
+    // get every protection of each sheet
+    protections = sheets[i].getProtections(SpreadsheetApp.ProtectionType.RANGE)
+    
+    // remove edit access
+    for (j = 0; j < protections.length; j++){
+      if (protections[j].canEdit()){
+        protections[j].removeEditor(userEmail)
+      }
+    }
   }
 }
 

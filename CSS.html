@@ -29,7 +29,7 @@
   input {
     height: 30px;
     width: calc(100% - 15px);
-    font-size: 17px;
+    font-size: 15px;
     padding-left: 5px;
     border-radius: 5px;
     border: 1px solid gray;
@@ -112,14 +112,15 @@
   .newReferralDiv {
     margin-top: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 180px;
+    justify-content: space-between;
+    height: 230px;
     width: calc(100% - 100px);
     max-width: 1100px;
     border: solid 1px gray;
     border-radius: 5px;
-    background: #58dbc2;
+    background-color: #cff9f1;
   }
   
   .newReferral {
@@ -129,6 +130,7 @@
     height: 150px;
     width: calc(100% - 20px);
     max-width: 1100px;
+    margin-top: 15px;
   }
   
   .referralLeft {
@@ -170,6 +172,23 @@
     text-align: left;
     vertical-align: top;
     margin-top: 0;
+    font-size: 15px;    
+    padding-left: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    align-self: flex-end;
+  }
+  
+  .referralSubmitDiv {
+    height: 50px;
+    width: 100%;
+    background: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .showData {
@@ -211,7 +230,7 @@
     overflow: hidden;
   }
   
-  .row {
+  .rowEach {
     display: flex;
     align-items: center;
     justify-content: flex-start;

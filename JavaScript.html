@@ -93,10 +93,10 @@ function showData(data){
       background = 'rowThree'
     }
   
-    buyerNamesHTML += '<div class="row ' + background + bottomBorder + '" style="border-left: solid 1px #58dbc2' + bottomLeftRadius + '"><span>' + data[i].buyerName + '</span></div>'
-    buyerAgentsHTML += '<div class="row ' + background + bottomBorder + '"><span>' + data[i].buyerAgent + '</span></div>'
-    stagesHTML += '<div class="row ' + background + bottomBorder + lost + '"><span>' + stage + '</span></div>'
-    listingAgentsHTML += '<div class="row ' + background + bottomBorder + '" style="border-right: solid 1px #58dbc2' + bottomRightRadius + '"><span>' + data[i].listingAgent + '</span></div>'
+    buyerNamesHTML += '<div class="rowEach ' + background + bottomBorder + '" style="border-left: solid 1px #58dbc2' + bottomLeftRadius + '"><span>' + data[i].buyerName + '</span></div>'
+    buyerAgentsHTML += '<div class="rowEach ' + background + bottomBorder + '"><span>' + data[i].buyerAgent + '</span></div>'
+    stagesHTML += '<div class="rowEach ' + background + bottomBorder + lost + '"><span>' + stage + '</span></div>'
+    listingAgentsHTML += '<div class="rowEach ' + background + bottomBorder + '" style="border-right: solid 1px #58dbc2' + bottomRightRadius + '"><span>' + data[i].listingAgent + '</span></div>'
   }
   
   document.getElementById('showBuyers').innerHTML = buyerNamesHTML

@@ -4,6 +4,7 @@
     <link rel="icon" href="http://example.com/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap" rel="stylesheet">
     <base target="_top">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <?!= include('CSS'); ?>
   </head>
   
@@ -31,41 +32,53 @@
           <div class="newReferral">
             <div class="referralLeft">
               <p class="referralHeader">Buyer Contact</p>
-              <input id="nameReferral" placeholder="buyer name" type="text" style="margin-top: 0"/>
-              <input id="phoneReferral" placeholder="phone" type="text"/>
-              <input id="emailReferral" placeholder="email" type="text"/>
+              <input id="nameReferral" placeholder="buyer name" type="text" style="margin-top: 0">
+              <input id="phoneReferral" placeholder="phone" type="text">
+              <input id="emailReferral" placeholder="email" type="text">
             </div>
             <div class="referralMiddle">
               <p class="referralHeader">Location</p>
-              <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0"/>
-              <input id="cityReferral" placeholder="city" type="text"/>
-              <input id="zipReferral" placeholder="zip" type="text"/>
+              <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0">
+              <input id="cityReferral" placeholder="city" type="text">
+              <input id="zipReferral" placeholder="zip" type="text">
             </div>
             <div class="referralRight">
-              <input id="notesReferral" placeholder="notes" type="text"/>
+              <textarea id="notesReferral" placeholder="notes" type="text"></textarea>
+            </div>
+          </div>
+          <div class="referralSubmitDiv">
+            <div class="input-group mb-3" style="width: 200px; margin: 0 0 0 25px!important;">
+              <select class="custom-select" id="inputGroupSelect02">
+                <option selected>Referral Type</option>
+                <option value="1">Homie Seller</option>
+                <option value="2">Unrepped Buyer</option>
+              </select>
             </div>
           </div>
         </div>
       </div>
       <div class="showData">
         <div class="column">
-          <div class="sheetHeader borderLeft columnTitle row" style="border-top-left-radius: 5px">Buyer</div>
+          <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
           <div id="showBuyers"></div>
         </div>
         <div class="column">
-          <div class="sheetHeader columnTitle row">Buyer Agent</div>
+          <div class="sheetHeader columnTitle rowEach">Buyer Agent</div>
           <div id="showBuyerAgents"></div>
         </div>
         <div class="column">
-          <div class="sheetHeader columnTitle row">Stage</div>
+          <div class="sheetHeader columnTitle rowEach">Stage</div>
           <div id="showStages"></div>
         </div>
         <div class="column">
-          <div class="sheetHeader borderRight columnTitle row" style="border-top-right-radius: 5px">Listing Agent</div>
+          <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px">Listing Agent</div>
           <div id="showListingAgents"></div>
         </div>
       </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <?!= include('JavaScript'); ?>
   </body>
   

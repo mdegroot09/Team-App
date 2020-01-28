@@ -24,13 +24,32 @@
         <p class="title">
           Referral Tracker
         </p>
-        <button onclick="runGetData(document.user)" type="button">
+        <button onclick="runGetData()" type="button">
           Refresh
         </button>
+        <div class="newReferralDiv">
+          <div class="newReferral">
+            <div class="referralLeft">
+              <p class="referralHeader">Buyer Contact</p>
+              <input id="nameReferral" placeholder="buyer name" type="text" style="margin-top: 0"/>
+              <input id="phoneReferral" placeholder="phone" type="text"/>
+              <input id="emailReferral" placeholder="email" type="text"/>
+            </div>
+            <div class="referralMiddle">
+              <p class="referralHeader">Location</p>
+              <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0"/>
+              <input id="cityReferral" placeholder="city" type="text"/>
+              <input id="zipReferral" placeholder="zip" type="text"/>
+            </div>
+            <div class="referralRight">
+              <input id="notesReferral" placeholder="notes" type="text"/>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="showData">
         <div class="column">
-          <div class="sheetHeader borderLeft columnTitle row">Buyer</div>
+          <div class="sheetHeader borderLeft columnTitle row" style="border-top-left-radius: 5px">Buyer</div>
           <div id="showBuyers"></div>
         </div>
         <div class="column">
@@ -42,7 +61,7 @@
           <div id="showStages"></div>
         </div>
         <div class="column">
-          <div class="sheetHeader borderRight columnTitle row">Listing Agent</div>
+          <div class="sheetHeader borderRight columnTitle row" style="border-top-right-radius: 5px">Listing Agent</div>
           <div id="showListingAgents"></div>
         </div>
       </div>

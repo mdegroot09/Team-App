@@ -12,7 +12,7 @@ window.addEventListener('load', function() {
   .withSuccessHandler(function(res){
     document.user = res
     displayUserInfo(res) // display user info on DOM
-    runGetData(res) // display data based on user info
+    runGetData() // display data based on user info
   })
   // if error
   .withFailureHandler(function(err){
@@ -22,7 +22,9 @@ window.addEventListener('load', function() {
   
 })
 
-function runGetData(user){
+function runGetData(){
+
+  var user = document.user
 
   showLoading(true) // show loading view
 
@@ -30,6 +32,7 @@ function runGetData(user){
   google.script.run
   // if successful, display the data 
   .withSuccessHandler(function(res){
+    document.data = res
     showData(res) // show the data
     showLoading(false) // hide loading view
   })
@@ -38,7 +41,6 @@ function runGetData(user){
     console.error("error occured", err);
   })
   .getData(user) // run function in gs file to pull data
-  
 }
 
 function displayUserInfo(user){
@@ -56,7 +58,7 @@ function showData(data){
   var stagesHTML = ''
   var listingAgentsHTML = ''
   for (var i = 0; i < data.length; i++){
-    var background, bottom, stage, lost;
+    var background, bottomBorder, stage, lost, bottomLeftRadius, bottomRightRadius;
     
     // show lost if applicable, otherwise show stage
     if (data[i].status == 'Lost'){
@@ -70,10 +72,14 @@ function showData(data){
     
     // show solid bottom border
     if (i !== (data.length - 1)){
-      bottom = ''
+      bottomBorder = ''
+      bottomLeftRadius = ''
+      bottomRightRadius = ''
     }
     else {
-      bottom = ' bottom'
+      bottomBorder = ' bottom'
+      bottomLeftRadius = '; border-bottom-left-radius: 5px;'
+      bottomRightRadius = '; border-bottom-right-radius: 5px;'
     }
     
     // set class name per row number for background color
@@ -87,10 +93,10 @@ function showData(data){
       background = 'rowThree'
     }
   
-    buyerNamesHTML += '<div class="row ' + background + bottom + '" style="border-left: solid 1px #58dbc2"><span>' + data[i].buyerName + '</span></div>'
-    buyerAgentsHTML += '<div class="row ' + background + bottom + '"><span>' + data[i].buyerAgent + '</span></div>'
-    stagesHTML += '<div class="row ' + background + bottom + lost + '"><span>' + stage + '</span></div>'
-    listingAgentsHTML += '<div class="row ' + background + bottom + '" style="border-right: solid 1px #58dbc2"><span>' + data[i].listingAgent + '</span></div>'
+    buyerNamesHTML += '<div class="row ' + background + bottomBorder + '" style="border-left: solid 1px #58dbc2' + bottomLeftRadius + '"><span>' + data[i].buyerName + '</span></div>'
+    buyerAgentsHTML += '<div class="row ' + background + bottomBorder + '"><span>' + data[i].buyerAgent + '</span></div>'
+    stagesHTML += '<div class="row ' + background + bottomBorder + lost + '"><span>' + stage + '</span></div>'
+    listingAgentsHTML += '<div class="row ' + background + bottomBorder + '" style="border-right: solid 1px #58dbc2' + bottomRightRadius + '"><span>' + data[i].listingAgent + '</span></div>'
   }
   
   document.getElementById('showBuyers').innerHTML = buyerNamesHTML

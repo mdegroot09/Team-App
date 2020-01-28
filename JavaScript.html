@@ -56,7 +56,14 @@ function showData(data){
   var stagesHTML = ''
   var listingAgentsHTML = ''
   for (var i = 0; i < data.length; i++){
-    var background
+    var background, bottom
+    
+    if (i !== (data.length - 1)){
+      bottom = ''
+    }
+    else {
+      bottom = ' bottom'
+    }
     
     if (i % 3 === 0){
       background = 'rowOne'
@@ -68,10 +75,10 @@ function showData(data){
       background = 'rowThree'
     }
   
-    buyerNamesHTML += '<div class="row ' + background + '"><span>' + data[i].buyerName + '</span></div>'
-    buyerAgentsHTML += '<div class="row ' + background + '"><span>' + data[i].buyerAgent + '</span></div>'
-    stagesHTML += '<div class="row ' + background + '"><span>' + data[i].stage + '</span></div>'
-    listingAgentsHTML += '<div class="row ' + background + '"><span>' + data[i].listingAgent + '</span></div>'
+    buyerNamesHTML += '<div class="row ' + background + bottom + '" style="border-left: solid 1px #58dbc2"><span>' + data[i].buyerName + '</span></div>'
+    buyerAgentsHTML += '<div class="row ' + background + bottom + '"><span>' + data[i].buyerAgent + '</span></div>'
+    stagesHTML += '<div class="row ' + background + bottom + '"><span>' + data[i].stage + '</span></div>'
+    listingAgentsHTML += '<div class="row ' + background + bottom + '" style="border-right: solid 1px #58dbc2"><span>' + data[i].listingAgent + '</span></div>'
   }
   
   document.getElementById('showBuyers').innerHTML = buyerNamesHTML

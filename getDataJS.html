@@ -59,46 +59,58 @@ function showData(data){
   var buyerAgentsHTML = ''
   var stagesHTML = ''
   var listingAgentsHTML = ''
-  for (var i = 0; i < data.length; i++){
-    var background, bottomBorder, stage, lost, bottomLeftRadius, bottomRightRadius;
-    
-    // show lost if applicable, otherwise show stage
-    if (data[i].status == 'Lost'){
-      stage = data[i].status
-      lost = ' lost'
-    }
-    else {
-      stage = data[i].stage
-      lost = ''
-    }
-    
-    // show solid bottom border
-    if (i !== (data.length - 1)){
-      bottomBorder = ''
-      bottomLeftRadius = ''
-      bottomRightRadius = ''
-    }
-    else {
-      bottomBorder = ' bottom'
-      bottomLeftRadius = '; border-bottom-left-radius: 5px;'
-      bottomRightRadius = '; border-bottom-right-radius: 5px;'
-    }
-    
-    // set class name per row number for background color
-    if (i % 3 === 0){
-      background = 'rowOne'
-    }
-    else if (i % 3 === 1){
-      background = 'rowTwo'
-    }
-    else {
-      background = 'rowThree'
-    }
   
-    buyerNamesHTML += '<div class="rowEach ' + background + bottomBorder + '" style="border-left: solid 1px #58dbc2' + bottomLeftRadius + '"><span>' + data[i].buyerName + '</span></div>'
-    buyerAgentsHTML += '<div class="rowEach ' + background + bottomBorder + '"><span>' + data[i].buyerAgent + '</span></div>'
-    stagesHTML += '<div class="rowEach ' + background + bottomBorder + lost + '"><span>' + stage + '</span></div>'
-    listingAgentsHTML += '<div class="rowEach ' + background + bottomBorder + '" style="border-right: solid 1px #58dbc2' + bottomRightRadius + '"><span>' + data[i].listingAgent + '</span></div>'
+  // display data if there is any
+  if (data.length > 0){
+    for (var i = 0; i < data.length; i++){
+      var background, bottomBorder, stage, lost, bottomLeftRadius, bottomRightRadius;
+      
+      // show lost if applicable, otherwise show stage
+      if (data[i].status == 'Lost'){
+        stage = data[i].status
+        lost = ' lost'
+      }
+      else {
+        stage = data[i].stage
+        lost = ''
+      }
+      
+      // show solid bottom border
+      if (i !== (data.length - 1)){
+        bottomBorder = ''
+        bottomLeftRadius = ''
+        bottomRightRadius = ''
+      }
+      else {
+        bottomBorder = ' bottom'
+        bottomLeftRadius = '; border-bottom-left-radius: 5px;'
+        bottomRightRadius = '; border-bottom-right-radius: 5px;'
+      }
+      
+      // set class name per row number for background color
+      if (i % 3 === 0){
+        background = 'rowOne'
+      }
+      else if (i % 3 === 1){
+        background = 'rowTwo'
+      }
+      else {
+        background = 'rowThree'
+      }
+    
+      buyerNamesHTML += '<div class="rowEach ' + background + bottomBorder + '" style="border-left: solid 1px #58dbc2' + bottomLeftRadius + '"><span>' + data[i].buyerName + '</span></div>'
+      buyerAgentsHTML += '<div class="rowEach ' + background + bottomBorder + '"><span>' + data[i].buyerAgent + '</span></div>'
+      stagesHTML += '<div class="rowEach ' + background + bottomBorder + lost + '"><span>' + stage + '</span></div>'
+      listingAgentsHTML += '<div class="rowEach ' + background + bottomBorder + '" style="border-right: solid 1px #58dbc2' + bottomRightRadius + '"><span>' + data[i].listingAgent + '</span></div>'
+    }
+  }
+  
+  // if no data, show empty row
+  else {
+    buyerNamesHTML += '<div class="rowEach rowOne bottom" style="border-left: solid 1px #58dbc2; border-bottom-left-radius: 5px;"><span>No referrals</span></div>'
+    buyerAgentsHTML += '<div class="rowEach rowOne bottom"></div>'
+    stagesHTML += '<div class="rowEach rowOne bottom"></div>'
+    listingAgentsHTML += '<div class="rowEach rowOne bottom" style="border-right: solid 1px #58dbc2; border-bottom-right-radius: 5px;"></div>'
   }
   
   document.getElementById('showBuyers').innerHTML = buyerNamesHTML

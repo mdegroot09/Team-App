@@ -10,15 +10,32 @@ function submit(){
   var notes = document.getElementById('notesReferral').value
   var typeE = document.getElementById('referralType')
   var type = typeE.options[typeE.selectedIndex].text
-  var sourceE, source
+  var sourceE = document.getElementById('source')
+  var source = sourceE.options[sourceE.selectedIndex].text
   
-  if (type !== 'choose...' && type !== 'Homie Seller'){
-    sourceE = document.getElementById('source')
-    source = sourceE.options[sourceE.selectedIndex].text
+  if (source === 'choose...') {
+    source = ''
   }
   
-//  checkForBlanks(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source)
-  runSubmitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source)
+  var userName = document.user.userName
+  var userType = document.user.userType
+  
+  var details = {
+    buyerName: buyerName,
+    buyerPhone: buyerPhone,
+    buyerEmail: buyerEmail,
+    street: street,
+    city: city,
+    zip: zip,
+    notes: notes,
+    type: type,
+    source: source,
+    referringName: userName,
+    referringType: userType
+  }
+  
+//  checkForBlanks(details)
+  runSubmitReferral(details)
 }
 
 function displaySource(){
@@ -26,7 +43,7 @@ function displaySource(){
   var type = typeE.options[typeE.selectedIndex].text
   var e = document.getElementsByClassName('sourceElements')
   
-  if (type !== 'choose...' && type !== 'Homie Seller'){
+  if (type !== 'choose...' && type !== 'Homie Seller' && type !== 'SOI'){
     for (var i = 0; i < e.length; i++){
       e[i].style.display = 'block'
     }
@@ -39,7 +56,7 @@ function displaySource(){
   }
 }
 
-function runSubmitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source){
+function runSubmitReferral(details){
 
   // show loading view
   showLoading(true) 
@@ -57,7 +74,7 @@ function runSubmitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip,
     console.error("error occured", err);
     showMessage(false, 'Referral failed. Please try again.')
   })
-  .submitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source)
+  .submitReferral(details)
 }
 
 function clearValues(){

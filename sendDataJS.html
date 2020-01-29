@@ -48,15 +48,14 @@ function runSubmitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip,
   google.script.run  
   // if successful, display the data 
   .withSuccessHandler(function(res){
-//    showMessage(true, 'Success. Your referral has been sent to ' + res.email)
-    console.log('success')
-    clearValues()
-    load()
+    showMessage(true, 'Success. Your referral has been sent to ' + res.buyerAgent + '.')
+    clearValues() // clear values and dropdowns
+    load() // reload data to bring in new referral
   })
   // if error
   .withFailureHandler(function(err){
     console.error("error occured", err);
-    showMessage(false, 'Referral failed. Please resend')
+    showMessage(false, 'Referral failed. Please try again.')
   })
   .submitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source)
 }

@@ -122,4 +122,28 @@ function showLoading(show){
   document.getElementById('loading').style.display = displayBack
 }
 
+function showMessage(success, text){
+  var e = document.getElementById('message')
+  e.innerText = text
+  e.style.display = 'block'
+  
+  // show success message
+  if (success){
+    e.style.background = '#cff9f1'
+    e.style.color = '#45c2aa'
+    e.style.border = '#45c2aa 1px solid'
+  }
+  
+  // show failure message
+  else {
+    e.style.background = '#f4cccc'
+    e.style.color = '#b60000'
+    e.style.border = '#b60000 1px solid'
+  }
+    
+  setTimeout(function(){ 
+    e.style.display = 'none' 
+  }, 7000)
+}
+
 </script>

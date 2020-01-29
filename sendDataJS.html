@@ -18,7 +18,8 @@ function submitReferral(){
     source = sourceE.options[sourceE.selectedIndex].text
   }
   
-  console.log(type, source)
+  var userEmail = Session.getActiveUser().getEmail()
+  
 }
 
 function displaySource(){

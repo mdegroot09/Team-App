@@ -27,9 +27,6 @@
         <p class="title">
           Referral Tracker
         </p>
-        <button onclick="runGetData()" type="button">
-          Refresh
-        </button>
         <div class="referralTabDiv">
           <div class="referralTab">
             <div>New Referral</div>
@@ -103,7 +100,12 @@
           <div id="showStages"></div>
         </div>
         <div class="column">
-          <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px">Listing Agent</div>
+          <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
+            <span>Listing Agent</span>
+            <div onclick="runGetData()">
+              <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 18px; cursor: pointer;"/>
+            </div>
+          </div>
           <div id="showListingAgents"></div>
         </div>
       </div>

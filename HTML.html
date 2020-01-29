@@ -10,7 +10,9 @@
   
   <body>
     <div class="mainDiv">
-      <div id="userInfo"></div>
+      <div class="userInfoDiv">
+        <div id="userInfo"></div>
+      </div>
       <div id="message"></div>
       <div id="darkBack"></div>
       <img id="loading" src="https://www.jing.fm/clipimg/full/95-956857_pill-transparent-background-loading-spinner-icon-png.png" alt="loading icon">
@@ -43,16 +45,35 @@
               <input id="zipReferral" placeholder="zip" type="text">
             </div>
             <div class="referralRight">
+              <p class="referralHeader">Other</p>
               <textarea id="notesReferral" placeholder="notes" type="text"></textarea>
             </div>
           </div>
           <div class="referralSubmitDiv">
-            <div class="input-group mb-3" style="width: 200px; margin: 0 0 0 25px!important;">
-              <select class="custom-select" id="inputGroupSelect02">
+            <div class="input-group mb-3" id="referralTypeDiv" style="width: 200px; margin: 0 0 0 25px!important;">
+              <select class="custom-select" id="referralType">
                 <option selected>Referral Type</option>
                 <option value="1">Homie Seller</option>
                 <option value="2">Unrepped Buyer</option>
+                <option value="3">SOI</option>
+                <option value="4">Other</option>
               </select>
+            </div>
+            <div class="input-group mb-3" id="sourceDiv" style="width: 200px; margin: 0 0 0 25px!important;">
+              <select class="custom-select" id="source">
+                <option selected>Source</option>
+                <option value="1">Homie Platform</option>
+                <option value="2">KSL</option>
+                <option value="3">MLS</option>
+                <option value="4">Call/Text</option>
+                <option value="5">Direct Email</option>
+                <option value="6">Other</option>
+              </select>
+            </div>
+            <div class="submitDiv">
+              <button class="submitReferral" onclick="submitReferral()" type="button">
+                Submit
+              </button>
             </div>
           </div>
         </div>

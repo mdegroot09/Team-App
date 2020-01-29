@@ -38,6 +38,10 @@
     align-self: flex-end;
   }
   
+  input:hover{
+    cursor: text;
+  }
+  
   .mainDiv {
     min-width: 100vw;
     min-height: 100vh;
@@ -174,7 +178,7 @@
   }
   
   #notesReferral {
-    height: 200px;
+    height: 195px;
     width: calc(100% - 15px);
     display: block;
     text-align: left;
@@ -212,6 +216,26 @@
     padding: 0 0 0 5px;
   }
   
+  #referralType:hover {
+    cursor: pointer;
+  }
+  
+  #sourceDiv {
+    width: calc(100% - 15px);
+    align-self: flex-end;
+  }
+  
+  #source {
+    color: gray;
+    border-radius: 5px;
+    border: gray 1px solid;
+    padding: 0 0 0 5px;
+  }
+  
+  #source:hover {
+    cursor: pointer;
+  }
+  
   .submitDiv {
     display: flex;
     align-items: center;
@@ -220,7 +244,8 @@
   }
   
   .submitReferral {
-    width: 100px;
+    height: 35px;
+    width: 130px;
   }
   
   .showData {

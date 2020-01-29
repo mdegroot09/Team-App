@@ -54,6 +54,19 @@
               <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0">
               <input id="cityReferral" placeholder="city" type="text">
               <input id="zipReferral" placeholder="zip" type="text">
+              <br>
+              <p class="referralHeader">Source</p>
+              <div class="input-group mb-3" id="sourceDiv">
+                <select class="custom-select" id="source">
+                  <option selected>choose...</option>
+                  <option value="1">Homie Platform</option>
+                  <option value="2">KSL</option>
+                  <option value="3">MLS</option>
+                  <option value="4">Call/Text</option>
+                  <option value="5">Direct Email</option>
+                  <option value="6">Other</option>
+                </select>
+              </div>
             </div>
             <div class="referralRight">
               <p class="referralHeader">Other</p>
@@ -62,17 +75,7 @@
           </div>
           <div class="referralSubmitDiv">
 
-            <div class="input-group mb-3" id="sourceDiv" style="width: 200px; margin: 0 0 0 25px!important;">
-              <select class="custom-select" id="source">
-                <option selected>Source</option>
-                <option value="1">Homie Platform</option>
-                <option value="2">KSL</option>
-                <option value="3">MLS</option>
-                <option value="4">Call/Text</option>
-                <option value="5">Direct Email</option>
-                <option value="6">Other</option>
-              </select>
-            </div>
+            
             <div class="submitDiv">
               <button class="submitReferral" onclick="submitReferral()" type="button">
                 Submit

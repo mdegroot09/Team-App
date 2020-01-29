@@ -1,0 +1,42 @@
+<script>
+
+function submitReferral(){
+  console.log('referral submitted')
+  var buyerName = document.getElementById('nameReferral').value
+  var buyerPhone = document.getElementById('phoneReferral').value
+  var buyerEmail = document.getElementById('emailReferral').value
+  var street = document.getElementById('streetReferral').value
+  var city = document.getElementById('cityReferral').value
+  var zip = document.getElementById('zipReferral').value
+  var notes = document.getElementById('notesReferral').value
+  var typeE = document.getElementById('referralType')
+  var type = typeE.options[typeE.selectedIndex].text
+  var sourceE, source
+  
+  if (type !== 'choose...' && type !== 'Homie Seller'){
+    sourceE = document.getElementById('source')
+    source = sourceE.options[sourceE.selectedIndex].text
+  }
+  
+  console.log(type, source)
+}
+
+function displaySource(){
+  var typeE = document.getElementById('referralType')
+  var type = typeE.options[typeE.selectedIndex].text
+  var e = document.getElementsByClassName('sourceElements')
+  
+  if (type !== 'choose...' && type !== 'Homie Seller'){
+    for (var i = 0; i < e.length; i++){
+      e[i].style.display = 'block'
+    }
+  }
+  
+  else {
+    for (var i = 0; i < e.length; i++){
+      e[i].style.display = 'none'
+    }
+  }
+}
+
+</script>

@@ -42,7 +42,7 @@
               <br>
               <p class="referralHeader">Referral Type</p>
               <div class="input-group mb-3" id="referralTypeDiv">
-                <select class="custom-select" id="referralType">
+                <select class="custom-select" id="referralType" onChange="displaySource()">
                   <option selected>choose...</option>
                   <option value="1">Homie Seller</option>
                   <option value="2">Unrepped Buyer</option>
@@ -57,8 +57,8 @@
               <input id="cityReferral" placeholder="city" type="text">
               <input id="zipReferral" placeholder="zip" type="text">
               <br>
-              <p class="referralHeader">Source</p>
-              <div class="input-group mb-3" id="sourceDiv">
+              <p class="referralHeader sourceElements">Source</p>
+              <div class="input-group mb-3 sourceElements" id="sourceDiv">
                 <select class="custom-select" id="source">
                   <option selected>choose...</option>
                   <option value="1">Homie Platform</option>
@@ -76,8 +76,6 @@
             </div>
           </div>
           <div class="referralSubmitDiv">
-
-            
             <div class="submitDiv">
               <button class="submitReferral" onclick="submitReferral()" type="button">
                 Submit
@@ -113,7 +111,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <?!= include('JavaScript'); ?>
+    <?!= include('getDataJS'); ?>
+    <?!= include('sendDataJS'); ?>
   </body>
   
 </html>

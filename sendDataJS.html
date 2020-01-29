@@ -10,7 +10,7 @@ function submit(){
   var notes = document.getElementById('notesReferral').value
   var typeE = document.getElementById('referralType')
   var type = typeE.options[typeE.selectedIndex].text
-  var sourceE = document.getElementById('source')
+  var sourceE = document.getElementsByClassName('sourceClass')[0]
   var source = sourceE.options[sourceE.selectedIndex].text
   
   if (source === 'choose...') {
@@ -43,11 +43,13 @@ function updateSourceStyling(){
   var type = typeE.options[typeE.selectedIndex].text
   var e = document.getElementsByClassName('sourceClass')[0]
   
+  // enable source dropdown
   if (type !== 'choose...' && type !== 'Homie Seller' && type !== 'SOI'){
     e.removeAttribute("id")
     e.disabled = false
   }
   
+  // disable source dropdown
   else {
     e.setAttribute("id", "source")
     e.disabled = true
@@ -63,9 +65,9 @@ function runSubmitReferral(details){
   google.script.run  
   // if successful, display the data 
   .withSuccessHandler(function(res){
-    showMessage(true, 'Success. Your referral has been sent to ' + res.buyerAgent + '.')
+    showMessage(true, 'Success. Your referral has been sent to ' + res + '.')
     clearValues() // clear values and dropdowns
-    load() // reload data to bring in new referral
+    load() // reload data to bring in updated info
   })
   // if error
   .withFailureHandler(function(err){
@@ -88,7 +90,7 @@ function clearValues(){
   
   // reset dropdowns to default
   document.getElementById('referralType').value = 0
-  document.getElementById('source').value = 0
+  document.getElementsByClassName('sourceClass')[0].value = 0
   
   // reset display of sourceElements to 'none'
   var e = document.getElementsByClassName('sourceElements')

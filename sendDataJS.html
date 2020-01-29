@@ -38,21 +38,19 @@ function submit(){
   runSubmitReferral(details)
 }
 
-function displaySource(){
+function updateSourceStyling(){
   var typeE = document.getElementById('referralType')
   var type = typeE.options[typeE.selectedIndex].text
-  var e = document.getElementsByClassName('sourceElements')
+  var e = document.getElementsByClassName('sourceClass')[0]
   
   if (type !== 'choose...' && type !== 'Homie Seller' && type !== 'SOI'){
-    for (var i = 0; i < e.length; i++){
-      e[i].style.display = 'block'
-    }
+    e.removeAttribute("id")
+    e.disabled = false
   }
   
   else {
-    for (var i = 0; i < e.length; i++){
-      e[i].style.display = 'none'
-    }
+    e.setAttribute("id", "source")
+    e.disabled = true
   }
 }
 

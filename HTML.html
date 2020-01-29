@@ -43,8 +43,8 @@
               <input id="emailReferral" placeholder="email" type="text">
               <br>
               <p class="referralHeader">Referral Type</p>
-              <div class="input-group mb-3" id="referralTypeDiv">
-                <select class="custom-select" id="referralType" onChange="displaySource()">
+              <div id="referralTypeDiv">
+                <select class="custom-select" id="referralType" onChange="updateSourceStyling()">
                   <option value="0" selected>choose...</option>
                   <option value="1">Unrepped Buyer</option>
                   <option value="2">Homie Seller</option>
@@ -59,9 +59,9 @@
               <input id="cityReferral" placeholder="city" type="text">
               <input id="zipReferral" placeholder="zip" type="text">
               <br>
-              <p class="referralHeader sourceElements">Source</p>
-              <div class="input-group mb-3 sourceElements" id="sourceDiv">
-                <select class="custom-select" id="source">
+              <p class="referralHeader">Source</p>
+              <div id="sourceDiv">
+                <select class="custom-select sourceClass" id="source" disabled>
                   <option value="0" selected>choose...</option>
                   <option value="1">Homie Platform</option>
                   <option value="2">KSL</option>
@@ -71,6 +71,14 @@
                   <option value="6">Other</option>
                 </select>
               </div>
+              <!--
+              <p class="referralHeader sourceLocked">Source</p>
+              <div class="sourceLocked" id="sourceDiv">
+                <div class="custom-select" id="sourceLock">
+                  choose...
+                </div>
+              </div>
+              -->
             </div>
             <div class="referralRight">
               <p class="referralHeader">Other</p>

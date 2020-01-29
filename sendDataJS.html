@@ -1,7 +1,6 @@
 <script>
 
-function submitReferral(){
-  console.log('referral submitted')
+function submit(){
   var buyerName = document.getElementById('nameReferral').value
   var buyerPhone = document.getElementById('phoneReferral').value
   var buyerEmail = document.getElementById('emailReferral').value
@@ -18,8 +17,8 @@ function submitReferral(){
     source = sourceE.options[sourceE.selectedIndex].text
   }
   
-  var userEmail = Session.getActiveUser().getEmail()
-  
+//  checkForBlanks(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source)
+  runSubmitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source)
 }
 
 function displaySource(){
@@ -37,6 +36,50 @@ function displaySource(){
     for (var i = 0; i < e.length; i++){
       e[i].style.display = 'none'
     }
+  }
+}
+
+function runSubmitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source){
+
+  // show loading view
+  showLoading(true) 
+  
+  // Get user info
+  google.script.run  
+  // if successful, display the data 
+  .withSuccessHandler(function(res){
+//    showMessage(true, 'Success. Your referral has been sent to ' + res.email)
+    console.log('success')
+    clearValues()
+    load()
+  })
+  // if error
+  .withFailureHandler(function(err){
+    console.error("error occured", err);
+    showMessage(false, 'Referral failed. Please resend')
+  })
+  .submitReferral(buyerName, buyerPhone, buyerEmail, street, city, zip, notes, type, source)
+}
+
+function clearValues(){
+
+  // reset values to empty strings
+  document.getElementById('nameReferral').value = ''
+  document.getElementById('phoneReferral').value = ''
+  document.getElementById('emailReferral').value = ''
+  document.getElementById('streetReferral').value = ''
+  document.getElementById('cityReferral').value = ''
+  document.getElementById('zipReferral').value = ''
+  document.getElementById('notesReferral').value = ''
+  
+  // reset dropdowns to default
+  document.getElementById('referralType').value = 0
+  document.getElementById('source').value = 0
+  
+  // reset display of sourceElements to 'none'
+  var e = document.getElementsByClassName('sourceElements')
+  for (var i = 0; i < e.length; i++){
+    e[i].style.display = 'none'
   }
 }
 

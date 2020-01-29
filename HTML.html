@@ -43,7 +43,7 @@
               <p class="referralHeader">Referral Type</p>
               <div class="input-group mb-3" id="referralTypeDiv">
                 <select class="custom-select" id="referralType" onChange="displaySource()">
-                  <option selected>choose...</option>
+                  <option value="0" selected>choose...</option>
                   <option value="1">Homie Seller</option>
                   <option value="2">Unrepped Buyer</option>
                   <option value="3">SOI</option>
@@ -60,7 +60,7 @@
               <p class="referralHeader sourceElements">Source</p>
               <div class="input-group mb-3 sourceElements" id="sourceDiv">
                 <select class="custom-select" id="source">
-                  <option selected>choose...</option>
+                  <option value="0" selected>choose...</option>
                   <option value="1">Homie Platform</option>
                   <option value="2">KSL</option>
                   <option value="3">MLS</option>
@@ -77,7 +77,7 @@
           </div>
           <div class="referralSubmitDiv">
             <div class="submitDiv">
-              <button class="submitReferral" onclick="submitReferral()" type="button">
+              <button class="submitReferral" onclick="submit()" type="button">
                 Submit
               </button>
             </div>

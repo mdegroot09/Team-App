@@ -1,6 +1,9 @@
 <script>
 
-window.addEventListener('load', function() {
+window.addEventListener('load', load())
+
+function load() {
+  
   console.log('Page is loaded')
   
   // show loading view
@@ -19,8 +22,7 @@ window.addEventListener('load', function() {
     console.error("error occured", err);
   })
   .getUserInfo()
-  
-})
+}
 
 function runGetData(){
 

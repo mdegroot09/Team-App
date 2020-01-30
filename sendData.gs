@@ -1,12 +1,16 @@
 function submitReferral(details) {
-  var error, message
+  var error, message, zip
   
   // check for valid zip
-  var zip = validateZip(details.zip)
+  if (zip){
+    zip = validateZip(details.zip)
+  }
+  
+  // if zip is invalid and no city provided, return error
   if (!zip && !details.city){
     error = true
     message = 'Referral failed due to city and/or zip code. Check the location and try again.'
-    return {error: error, errorMessage: message}
+    return {error: error, message: message}
   }
   
   // if zip is falsey, update zip based on city
@@ -17,12 +21,12 @@ function submitReferral(details) {
     if (!zip){
       error = true
       message = 'Referral failed due to city and/or zip code. Check the location and try again.'
-      return {error: error, errorMessage: message}
+      return {error: error, message: message}
     }
   }
   
   // check for valid buyer
-  var buyerAgent = getBuyerAgent(details.city, details.zip)
+  var buyerAgent = getBuyerAgent(details.city, zip)
   if (!buyerAgent){
     error = false
     message = 'Success. This lead is located outside our team\'s area, but we will still reach out.'
@@ -35,26 +39,41 @@ function submitReferral(details) {
   }
   
   sendEmail(buyerAgent, details)
-//  updateAgentSS(details)
+//  updateAgentSS(buyerAgent, details)
   
   return {name: buyerAgent.name, email: buyerAgent.email, error: error, message: message}
 }
 
 function sendEmail(buyerAgent, details){
-  var phrases = getPhrases(details)
-  
-  var subject = phrases.subject
-  var buyerDetails = phrases.buyerDetails
-  var sourceDetails = phrases.sourceDetails
-  var locationDetails = phrases.locationDetails
-  var referralType = phrases.referralType
-  var buyerAgentFirstName = buyerAgent.name.split(' ')[0]
+  var bodySubject = getBodySubject(buyerAgent, details)
+  var subject = bodySubject.subject
+  var htmlBody = bodySubject.htmlBody
   
   MailApp.sendEmail({
     to: 'mike.degroot@homie.com',
 //    to: buyerAgent.email,
     subject: subject, 
     htmlBody: 
+      '*** AUTOMATED EMAIL *** <br>' +
+      '<br>' + 
+      htmlBody
+  }) 
+}
+
+function getBodySubject(buyerAgent, details){
+  var htmlBody
+  var phrases = getPhrases(buyerAgent, details)
+  var subject = phrases.subject
+  var locationDetails = phrases.locationDetails
+  var sourceDetails = phrases.sourceDetails
+  
+  if (buyerAgent){
+    
+    var buyerDetails = phrases.buyerDetails
+    var referralType = phrases.referralType
+    var buyerAgentFirstName = buyerAgent.name.split(' ')[0]
+    
+    htmlBody = 
       buyerAgentFirstName + ', <br>' + 
       '<br>' +
       buyerDetails + 
@@ -73,28 +92,63 @@ function sendEmail(buyerAgent, details){
       '<br>' + 
       'Thanks,<br>' +
       'The Leads Team'
-  }) 
+  }
+  
+  else {
+    htmlBody = 
+      'This is a new ' + details.type + ' lead sent in by ' + details.referringName + ' ' + sourceDetails + '.<br>' + 
+      '<br>' +
+      'This lead HAS NOT been assigned yet. It\'s potentially outside the team\'s area and needs to be manually assigned. <br>' + 
+      '<br>' +
+      '<b>Details:</b><br>' + 
+      'Buyer: ' + details.buyerName + '<br>' +
+      'Phone: ' + details.buyerPhone + '<br>' +
+      'Email: ' + details.buyerEmail + '<br>' +
+      locationDetails + '<br>' + 
+      'Type: ' + details.type + '<br>' +
+      sourceDetails +
+      'Notes: "' + details.notes + '"<br>' + 
+      '<br>' + 
+      '<span style="color: red">Assign this lead to someone ASAP.</span> <br>' +
+      '<br>' + 
+      'Thanks,<br>' +
+      'Homie'
+  }
+  
+  return {htmlBody: htmlBody, subject: subject}
 }
 
-function getPhrases(details){
+function getPhrases(buyerAgent, details){
   var subject, buyerDetails, locationDetails, sourceDetails, referralType
   
   // create subject and type section
   if (details.type == 'Homie Seller'){
-    subject = 'New Lead (SELLER > BUYER): ' + details.buyerName
     buyerDetails = '"' + details.buyerName + '" is a new SELLER-TO-BUYER lead. '
+    subject = 'New Lead (SELLER > BUYER): ' + details.buyerName
+    if (!buyerAgent){
+      subject = '**UNASSIGNED** New Lead (SELLER > BUYER): ' + details.buyerName
+    }
   }
   else if (details.type == 'Unrepped Buyer') {
-    subject = 'New Lead (UNREPPED BUYER): ' + details.buyerName
     buyerDetails = '"' + details.buyerName + '" is a new unrepped buyer lead. '
+    subject = 'New Lead (UNREPPED BUYER): ' + details.buyerName
+    if (!buyerAgent){
+      subject = '**UNASSIGNED** New Lead (UNREPPED BUYER): ' + details.buyerName
+    }
   }
   else if (details.type == 'SOI'){
-    subject = 'New Lead (SOI): ' + details.buyerName
     buyerDetails = '"' + details.buyerName + '" is a new lead from ' + details.referringName + '\'s SOI. '
+    subject = 'New Lead (SOI): ' + details.buyerName
+    if (!buyerAgent){
+      subject = '**UNASSIGNED** New Lead (SOI): ' + details.buyerName
+    }
   }
   else {
-    subject = 'New Lead (UNREPPED BUYER): ' + details.buyerName
     buyerDetails = '"' + details.buyerName + '" is a new unrepped buyer lead. '
+    subject = 'New Lead (OTHER): ' + details.buyerName
+    if (!buyerAgent){
+      subject = '**UNASSIGNED** New Lead (OTHER): ' + details.buyerName
+    }
   }
   
   // create location section
@@ -200,7 +254,7 @@ function getBuyerAgent(city, zipBuyer){
   var agents = filterSortAgents(buyerAgentsAll, zipBuyer, radius)
   
   // if no agents found, send error
-  if (!agents[0].name){
+  if (!agents[0]){
     return '' 
   }
   

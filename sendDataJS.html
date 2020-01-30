@@ -61,14 +61,22 @@ function runSubmitReferral(details){
   // show loading view
   showLoading(true) 
   
-  // Get user info
   google.script.run  
-  // if successful, display the data 
   .withSuccessHandler(function(res){
-    showMessage(true, 'Success. Your referral has been sent to ' + res + '.')
-    clearValues() // clear values and dropdowns
+  
+    // if no error, continue
+    if (!res.error){
+      showMessage(true, res.message)
+      clearValues() // clear values and dropdowns
+    }
+    
+    // handle errors
+    else {
+      showMessage(false, res.message)
+    }
     load() // reload data to bring in updated info
   })
+  
   // if error
   .withFailureHandler(function(err){
     console.error("error occured", err);

@@ -1,9 +1,43 @@
 function submitReferral(details) {
+  var error, message
+  
+  // check for valid zip
+  var zip = validateZip(details.zip)
+  if (!zip && !details.city){
+    error = true
+    message = 'Referral failed due to city and/or zip code. Check the location and try again.'
+    return {error: error, errorMessage: message}
+  }
+  
+  // if zip is falsey, update zip based on city
+  if (!zip){
+    zip = getZipFromCity(details.city)
+    
+    // if zipBuyer is still falsey, return error
+    if (!zip){
+      error = true
+      message = 'Referral failed due to city and/or zip code. Check the location and try again.'
+      return {error: error, errorMessage: message}
+    }
+  }
+  
+  // check for valid buyer
   var buyerAgent = getBuyerAgent(details.city, details.zip)
+  if (!buyerAgent){
+    error = false
+    message = 'Success. This lead is located outside our team\'s area, but we will still reach out.'
+  }
+  
+  // if buyerAgent is valid, send different success message
+  else {
+    error = false
+    message = 'Success. Your referral has been sent to ' + buyerAgent.name + '.'
+  }
   
   sendEmail(buyerAgent, details)
+//  updateAgentSS(details)
   
-  return buyerAgent.name
+  return {name: buyerAgent.name, email: buyerAgent.email, error: error, message: message}
 }
 
 function sendEmail(buyerAgent, details){
@@ -17,8 +51,8 @@ function sendEmail(buyerAgent, details){
   var buyerAgentFirstName = buyerAgent.name.split(' ')[0]
   
   MailApp.sendEmail({
-    // to: email + "," + 'mdegroot09@gmail.com',
-    to: buyerAgent.email,
+    to: 'mike.degroot@homie.com',
+//    to: buyerAgent.email,
     subject: subject, 
     htmlBody: 
       buyerAgentFirstName + ', <br>' + 
@@ -97,51 +131,152 @@ function getPhrases(details){
     referralType: referralType
   }
 }
+
+function validateZip(zip){
+  var ss = SpreadsheetApp.openById('1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE').getSheetByName('Utah Zip Codes')
+  var allZips = ss.getRange('B2:B').getValues()
+  var row = -1
   
-function getBuyerAgent(city, zip){
-  var buyerAgentName = 'Mike De Groot'
+  if (zip == ''){
+    return '' 
+  }
   
-  return {
-    name: buyerAgentName,
-    email: 'mike.degroot@homie.com'
+  // look for zip in list
+  allZips.forEach(function(zipCheck, i){
+    if (zipCheck == zip){
+      row = i + 2
+      return
+    }
+  })
+  
+  // check for updated row number, then return the row's zip
+  if (row > 0){
+    return ss.getRange('B' + row).getValue()
+  }
+  
+  // return error if zip not found
+  else {
+    return '' 
   }
 }
 
-function getDistance(){
-  var zip = 84043
-  var radius = 15
+function getBuyerAgent(city, zipBuyer){
+  var radius = 20
   
-  var buyerAgents = [
-    {name: 'Mike De Groot', email: 'mike.degroot@homie.com', zip: 84042, lastReceived: (new Date('1/29/20'))},
-    {name: 'JoAnn Ortega-Petty', email: 'joann.ortegapetty@homie.com', zip: 84129, lastReceived: (new Date('1/30/20'))},
-    {name: 'Cole Wagstaff', email: 'cole.wagstaff@homie.com', zip: 84093, lastReceived: (new Date('1/28/20'))}
-  ]
+  var ss = SpreadsheetApp.openById('1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE').getSheetByName('Agent Data')
+  var name, email, city, zip, lastReceived, sevenDayTotal, thirtyDayTotal, available
+  var buyerAgentsAll = []
+  var agentsCount = ss.getRange('A2:A').getValues().filter(function(cell){
+    return cell != ''
+  }).length
   
-  for (var i = 0; i < buyerAgents.length; i++){
-    buyerAgents[i].distance = zipIt(zip, buyerAgents[i].zip)
+  for (var i = 2; i < agentsCount + 2; i++){
+    name = ss.getRange('A' + i).getValue()
+    email = ss.getRange('B' + i).getValue()
+    city = ss.getRange('C' + i).getValue()
+    zip = ss.getRange('D' + i).getValue()
+    lastReceived = ss.getRange('E' + i).getValue()
+    sevenDayTotal = ss.getRange('F' + i).getValue()
+    thirtyDayTotal = ss.getRange('G' + i).getValue()
+    available = true
+    
+    // assign as unavailable if applicable
+    if (ss.getRange('A' + i).getBackground() == '#f4cccc'){
+      available = false
+    }
+    
+    buyerAgentsAll.push({
+      name: name,
+      email: email,
+      city: city,
+      zip: zip,
+      lastReceived: (new Date(lastReceived)),
+      sevenDayTotal: sevenDayTotal,
+      thirtyDayTotal: thirtyDayTotal,
+      available: available
+    })
   }
   
+  var agents = filterSortAgents(buyerAgentsAll, zipBuyer, radius)
+  
+  // if no agents found, send error
+  if (!agents[0].name){
+    return '' 
+  }
+  
+  // otherwise send agent info
+  else {
+    return {
+      name: agents[0].name,
+      email: agents[0].email
+    }
+  }
+}
+
+function getZipFromCity(city){
+  var ss = SpreadsheetApp.openById('1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE').getSheetByName('Utah Zip Codes')
+  var allCities = ss.getRange('A2:A').getValues()
+  var row = -1
+  
+  var cities = allCities.filter(function(cityName, i){
+    if (cityName == city){
+      row = i + 2
+    }
+    return cityName == city
+  })
+  
+  // check for updated row number, then return the row's zip
+  if (row > 0){
+    return ss.getRange('B' + row).getValue()
+  }
+  
+  // return error if city name not found
+  else {
+    return '' 
+  }
+}
+
+function filterSortAgents(buyerAgentsAll, zipBuyer, radius){
+  // remove agents who are unavailable 
+  var buyerAgents = buyerAgentsAll.filter(function(agent){
+    return agent.available
+  })
+  
+  // get distance from zipBuyer for each agent
+  for (var i = 0; i < buyerAgents.length; i++){
+    buyerAgents[i].distance = zipIt(zipBuyer, buyerAgents[i].zip)
+  }
+  
+  // remove agents outside the radius
   buyerAgents = buyerAgents.filter(function(agent){
     return agent.distance <= radius
   })
   
+  // sort first by lastReceived then by 30-day total
   buyerAgents.sort(compareDate)
+  buyerAgents.sort(compareTotal)
   
-  var display = ''
-  
-  for (var i = 0; i < buyerAgents.length; i++){
-    display += buyerAgents[i].name + ': ' + buyerAgents[i].lastReceived + ', ' + buyerAgents[i].distance + '\n'
-  }
-
-//  var mikeDist = zipIt(84042,84057)
-//  var coleDist = zipIt(84093,84057)
-  SpreadsheetApp.getUi().alert(display)
+  return buyerAgents
 }
 
 function compareDate(a, b) {
   // sort based on distance
   var distA = a.lastReceived
   var distB = b.lastReceived
+
+  var comparison = 0;
+  if (distA > distB) {
+    comparison = 1;
+  } else if (distA < distB) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
+function compareTotal(a, b) {
+  // sort based on distance
+  var distA = a.thirtyDayTotal
+  var distB = b.thirtyDayTotal
 
   var comparison = 0;
   if (distA > distB) {

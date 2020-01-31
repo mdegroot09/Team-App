@@ -348,3 +348,53 @@ function compareTotal(a, b) {
   }
   return comparison;
 }
+
+function updateLocation(zip, city){
+
+  // give editing access to master sheet
+  var sheetId = '1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE'
+  giveEditAccess(sheetId)
+  
+  if (String(zip).split('').length >= 5){
+    zip = Number(String(zip).split('').slice(0,5).join(''))
+    // look for city with zip
+    var rows = []
+    var ss = SpreadsheetApp.openById(sheetId).getSheetByName('Utah Zip Codes')
+    var zips = ss.getRange('B2:B').getValues()
+    var row = -1
+    
+    zips.forEach(function(val, i){
+      if (val == zip){
+        rows.push(i + 2)
+      }
+    })
+    
+    var zipCities = []
+    rows.forEach(function(row){
+      zipCities.push(ss.getRange('A' + row).getValue())
+    })
+    
+    // check if city name matches any in zipCities
+    var ui = SpreadsheetApp.getUi()
+    var i = zipCities.indexOf(city)
+    if (zipCities.length > 0){
+      if (i >= 0){
+        return {update: false, city: city, zip: zip} 
+      }
+      else {
+        city = zipCities[0]
+        return {update: true, city: city, zip: zip}
+      }
+    }
+    
+    // if zip code not found, return error
+    else {
+      return {update: false, city: city, zip: zip}
+    }
+  }
+  
+  // if zip is not 5 digits long
+  else {
+    return 
+  }
+}

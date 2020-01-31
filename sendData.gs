@@ -2,8 +2,12 @@ function submitReferral(details) {
   var error, message, zip
   
   // check for valid zip
-  if (zip){
-    zip = validateZip(details.zip)
+  if (details.zip){
+    var location = validateZip(details.zip)
+    zip = location.zip
+    if (zip){
+      details.city = location.city
+    }
   }
   
   // if zip is invalid and no city provided, return error
@@ -20,7 +24,7 @@ function submitReferral(details) {
     // if zipBuyer is still falsey, return error
     if (!zip){
       error = true
-      message = 'Referral failed due to city and/or zip code. Check the location and try again.'
+      message = 'Unsuccessful. Check the city spelling and/or zip code and and try again.'
       return {error: error, message: message}
     }
   }
@@ -61,59 +65,56 @@ function sendEmail(buyerAgent, details){
 }
 
 function getBodySubject(buyerAgent, details){
-  var htmlBody
+  var openingName, openingRemarks, htmlBody, closingRemarks
+  
   var phrases = getPhrases(buyerAgent, details)
   var subject = phrases.subject
   var locationDetails = phrases.locationDetails
   var sourceDetails = phrases.sourceDetails
   
   if (buyerAgent){
-    
     var buyerDetails = phrases.buyerDetails
     var referralType = phrases.referralType
     var buyerAgentFirstName = buyerAgent.name.split(' ')[0]
-    
-    htmlBody = 
+    openingRemarks = (
       buyerAgentFirstName + ', <br>' + 
       '<br>' +
       buyerDetails + 
-      'This lead was sent in by ' + details.referringName + referralType + 'and automatically assigned to you as the Buyer Agent. ' + 
-      sourceDetails + '<br>' + 
-      '<br>' +
-      '<b>Details:</b><br>' + 
-      'Buyer: ' + details.buyerName + '<br>' +
-      'Phone: ' + details.buyerPhone + '<br>' +
-      'Email: ' + details.buyerEmail + '<br>' +
-      locationDetails + '<br>' + 
-      'Notes: "' + details.notes + '"<br>' + 
-      '<br>' +
-      'Reach out to ' + details.referringName + ' if you have any questions regarding the lead. ' +
-      'If you\'re unable to take this lead, email us immediately at leads@homie.com.<br>' + 
+      'This lead was sent in by ' + details.referringName + referralType + 'and automatically assigned to you as the Buyer Agent.'
+    )
+    closingRemarks = (
       '<br>' + 
-      'Thanks,<br>' +
-      'The Leads Team'
+      'Reach out to ' + details.referringName + ' if you have any questions regarding the lead. ' +
+      'If you\'re unable to take this lead, email us immediately at leads@homie.com.<br>'
+    )
   }
   
   else {
-    htmlBody = 
-      'This is a new ' + details.type + ' lead sent in by ' + details.referringName + ' ' + sourceDetails + '.<br>' + 
+    openingRemarks = (
+      'This is a new ' + details.type + ' lead sent in by ' + details.referringName + referralType + '.<br>' + 
       '<br>' +
-      'This lead HAS NOT been assigned yet. It\'s potentially outside the team\'s area and needs to be manually assigned. <br>' + 
-      '<br>' +
-      '<b>Details:</b><br>' + 
-      'Buyer: ' + details.buyerName + '<br>' +
-      'Phone: ' + details.buyerPhone + '<br>' +
-      'Email: ' + details.buyerEmail + '<br>' +
-      locationDetails + '<br>' + 
-      'Type: ' + details.type + '<br>' +
-      sourceDetails +
-      'Notes: "' + details.notes + '"<br>' + 
-      '<br>' + 
-      '<span style="color: red">Assign this lead to someone ASAP.</span> <br>' +
-      '<br>' + 
-      'Thanks,<br>' +
-      'Homie'
+      'This lead is potentially outside the team\'s area and HAS NOT been assigned yet. <span style="color: red">Assign this lead to an agent ASAP.</span>'
+    )
+    closingRemarks = ''
   }
+  
+  htmlBody = (
+    openingRemarks + '<br>' +
+    '<br>' +
+    '<b>Details:</b><br>' + 
+    'Buyer: ' + details.buyerName + '<br>' +
+    'Phone: ' + details.buyerPhone + '<br>' +
+    'Email: ' + details.buyerEmail + '<br>' +
+    locationDetails + '<br>' + 
+    'Type: ' + details.type + '<br>' +
+    sourceDetails +
+    'Lead sent by: ' + details.referringName + '<br>' +
+    'Notes: "' + details.notes + '"<br>' + 
+    closingRemarks +
+    '<br>' + 
+    'Thanks,<br>' +
+    'The Leads Team'
+  )
   
   return {htmlBody: htmlBody, subject: subject}
 }
@@ -126,28 +127,28 @@ function getPhrases(buyerAgent, details){
     buyerDetails = '"' + details.buyerName + '" is a new SELLER-TO-BUYER lead. '
     subject = 'New Lead (SELLER > BUYER): ' + details.buyerName
     if (!buyerAgent){
-      subject = '**UNASSIGNED** New Lead (SELLER > BUYER): ' + details.buyerName
+      subject = '**UNASSIGNED** ' + subject
     }
   }
   else if (details.type == 'Unrepped Buyer') {
     buyerDetails = '"' + details.buyerName + '" is a new unrepped buyer lead. '
     subject = 'New Lead (UNREPPED BUYER): ' + details.buyerName
     if (!buyerAgent){
-      subject = '**UNASSIGNED** New Lead (UNREPPED BUYER): ' + details.buyerName
+      subject = '**UNASSIGNED** ' + subject
     }
   }
   else if (details.type == 'SOI'){
     buyerDetails = '"' + details.buyerName + '" is a new lead from ' + details.referringName + '\'s SOI. '
     subject = 'New Lead (SOI): ' + details.buyerName
     if (!buyerAgent){
-      subject = '**UNASSIGNED** New Lead (SOI): ' + details.buyerName
+      subject = '**UNASSIGNED** ' + subject
     }
   }
   else {
     buyerDetails = '"' + details.buyerName + '" is a new unrepped buyer lead. '
     subject = 'New Lead (OTHER): ' + details.buyerName
     if (!buyerAgent){
-      subject = '**UNASSIGNED** New Lead (OTHER): ' + details.buyerName
+      subject = '**UNASSIGNED** ' + subject
     }
   }
   
@@ -162,14 +163,15 @@ function getPhrases(buyerAgent, details){
     locationDetails = 'Interested in looking in: ' + details.city + ', UT' 
   }
   
-  // create source section
+  // create source section if applicable
   if (details.source){
-    sourceDetails = 'This lead was received via ' + details.source + '.'
+    sourceDetails = 'Source: ' + details.source + '<br'
   }
   else {
     sourceDetails = '' 
   }
   
+  // add referrer's type if not an admin
   if (details.referringType != 'Admin'){
     referralType = ' (' + details.referringType + ') ' 
   }
@@ -198,7 +200,7 @@ function validateZip(zip){
     return '' 
   }
   
-  // look for zip in list
+  // look for zip in array
   allZips.forEach(function(zipCheck, i){
     if (zipCheck == zip){
       row = i + 2
@@ -206,14 +208,17 @@ function validateZip(zip){
     }
   })
   
-  // check for updated row number, then return the row's zip
+  // check for updated row number, then return the row's zip and city name
   if (row > 0){
-    return ss.getRange('B' + row).getValue()
+    return {
+      zip: ss.getRange('B' + row).getValue(), 
+      city: ss.getRange('A' + row).getValue()
+    }
   }
   
   // return error if zip not found
   else {
-    return '' 
+    return {zip: '', city: ''} 
   }
 }
 

@@ -88,7 +88,8 @@ function runSubmitReferral(details){
   // if error
   .withFailureHandler(function(err){
     console.error("error occured", err);
-    showMessage(false, 'Referral failed. Please try again.')
+    showMessage(false, 'Something went wrong. Please try again later.')
+    showLoading(false)
   })
   .submitReferral(details)
 }

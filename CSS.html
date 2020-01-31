@@ -166,7 +166,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    height: 350px;
     width: calc(100% - 100px);
     max-width: 1100px;
     border: solid 1px gray;
@@ -180,7 +181,6 @@
     justify-content: space-between;
     width: calc(100% - 20px);
     max-width: 1100px;
-    margin-top: 15px;
   }
   
   .referralLeft {
@@ -216,29 +216,18 @@
   }
   
   #notesReferral {
-    height: 195px;
+    height: 285px;
     width: calc(100% - 15px);
     display: block;
     text-align: left;
     vertical-align: top;
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     font-size: 15px;    
     padding-left: 5px;
     border-radius: 5px;
     border: 1px solid gray;
     align-self: flex-end;
-  }
-  
-  .referralSubmitDiv {
-    height: 60px;
-    width: 100%;
-    background: #cff9f1;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
   }
   
   #referralTypeDiv {
@@ -255,6 +244,20 @@
   }
   
   #referralType:hover {
+    cursor: pointer;
+  }
+  
+  #listingAgents {
+    width: calc(100% - 15px);
+    align-self: flex-end;
+  }
+  
+  #dropdownLA {
+    color: gray;
+    border-radius: 5px;
+    border: gray 1px solid;
+    padding: 0 0 0 5px;
+    background-color: white;
     cursor: pointer;
   }
   
@@ -275,13 +278,15 @@
   #source {
     background: #ededed;
     cursor: default;
+    color: #ededed;
   }
   
   .submitDiv {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 200px;
+    width: 100%;
+    margin-top: 10px;
   }
   
   .submitReferral {

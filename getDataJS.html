@@ -16,6 +16,7 @@ function load() {
     document.user = res
     displayUserInfo(res) // display user info on DOM
     runGetData() // display data based on user info
+    
   })
   // if error
   .withFailureHandler(function(err){
@@ -34,8 +35,9 @@ function runGetData(){
   google.script.run
   // if successful, display the data 
   .withSuccessHandler(function(res){
-    document.data = res
-    showData(res) // show the data
+    document.data = res.data
+    showData(res.data) // show the referral data
+    updateListingAgents(res.listingAgents) // add listing agents to dropdown options
     showLoading(false) // hide loading view
   })
   // if error
@@ -117,6 +119,38 @@ function showData(data){
   document.getElementById('showBuyerAgents').innerHTML = buyerAgentsHTML
   document.getElementById('showStages').innerHTML = stagesHTML
   document.getElementById('showListingAgents').innerHTML = listingAgentsHTML
+}
+
+function updateListingAgents(listingAgents){
+  var dropdownLA = document.getElementById('dropdownLA')
+  var html = dropdownLA.innerHTML
+  
+  for (var i = 0; i < listingAgents.length; i++){
+    html += '<option value="' + (i + 1) + '">' + listingAgents[i] + '</option>'
+  }
+  
+  // update html to show listing agents in dropdown
+  dropdownLA.innerHTML = html
+  
+  // if user is listing agent, search for name in la dropdown then lock
+  var user = document.user
+  if (user.userType == 'Listing Agent'){
+    var value
+    listingAgents.forEach(function(agent, i){
+      if (agent == user.userName){
+        value = i + 1
+      }
+    })
+    
+    // lock la dropdown if user is found 
+    if (value){
+      var e = document.getElementById('dropdownLA')
+      e.style.background = '#ededed'
+      e.style.cursor = 'default'
+      e.disabled = true
+      e.value = value
+    }
+  }
 }
 
 function showLoading(show){

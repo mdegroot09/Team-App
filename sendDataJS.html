@@ -13,12 +13,19 @@ function submit(){
   var sourceE = document.getElementsByClassName('sourceClass')[0]
   var source = sourceE.options[sourceE.selectedIndex].text
   
-  if (source === 'choose...') {
+  if (source === 'choose...' || type === 'Homie Seller' || type === 'SOI') {
     source = ''
   }
   
-  var userName = document.user.userName
-  var userType = document.user.userType
+  var e = document.getElementById('dropdownLA')
+  var listingAgent = e.options[e.selectedIndex].text
+  var userType 
+  if (listingAgent == 'None'){
+    userType = document.user.userType
+  }
+  else {
+    userType = 'Listing Agent'
+  }
   
   var details = {
     buyerName: buyerName,
@@ -30,7 +37,7 @@ function submit(){
     notes: notes,
     type: type,
     source: source,
-    referringName: userName,
+    referringName: listingAgent,
     referringType: userType
   }
   
@@ -68,13 +75,14 @@ function runSubmitReferral(details){
     if (!res.error){
       showMessage(true, res.message)
       clearValues() // clear values and dropdowns
+      load() // reload data to bring in updated info
     }
     
     // handle errors
     else {
       showMessage(false, res.message)
+      showLoading(false)
     }
-    load() // reload data to bring in updated info
   })
   
   // if error

@@ -9,7 +9,7 @@ function submitReferral(details) {
   // if zip is invalid and no city provided, return error
   if (!zip && !details.city){
     error = true
-    message = 'Referral failed due to city and/or zip code. Check the location and try again.'
+    message = 'Unsuccessful. Check the city spelling and/or zip code and and try again.'
     return {error: error, message: message}
   }
   
@@ -54,7 +54,7 @@ function sendEmail(buyerAgent, details){
 //    to: buyerAgent.email,
     subject: subject, 
     htmlBody: 
-      '*** AUTOMATED EMAIL *** <br>' +
+      '***AUTOMATED EMAIL*** <br>' +
       '<br>' + 
       htmlBody
   }) 
@@ -190,6 +190,9 @@ function validateZip(zip){
   var ss = SpreadsheetApp.openById('1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE').getSheetByName('Utah Zip Codes')
   var allZips = ss.getRange('B2:B').getValues()
   var row = -1
+  
+  // Take only first 5 digits of entered zip
+  zip = Number(String(zip).split('').slice(0,5).join(''))
   
   if (zip == ''){
     return '' 

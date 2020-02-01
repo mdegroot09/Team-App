@@ -118,7 +118,9 @@ function clearValues(){
 
 function updateCity(zip){
   var citiesZips = document.citiesZips
+  zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
   var city = document.getElementById('cityReferral').value
+  city = capitalizeCity(city)
   
   var zipMatches = citiesZips.filter(function(val){
     return val.zip == zip
@@ -146,12 +148,15 @@ function updateCity(zip){
     }
   }
   
+  document.getElementById('zipReferral').value = zip
   document.getElementById('cityReferral').value = city
 }
 
 function updateZip(city){
+  city = capitalizeCity(city)
   var citiesZips = document.citiesZips
   var zip = document.getElementById('zipReferral').value
+  zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
   
   var cityMatches = citiesZips.filter(function(val){
     return val.city == city
@@ -178,8 +183,26 @@ function updateZip(city){
       zip = cityMatches[0].zip
     }
   }
-  
+
+  document.getElementById('cityReferral').value = city
   document.getElementById('zipReferral').value = zip
+}
+
+function capitalizeCity(city){
+  var cityLetters = city.trim().split('')
+  city = cityLetters.map(function(letter, i){
+    if(i == 0){
+      return letter.toUpperCase()
+    }
+    else if (cityLetters[i - 1] == ' '){
+      return letter.toUpperCase()
+    }
+    else {
+      return letter.toLowerCase()
+    }
+  }).join('')
+  
+  return city
 }
 
 </script>

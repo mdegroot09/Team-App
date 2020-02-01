@@ -116,51 +116,6 @@ function clearValues(){
   }
 }
 
-//function runUpdateLocation(){
-//  var city, zip
-//  if (id == 'cityReferral'){
-//    city = val
-//    zip = document.getElementById('zipReferral').value
-//  }
-//  else {
-//    city = document.getElementById('cityReferral').value
-//    zip = val
-//  }
-//  
-//  // update city name using zip
-//  if (!city && zip){
-//    if (String(zip).split('').length >= 5){ // if zip length is at least 5
-//      
-//    }
-//  }
-//  
-//  // update zip using city name
-//  if (!zip && city){
-//    
-//    showLoading(true) // show loading view
-//    
-//    // Get user info
-//    google.script.run  
-//    // if successful, display the data 
-//    .withSuccessHandler(function(res){
-//      if (!res.error && res.update){
-//        document.getElementById('cityReferral').value = res.city
-//        document.getElementById('zipReferral').value = res.zip
-//        console.log('Successful update')
-//      }
-//      showLoading(false)
-//      
-//    })
-//    // if error
-//    .withFailureHandler(function(err){
-//      console.error("error occured", err)
-//      showLoading(false)
-//    })
-//    .updateLocation(zip, city)
-//    
-//  }
-//}
-
 function updateCity(zip){
   var citiesZips = document.citiesZips
   var city = document.getElementById('cityReferral').value

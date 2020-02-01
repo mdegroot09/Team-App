@@ -36,6 +36,7 @@ function runGetData(){
   // if successful, display the data 
   .withSuccessHandler(function(res){
     document.data = res.data
+    document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
     updateListingAgents(res.listingAgents) // add listing agents to dropdown options
     showLoading(false) // hide loading view

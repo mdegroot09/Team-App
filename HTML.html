@@ -63,8 +63,8 @@
             <div class="referralMiddle">
               <p class="referralHeader">Location</p>
               <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0">
-              <input id="cityReferral" placeholder="city" type="text">
-              <input id="zipReferral" placeholder="zip" type="text">
+              <input id="cityReferral" placeholder="city" type="text" onChange="runUpdateLocation()">
+              <input id="zipReferral" placeholder="zip" type="text" onChange="updateCity(this.value)">
               <br>
               <p class="referralHeader">Source</p>
               <div id="sourceDiv">

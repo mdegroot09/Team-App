@@ -350,51 +350,93 @@ function compareTotal(a, b) {
 }
 
 function updateLocation(zip, city){
+  var result
 
   // give editing access to master sheet
   var sheetId = '1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE'
   giveEditAccess(sheetId)
   
   if (String(zip).split('').length >= 5){
-    zip = Number(String(zip).split('').slice(0,5).join(''))
-    // look for city with zip
-    var rows = []
-    var ss = SpreadsheetApp.openById(sheetId).getSheetByName('Utah Zip Codes')
-    var zips = ss.getRange('B2:B').getValues()
-    var row = -1
-    
-    zips.forEach(function(val, i){
-      if (val == zip){
-        rows.push(i + 2)
-      }
-    })
-    
-    var zipCities = []
-    rows.forEach(function(row){
-      zipCities.push(ss.getRange('A' + row).getValue())
-    })
-    
-    // check if city name matches any in zipCities
-    var ui = SpreadsheetApp.getUi()
-    var i = zipCities.indexOf(city)
-    if (zipCities.length > 0){
-      if (i >= 0){
-        return {update: false, city: city, zip: zip} 
-      }
-      else {
-        city = zipCities[0]
-        return {update: true, city: city, zip: zip}
-      }
-    }
-    
-    // if zip code not found, return error
-    else {
-      return {update: false, city: city, zip: zip}
-    }
+    result = checkUpdateCity(zip, city, sheetId)
   }
   
   // if zip is not 5 digits long
+  else if (city){
+    result = checkUpdateZip(city, sheetId)
+  }
+  
   else {
-    return 
+    result = {update: false, error: true}
+  }
+  
+  // remove editing access from master sheet
+  removeEditAccess(sheetId)
+  
+  return result
+}
+
+function checkUpdateCity(zip, city, sheetId){
+  zip = Number(String(zip).split('').slice(0,5).join('')) // take first 5 digits
+  // look for city with zip
+  var rows = []
+  var ss = SpreadsheetApp.openById(sheetId).getSheetByName('Utah Zip Codes')
+  var zips = ss.getRange('B2:B').getValues()
+  var row = -1
+  
+  zips.forEach(function(val, i){
+    if (val == zip){
+      rows.push(i + 2)
+    }
+  })
+  
+  var zipCities = []
+  rows.forEach(function(row){
+    zipCities.push(ss.getRange('A' + row).getValue())
+  })
+  
+  // check if city name matches any in zipCities
+  var i = zipCities.indexOf(city)
+  if (zipCities.length > 0){
+    if (i >= 0){
+      return {update: false, error: false} 
+    }
+    else {
+      city = zipCities[0]
+      return {update: true, city: city, zip: zip, error: false}
+    }
+  }
+  
+  // if zip code not found, return error
+  else {
+    return {update: false, error: true}
+  }
+}
+
+function checkUpdateZip(city, sheetId){
+  // look for city with zip
+  var rows = []
+  var ss = SpreadsheetApp.openById(sheetId).getSheetByName('Utah Zip Codes')
+  var cities = ss.getRange('A2:A').getValues() 
+  
+  cities.forEach(function(val, i){
+    if (val == city){
+      rows.push(i + 2)
+    }
+  })
+  
+  var cityZips = []
+  rows.forEach(function(row){
+    cityZips.push(ss.getRange('B' + row).getValue())
+  })
+  
+  // return first zip found under city name, if any
+  if (cityZips.length > 0){
+    var zip = cityZips[0]
+    return {update: true, city: city, zip: zip, error: false}
+  }
+  
+  // if city name not found, return error
+  else {
+    return {update: false, error: true}
   }
 }

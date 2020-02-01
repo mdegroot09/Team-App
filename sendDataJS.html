@@ -165,7 +165,7 @@ function updateCity(zip){
   var citiesZips = document.citiesZips
   var city = document.getElementById('cityReferral').value
   
-  var zipMatches = citiesZips.filter(function(val, i){
+  var zipMatches = citiesZips.filter(function(val){
     return val.zip == zip
   })
   
@@ -192,6 +192,39 @@ function updateCity(zip){
   }
   
   document.getElementById('cityReferral').value = city
+}
+
+function updateZip(city){
+  var citiesZips = document.citiesZips
+  var zip = document.getElementById('zipReferral').value
+  
+  var cityMatches = citiesZips.filter(function(val){
+    return val.city == city
+  })
+  
+  // if only one zip code result
+  if (cityMatches.length === 1){
+    zip = cityMatches[0].zip
+  }
+  
+  // if multiple zip code results
+  else if (cityMatches.length > 1){
+    var zipMatches = cityMatches.filter(function(val){
+      return val.zip == zip
+    })
+    
+    // if city already matches, keep it the same
+    if (zipMatches.length > 0){
+      zip = zipMatches[0].zip
+    }
+    
+    // if no city matches, use first one found in zipMatches
+    else {
+      zip = cityMatches[0].zip
+    }
+  }
+  
+  document.getElementById('zipReferral').value = zip
 }
 
 </script>

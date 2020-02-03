@@ -12,19 +12,30 @@ function submit(){
   var type = typeE.options[typeE.selectedIndex].text
   var sourceE = document.getElementsByClassName('sourceClass')[0]
   var source = sourceE.options[sourceE.selectedIndex].text
+  var listingAgentE = document.getElementById('dropdownLA')
+  var listingAgent = listingAgentE.options[listingAgentE.selectedIndex].text
   
-  if (source === 'choose...' || type === 'Homie Seller' || type === 'SOI') {
-    source = ''
-  }
-  
-  var e = document.getElementById('dropdownLA')
-  var listingAgent = e.options[e.selectedIndex].text
   var userType 
-  if (listingAgent == 'None'){
+  if (listingAgent === 'None'){
     userType = document.user.userType
   }
   else {
     userType = 'Listing Agent'
+  }
+  
+  // reset type if needed
+  if (type === 'choose...' || type === ''){
+    type = ''
+  }
+  
+  // reset source if needed
+  if (source === 'choose...' || type === 'Homie Seller' || type === 'SOI') {
+    source = ''
+  }
+  
+  // reset listingAgent if needed 
+  if (listingAgent === 'choose...'){
+    listingAgent = ''
   }
   
   var details = {
@@ -41,8 +52,13 @@ function submit(){
     referringType: userType
   }
   
-//  checkForBlanks(details)
-  runSubmitReferral(details)
+  var submitReady = checkForBlanks(details)
+  if (submitReady){
+    return runSubmitReferral(details)
+  }
+  else {
+    return showMessage(false, 'Please enter all required fields.')
+  }
 }
 
 function updateSourceStyling(){
@@ -94,6 +110,78 @@ function runSubmitReferral(details){
   .submitReferral(details)
 }
 
+function checkForBlanks(details){
+  var formReady = true
+  
+  var inputs = [
+    {text: details.buyerName, e: document.getElementById('nameReferral')},
+    {text: details.buyerPhone, e: document.getElementById('phoneReferral'), phone: true},
+    {text: details.buyerEmail, e: document.getElementById('emailReferral'), email: true},
+    {text: details.street, e: document.getElementById('streetReferral'), street: true},
+    {text: details.city, e: document.getElementById('cityReferral')},
+    {text: details.zip, e: document.getElementById('zipReferral')},
+    {text: details.notes, e: document.getElementById('notesReferral')},
+    {text: details.type, e: document.getElementById('referralType')},
+    {text: details.referringName, e: document.getElementById('dropdownLA')},
+    {text: details.source, e: document.getElementsByClassName('sourceClass')[0], source: true}
+  ]
+  
+  inputs.forEach(function(input){
+  
+    // phone and/or email input check
+    if (input.phone || input.email){
+      if (!details.buyerPhone && !details.buyerEmail){
+        makeRed(input.e)
+        formReady(false)
+      }
+      else {
+        makeGray(input.e)
+      }
+    }
+    
+    // check multiple scenarios with source
+    else if (input.source){
+      if (!input.text){ 
+        if (details.type && details.type !== 'Homie Seller' && details.type !== 'SOI'){
+          makeRed(input.e)
+          formReady = false
+        }
+      }
+      else {
+        makeGray(input.e)
+      }
+    }
+    
+    // handle everything else the same way
+    else {
+      if (!input.text) {
+        makeRed(input.e)
+        if (!input.street){ // don't change for street
+          formReady = false
+        }
+      }
+      else {
+        makeGray(input.e)
+      }
+    }
+  })
+  
+  // if formReady is still true, reset street input
+  if (formReady){
+    makeGray(document.getElementById('streetReferral'))
+  }
+
+  return formReady
+}
+
+function makeGray(e){
+  e.style.borderColor = 'gray'
+}
+
+function makeRed(e){
+  e.style.borderColor = 'red'
+}
+
 function clearValues(){
 
   // reset values to empty strings
@@ -118,7 +206,9 @@ function clearValues(){
 
 function updateCity(zip){
   var citiesZips = document.citiesZips
-  zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
+  if (zip){
+    zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
+  }
   var city = document.getElementById('cityReferral').value
   city = capitalizeCity(city)
   
@@ -156,7 +246,9 @@ function updateZip(city){
   city = capitalizeCity(city)
   var citiesZips = document.citiesZips
   var zip = document.getElementById('zipReferral').value
-  zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
+  if (zip){
+    zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
+  }  
   
   var cityMatches = citiesZips.filter(function(val){
     return val.city == city

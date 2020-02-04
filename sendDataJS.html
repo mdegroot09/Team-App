@@ -132,7 +132,7 @@ function checkForBlanks(details){
     if (input.phone || input.email){
       if (!details.buyerPhone && !details.buyerEmail){
         makeRed(input.e)
-        formReady(false)
+        formReady = false
       }
       else {
         makeGray(input.e)
@@ -184,24 +184,36 @@ function makeRed(e){
 
 function clearValues(){
 
-  // reset values to empty strings
-  document.getElementById('nameReferral').value = ''
-  document.getElementById('phoneReferral').value = ''
-  document.getElementById('emailReferral').value = ''
-  document.getElementById('streetReferral').value = ''
-  document.getElementById('cityReferral').value = ''
-  document.getElementById('zipReferral').value = ''
-  document.getElementById('notesReferral').value = ''
+  // reset input values and styling
+  var eInputs = [
+    document.getElementById('nameReferral'),
+    document.getElementById('phoneReferral'),
+    document.getElementById('emailReferral'),
+    document.getElementById('streetReferral'),
+    document.getElementById('cityReferral'),
+    document.getElementById('zipReferral'),
+    document.getElementById('notesReferral')
+  ]
   
-  // reset dropdowns to default
-  document.getElementById('referralType').value = 0
-  document.getElementsByClassName('sourceClass')[0].value = 0
+  // reset dropdown values and styling
+  var eDropdowns = [
+    document.getElementById('dropdownLA'),
+    document.getElementById('referralType'),
+    document.getElementsByClassName('sourceClass')[0],
+  ]
+    
+  eInputs.forEach(function(e){
+    e.value = ''
+    makeGray(e)
+  })
   
-  // reset display of sourceElements to 'none'
-  var e = document.getElementsByClassName('sourceElements')
-  for (var i = 0; i < e.length; i++){
-    e[i].style.display = 'none'
-  }
+  eDropdowns.forEach(function(e){
+    e.value = 0
+    makeGray(e)
+  })
+  
+//  document.getElementById('referralType').value = 0
+//  document.getElementsByClassName('sourceClass')[0].value = 0
 }
 
 function updateCity(zip){

@@ -38,9 +38,9 @@
           <div class="newReferral">
             <div class="referralLeft">
               <p class="referralHeader">Buyer Contact</p>
-              <input id="nameReferral" placeholder="buyer name" type="text" style="margin-top: 0">
-              <input id="phoneReferral" placeholder="phone" type="text">
-              <input id="emailReferral" placeholder="email" type="text">
+              <input id="nameReferral" placeholder="buyer name" type="text" style="margin-top: 0" onChange="updateColor(document.getElementById(this.id))">
+              <input id="phoneReferral" placeholder="phone" type="text" onChange="updateColor(document.getElementById(this.id))">
+              <input id="emailReferral" placeholder="email" type="text" onChange="updateColor(document.getElementById(this.id))">
               <br>
               <p class="referralHeader">Referral Type</p>
               <div id="referralTypeDiv">
@@ -55,20 +55,20 @@
               <br>
               <p class="referralHeader">Listing Agent</p>
               <div id="listingAgents">
-                <select class="custom-select" id="dropdownLA">
+                <select class="custom-select" id="dropdownLA" onChange="updateColor(document.getElementById(this.id))">
                   <option value="0" selected>choose...</option>
                 </select>
               </div>
             </div>
             <div class="referralMiddle">
               <p class="referralHeader">Location</p>
-              <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0">
+              <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0" onChange="updateColor(document.getElementById(this.id))">
               <input id="cityReferral" placeholder="city" type="text" onChange="updateZip(this.value)">
               <input id="zipReferral" placeholder="zip" type="text" onChange="updateCity(this.value)">
               <br>
               <p class="referralHeader">Source</p>
               <div id="sourceDiv">
-                <select class="custom-select sourceClass" id="source" disabled>
+                <select class="custom-select sourceClass" id="source" onChange="updateColor(document.getElementsByClassName('sourceClass')[0])" disabled>
                   <option value="0" selected>choose...</option>
                   <option value="1">Homie Platform</option>
                   <option value="2">KSL</option>
@@ -87,7 +87,7 @@
             </div>
             <div class="referralRight">
               <p class="referralHeader">Other</p>
-              <textarea id="notesReferral" placeholder="notes" type="text"></textarea>
+              <textarea id="notesReferral" placeholder="notes" type="text" onChange="updateColor(document.getElementById(this.id))"></textarea>
             </div>
           </div>
         </div>

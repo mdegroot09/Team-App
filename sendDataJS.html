@@ -76,7 +76,9 @@ function updateSourceStyling(){
   else {
     e.setAttribute("id", "source")
     e.disabled = true
-  }
+    }
+  
+  makeGray(typeE)
 }
 
 function runSubmitReferral(details){
@@ -174,6 +176,13 @@ function checkForBlanks(details){
   return formReady
 }
 
+function updateColor(e){
+  console.log('updateColor running')
+  if (e.value && e.value !== 0){
+    makeGray(e)
+  }
+}
+
 function makeGray(e){
   e.style.borderColor = 'gray'
 }
@@ -210,16 +219,14 @@ function clearValues(){
   eDropdowns.forEach(function(e){
     e.value = 0
     makeGray(e)
-  })
-  
-//  document.getElementById('referralType').value = 0
-//  document.getElementsByClassName('sourceClass')[0].value = 0
+  })  
 }
 
 function updateCity(zip){
   var citiesZips = document.citiesZips
   if (zip){
     zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
+    makeGray(document.getElementById('zipReferral'))
   }
   var city = document.getElementById('cityReferral').value
   city = capitalizeCity(city)
@@ -256,6 +263,9 @@ function updateCity(zip){
 
 function updateZip(city){
   city = capitalizeCity(city)
+  if (city){
+    makeGray(document.getElementById('cityReferral'))
+  }
   var citiesZips = document.citiesZips
   var zip = document.getElementById('zipReferral').value
   if (zip){

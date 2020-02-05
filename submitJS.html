@@ -1,0 +1,97 @@
+<script>
+
+function submit(){
+  var buyerName = document.getElementById('nameReferral').value
+  var buyerPhone = document.getElementById('phoneReferral').value
+  var buyerEmail = document.getElementById('emailReferral').value
+  var street = document.getElementById('streetReferral').value
+  var city = document.getElementById('cityReferral').value
+  var zip = document.getElementById('zipReferral').value
+  var notes = document.getElementById('notesReferral').value
+  var typeE = document.getElementById('referralType')
+  var type = typeE.options[typeE.selectedIndex].text
+  var sourceE = document.getElementsByClassName('sourceClass')[0]
+  var source = sourceE.options[sourceE.selectedIndex].text
+  var listingAgentE = document.getElementById('dropdownLA')
+  var listingAgent = listingAgentE.options[listingAgentE.selectedIndex].text
+  
+  var userType 
+  if (listingAgent === 'None'){
+    userType = document.user.userType
+  }
+  else {
+    userType = 'Listing Agent'
+  }
+  
+  // reset type if needed
+  if (type === 'choose...' || type === ''){
+    type = ''
+  }
+  
+  // reset source if needed
+  if (source === 'choose...' || type === 'Homie Seller' || type === 'SOI') {
+    source = ''
+  }
+  
+  // reset listingAgent if needed 
+  if (listingAgent === 'choose...'){
+    listingAgent = ''
+  }
+  
+  var details = {
+    buyerName: buyerName,
+    buyerPhone: buyerPhone,
+    buyerEmail: buyerEmail,
+    street: street,
+    city: city,
+    zip: zip,
+    notes: notes,
+    type: type,
+    source: source,
+    referringName: listingAgent,
+    referringType: userType
+  }
+  
+  var submitReady = checkForBlanks(details)
+  if (submitReady){
+    return runSubmit(details)
+  }
+  else {
+    return showMessage(false, 'Please complete all required fields.')
+  }
+}
+
+function runSubmit(details){
+
+  // show loading view
+  showLoading(true) 
+  
+  google.script.run  
+  .withSuccessHandler(function(res){
+  
+    console.log('Done. \nTime taken: ' + res.loadTime)
+  
+    // if no error, continue
+    if (!res.error){
+      showMessage(true, res.message)
+      clearValues() // clear values and dropdowns
+      runGetData() // reload data to bring in updated info
+    }
+    
+    // handle errors
+    else {
+      showMessage(false, res.message)
+      showLoading(false)
+    }
+  })
+  
+  // if error
+  .withFailureHandler(function(err){
+    console.error("error occured", err);
+    showMessage(false, 'Something went wrong. Please try again later.')
+    showLoading(false)
+  })
+  .submit(details)
+}
+
+</script>

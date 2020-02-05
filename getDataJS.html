@@ -13,10 +13,10 @@ function load() {
   google.script.run  
   // if successful, display the data 
   .withSuccessHandler(function(res){
-    document.user = res
-    displayUserInfo(res) // display user info on DOM
+    document.user = res.user
+    displayUserInfo(res.user) // display user info on DOM
+    updateListingAgents(res.listingAgents) // add listing agents to dropdown options
     runGetData() // display data based on user info
-    
   })
   // if error
   .withFailureHandler(function(err){
@@ -38,7 +38,7 @@ function runGetData(){
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
-    updateListingAgents(res.listingAgents) // add listing agents to dropdown options
+//    updateListingAgents(res.listingAgents) // add listing agents to dropdown options
     showLoading(false) // hide loading view
   })
   // if error

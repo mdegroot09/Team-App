@@ -57,7 +57,7 @@ function submit(){
     return runSubmitReferral(details)
   }
   else {
-    return showMessage(false, 'Please enter all required fields.')
+    return showMessage(false, 'Please complete all required fields.')
   }
 }
 
@@ -93,7 +93,7 @@ function runSubmitReferral(details){
     if (!res.error){
       showMessage(true, res.message)
       clearValues() // clear values and dropdowns
-      load() // reload data to bring in updated info
+      runGetData() // reload data to bring in updated info
     }
     
     // handle errors
@@ -177,7 +177,6 @@ function checkForBlanks(details){
 }
 
 function updateColor(e){
-  console.log('updateColor running')
   if (e.value && e.value !== 0){
     makeGray(e)
   }

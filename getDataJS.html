@@ -4,10 +4,9 @@ window.addEventListener('load', load())
 
 function load() {
   
-  console.log('Page is loaded')
-  
   // show loading view
-  showLoading(true) 
+  showLoading(true, 'Getting user info')
+  console.log('getting user info: ' + new Date())
   
   // Get user info
   google.script.run  
@@ -29,17 +28,17 @@ function runGetData(){
 
   var user = document.user
 
-  showLoading(true) // show loading view
+  showLoading(true, 'Pulling data') // show loading view
 
   // Get data from spreadsheet 
   google.script.run
   // if successful, display the data 
   .withSuccessHandler(function(res){
+    showLoading(false, '') // hide loading view
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
-//    updateListingAgents(res.listingAgents) // add listing agents to dropdown options
-    showLoading(false) // hide loading view
+    console.log('Page is loaded')
   })
   // if error
   .withFailureHandler(function(err){
@@ -154,19 +153,22 @@ function updateListingAgents(listingAgents){
   }
 }
 
-function showLoading(show){
-  var displayBack = ''
-  var displayLoading = ''
+function showLoading(show, text){
+  var displayBack, displayLoading, displayLoadText
   if (show){
-    displayBack = 'block'
-    displayLoading = 'in-line'
+    displayBack = 'flex'
+    displayLoading = 'block'
+    displayLoadText = 'block'
   }
   else {
     displayBack = 'none'
     displayLoading = 'none'
+    displayLoadText = 'none'
   }
-  document.getElementById('darkBack').style.display = displayBack
-  document.getElementById('loading').style.display = displayBack
+  document.getElementById('loadBack').style.display = displayBack
+  document.getElementById('loading').style.display = displayLoading
+  document.getElementById('loadingText').style.display = displayLoadText
+  document.getElementById('loadingText').innerText = text
 }
 
 function showMessage(success, text){

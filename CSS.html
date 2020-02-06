@@ -34,7 +34,7 @@
     font-size: 15px;
     padding-left: 5px;
     border-radius: 5px;
-    border: 1px solid gray;
+    border: 1px solid #aaaaaa;
     margin-top: 7px;
     align-self: flex-end;
   }
@@ -78,14 +78,16 @@
     font-weight: 400;
   }
   
-  #darkBack {
+  #loadBack {
     min-width: 100vw;
     min-height: 100vh;
-    background-color: black;
-    opacity: .15;
+    background-color: white;
+    opacity: .3;
     position: fixed;
-    display: none;
     z-index: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
   }
   
   #message {
@@ -101,14 +103,26 @@
   
   #loading {
     position: fixed;
-    top: calc(50vh - 70px);
+    top: calc(50vh - 65px);
     display: none;
     font-size: 30px;
     margin: 0;
-    color: black;
     height: 30px;
     width: 30px;
     animation: rotation 1.5s infinite linear;
+    opacity: 1;
+  }
+  
+  #loadingText {
+    position: fixed;
+    top: calc(50vh - 65px);
+    margin-top: 40px;
+    color: black;
+    z-index: 2;
+    display: none;
+    font-size: 20px;
+    font-weight: 500;
+    opacity: 1;
   }
 
   .mainImg {
@@ -151,7 +165,7 @@
     height: 43px;
     cursor: default;
     background: #58dbc2;
-    border: gray 1px solid;
+    border: #aaaaaa 1px solid;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom: none;
@@ -166,7 +180,7 @@
     justify-content: center;
     margin: 0 0 0 20px;
     font-weight: 900;
-    border: gray 1px solid;
+    border: #aaaaaa 1px solid;
     border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 0px;
@@ -179,7 +193,7 @@
     background-color: #cff9f1;
     cursor: pointer;
     border-left: none;
-    border-right: gray 1px solid;
+    border-right: #aaaaaa 1px solid;
     border-top-left-radius: 0px;
     border-top-right-radius: 5px;
   }
@@ -192,7 +206,7 @@
     height: 350px;
     width: calc(100% - 100px);
     max-width: 1100px;
-    border: solid 1px gray;
+    border: solid 1px #aaaaaa;
     border-radius: 5px;
     background-color: #cff9f1;
   }
@@ -203,6 +217,7 @@
     justify-content: space-between;
     width: calc(100% - 20px);
     max-width: 1100px;
+    height: calc(100% - 20px);
   }
   
   .referralLeft {
@@ -235,6 +250,7 @@
   
   .referralHeader {
     margin: 0 0 5px 0;
+    font-weight: 500;
   }
   
   #notesReferral {
@@ -248,7 +264,7 @@
     font-size: 15px;    
     padding-left: 5px;
     border-radius: 5px;
-    border: 1px solid gray;
+    border: 1px solid #aaaaaa;
     align-self: flex-end;
   }
   
@@ -260,7 +276,7 @@
   #referralType {
     color: gray;
     border-radius: 5px;
-    border: gray 1px solid;
+    border: #aaaaaa 1px solid;
     padding: 0 0 0 5px;
     background-color: white;
   }
@@ -277,7 +293,7 @@
   #dropdownLA {
     color: gray;
     border-radius: 5px;
-    border: gray 1px solid;
+    border: #aaaaaa 1px solid;
     padding: 0 0 0 5px;
     background-color: white;
     cursor: pointer;
@@ -291,7 +307,7 @@
   .sourceClass {
     color: gray;
     border-radius: 5px;
-    border: gray 1px solid;
+    border: #aaaaaa 1px solid;
     padding: 0 0 0 5px;
     background-color: white;
     cursor: pointer;
@@ -317,7 +333,7 @@
     font-weight: 900;
     font-size: 15px;
     color: #3e494c;
-    border: 1px solid gray;
+    border: 1px solid #aaaaaa;
   }
   
   .dashboard {
@@ -349,7 +365,6 @@
     height: 100%;
     width: calc(33% - 20px);
     background: white;
-    border: 1px solid gray;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -394,8 +409,19 @@
     height: 100%;
     width: calc(50% - 15px);
     background: white;
-    border: 1px solid gray;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    padding: 5px;
+  }
+  
+  #mediumSum {
+    font-size: calc(2.25rem + (4vw - 1rem));
+    font-weight: 500;
+    color: #58dbc2;
   }
   
   .dashboardRight {
@@ -408,7 +434,6 @@
     width: 100%;
     background: white;
     border-radius: 5px;
-    border: solid 1px gray;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -434,17 +459,17 @@
   }
   
   .sheetHeader {
-    border-top: gray 1px solid;
-    border-bottom: gray 1px solid;
+    border-top: #aaaaaa 1px solid;
+    border-bottom: #aaaaaa 1px solid;
     height: 40px;
   }
   
   .borderLeft {
-    border-left: gray solid 1px;
+    border-left: #aaaaaa solid 1px;
   }
   
   .borderRight {
-    border-right: gray solid 1px;
+    border-right: #aaaaaa solid 1px;
   }
   
   .bottom {

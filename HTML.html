@@ -24,14 +24,12 @@
         <p class="title teamTitle">
           Buyer Referral Tracker
         </p>
-        <!--
-        <p class="title">
-          Referral Tracker
-        </p>
-        -->
-        <div class="referralTabDiv">
-          <div class="referralTab">
+        <div class="tabDiv">
+          <div class="tab" id="activeTab" onclick="tabUpdate('tab')">
             <div>New Referral</div>
+          </div>
+          <div class="tab tab2" onclick="tabUpdate('tab2')">
+            <div>Dashboard</div>
           </div>
         </div>
         <div class="newReferralDiv">
@@ -89,6 +87,10 @@
               <p class="referralHeader">Other</p>
               <textarea id="notesReferral" placeholder="notes" type="text" onChange="updateColor(document.getElementById(this.id))"></textarea>
             </div>
+          </div>
+          <div class="dashboard">
+            <div class="dashboardLeft"></div>
+            <div class="dashboardRight"></div>
           </div>
         </div>
       </div>

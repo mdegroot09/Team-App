@@ -69,7 +69,7 @@ function runSubmit(details){
   google.script.run  
   .withSuccessHandler(function(res){
   
-    console.log('Done. \nTime taken: ' + res.loadTime)
+    console.log('Done. Time taken: ' + res.loadTime + 's')
   
     // if no error, continue
     if (!res.error){
@@ -92,6 +92,24 @@ function runSubmit(details){
     showLoading(false)
   })
   .submit(details)
+}
+
+function tabUpdate(className){
+  var eOther = document.getElementById('activeTab')
+  var eNew = document.getElementsByClassName(className)[0]
+  
+  // add id to selected element, remove from other
+  eOther.removeAttribute('id')
+  eNew.setAttribute('id', 'activeTab')
+
+  if (className == 'tab'){
+  document.getElementsByClassName('dashboard')[0].style.display = 'none'
+  document.getElementsByClassName('newReferral')[0].style.display = 'flex'
+  }
+  else {
+  document.getElementsByClassName('newReferral')[0].style.display = 'none'
+  document.getElementsByClassName('dashboard')[0].style.display = 'flex'
+  }
 }
 
 </script>

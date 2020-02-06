@@ -116,7 +116,7 @@
   #loadingText {
     position: fixed;
     top: calc(50vh - 65px);
-    margin-top: 40px;
+    margin-top: 50px;
     color: black;
     z-index: 2;
     display: none;
@@ -418,8 +418,8 @@
     padding: 5px;
   }
   
-  #mediumSum {
-    font-size: calc(2.25rem + (4vw - 1rem));
+  #closedSum {
+    font-size: calc(2rem + (4vw - 1rem));
     font-weight: 500;
     color: #58dbc2;
   }
@@ -435,9 +435,39 @@
     background: white;
     border-radius: 5px;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     padding: 5px;
+    text-align: center;
+  }
+  
+  .leaderboardList {
+    margin: 10px;
+    width: calc(100% - 20px);
+    overflow: auto;
+  }
+  
+  .leader {
+    font-size: 1vw;
+    margin: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .leaderPlace {
+    width: 10%;
+    text-align: left;
+  }
+  
+  .leaderName {
+    width: 70%;
+    text-align: left;
+  }
+  
+  .leaderPct {
+    width: 20%;
     text-align: center;
   }
   

@@ -75,7 +75,7 @@ function runSubmit(details){
     if (!res.error){
       showMessage(true, res.message)
       clearValues() // clear values and dropdowns
-      runGetData() // reload data to bring in updated info
+      runGetData('updating data') // reload data to bring in updated info
     }
     
     // handle errors

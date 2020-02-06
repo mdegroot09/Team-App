@@ -5,8 +5,7 @@ window.addEventListener('load', load())
 function load() {
   
   // show loading view
-  showLoading(true, 'Getting user info')
-  console.log('getting user info: ' + new Date())
+  showLoading(true, 'pulling user info')
   
   // Get user info
   google.script.run  
@@ -15,7 +14,7 @@ function load() {
     document.user = res.user
     displayUserInfo(res.user) // display user info on DOM
     updateListingAgents(res.listingAgents) // add listing agents to dropdown options
-    runGetData() // display data based on user info
+    runGetData('collecting referrals') // display data based on user info
   })
   // if error
   .withFailureHandler(function(err){
@@ -24,11 +23,11 @@ function load() {
   .getUserInfo()
 }
 
-function runGetData(){
+function runGetData(loadText){
 
   var user = document.user
 
-  showLoading(true, 'Pulling data') // show loading view
+  showLoading(true, loadText) // show loading view
 
   // Get data from spreadsheet 
   google.script.run
@@ -38,6 +37,7 @@ function runGetData(){
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
+    updateDashboard(res.data)
     console.log('Page is loaded')
   })
   // if error
@@ -193,6 +193,10 @@ function showMessage(success, text){
   setTimeout(function(){ 
     e.style.display = 'none' 
   }, 7000)
+}
+
+function updateDashboard(data){
+  var submitCount, closedCount, sellerToBuyerPct, closedSum
 }
 
 </script>

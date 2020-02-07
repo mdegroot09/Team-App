@@ -38,6 +38,7 @@ function runGetData(loadText){
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
     updateDashboard(res.data)
+    runGetLeaderboard()
     console.log('Page is loaded')
   })
   // if error
@@ -154,20 +155,14 @@ function updateListingAgents(listingAgents){
 }
 
 function showLoading(show, text){
-  var displayBack, displayLoading, displayLoadText
+  var displayBack
   if (show){
     displayBack = 'flex'
-    displayLoading = 'block'
-    displayLoadText = 'block'
   }
   else {
     displayBack = 'none'
-    displayLoading = 'none'
-    displayLoadText = 'none'
   }
   document.getElementById('loadBack').style.display = displayBack
-  document.getElementById('loading').style.display = displayLoading
-  document.getElementById('loadingText').style.display = displayLoadText
   document.getElementById('loadingText').innerText = text
 }
 
@@ -196,7 +191,52 @@ function showMessage(success, text){
 }
 
 function updateDashboard(data){
-  var submitCount, closedCount, sellerToBuyerPct, closedSum
+  var submitCount = data.length
+  var closedCount = data.filter(function(buyer){
+    return buyer.stage == 'Closed'
+  }).length
+  var sellerCount = data.filter(function(buyer){
+    return buyer.source == 'L.A. Seller>Buyer'
+  }).length
+  var sellerPct = (sellerCount / submitCount) * 100
+  sellerPct = String(sellerPct).split('.')[0] + '.' + String(sellerPct).split('.')[1][0]
+  var closedSum = closedCount * 600
+  
+  document.getElementById('submitCount').innerText = submitCount
+  document.getElementById('closedCount').innerText = closedCount
+  document.getElementById('sellerPct').innerText = sellerPct + '%'
+  document.getElementById('closedSum').innerText = '$' + closedSum
+}
+
+function runGetLeaderboard(){
+  // Get user info
+  google.script.run  
+  // if successful, display the data 
+  .withSuccessHandler(function(res){
+    updateLeaderboard(res)
+  })
+  // if error
+  .withFailureHandler(function(err){
+    console.error("error occured", err);
+  })
+  .getLeaderboard()
+}
+
+function updateLeaderboard(leaders){
+  var e = document.getElementsByClassName('leaderboardList')[0]
+  
+  var html = ''
+  leaders.forEach(function(leader, i){
+    html += (
+      '<div class="miniText leader">' +
+        '<div class="leaderPlace">' + (i + 1) + '.</div>' +
+        '<div class="leaderName">' + leader.name + '</div>' +
+        '<div class="leaderPct">' + leader.pct + '%</div>' +
+      '</div>'
+    )
+  })
+  
+  e.innerHTML = html
 }
 
 </script>

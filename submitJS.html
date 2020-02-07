@@ -64,7 +64,7 @@ function submit(){
 function runSubmit(details){
 
   // show loading view
-  showLoading(true) 
+  showLoading(true, 'submitting referral') 
   
   google.script.run  
   .withSuccessHandler(function(res){
@@ -81,7 +81,7 @@ function runSubmit(details){
     // handle errors
     else {
       showMessage(false, res.message)
-      showLoading(false)
+      showLoading(false, '')
     }
   })
   
@@ -89,7 +89,7 @@ function runSubmit(details){
   .withFailureHandler(function(err){
     console.error("error occured", err);
     showMessage(false, 'Something went wrong. Please try again later.')
-    showLoading(false)
+    showLoading(false, '')
   })
   .submit(details)
 }

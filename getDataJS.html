@@ -37,7 +37,7 @@ function runGetData(loadText){
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
-    updateDashboard(res.data)
+    updateDash(res.data)
     console.log('Page is loaded')
   })
   // if error
@@ -189,7 +189,7 @@ function showMessage(success, text){
   }, 7000)
 }
 
-function updateDashboard(data){
+function updateDash(data){
   var submitCount = data.length
   var closedCount = data.filter(function(buyer){
     return buyer.stage == 'Closed'

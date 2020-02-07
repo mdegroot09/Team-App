@@ -38,7 +38,6 @@ function runGetData(loadText){
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
     updateDashboard(res.data)
-    runGetLeaderboard()
     console.log('Page is loaded')
   })
   // if error
@@ -206,6 +205,9 @@ function updateDashboard(data){
   document.getElementById('closedCount').innerText = closedCount
   document.getElementById('sellerPct').innerText = sellerPct + '%'
   document.getElementById('closedSum').innerText = '$' + closedSum
+  
+  // get leaderboard data then update
+  runGetLeaderboard()
 }
 
 function runGetLeaderboard(){

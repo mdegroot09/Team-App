@@ -437,14 +437,29 @@
     text-align: center;
   }
   
+  .leaderboardTitle {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+  
   .leaderboardList {
     margin: 10px;
     width: calc(100% - 20px);
+    height: calc(80% - 10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     overflow: auto;
   }
   
   .leader {
     font-size: 1vw;
+    width: 100%;
     margin: 2px;
     display: flex;
     justify-content: space-between;

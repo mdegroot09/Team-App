@@ -130,14 +130,21 @@ function clearValues(){
 }
 
 function updateCity(zip){
-  var citiesZips = document.citiesZips
+  
+  // remove non-numbers  
+  zip = cleanZip(zip)
+  
   if (zip){
-    zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
     makeGray(document.getElementById('zipReferral'))
   }
-  var city = document.getElementById('cityReferral').value
-  city = capitalizeCity(city)
+  else {
+    return
+  }
   
+  var city = document.getElementById('cityReferral').value
+  city = cleanCity(city)
+  
+  var citiesZips = document.citiesZips
   var zipMatches = citiesZips.filter(function(val){
     return val.zip == zip
   })
@@ -164,19 +171,24 @@ function updateCity(zip){
     }
   }
   
-  document.getElementById('zipReferral').value = zip
   document.getElementById('cityReferral').value = city
 }
 
 function updateZip(city){
-  city = capitalizeCity(city)
+
+  // Update view of city
+  city = cleanCity(city)
   if (city){
     makeGray(document.getElementById('cityReferral'))
   }
+  else {
+    return
+  }
+  
   var citiesZips = document.citiesZips
   var zip = document.getElementById('zipReferral').value
   if (zip){
-    zip = Number(String(zip).trim().split('').slice(0, 5).join(''))
+    zip = cleanZip(zip)
   }  
   
   var cityMatches = citiesZips.filter(function(val){
@@ -205,12 +217,43 @@ function updateZip(city){
     }
   }
 
-  document.getElementById('cityReferral').value = city
   document.getElementById('zipReferral').value = zip
 }
 
-function capitalizeCity(city){
+function cleanZip(zip){
+  // remove any non-number digits
+  var zipArr = String(zip).trim().split('')
+  zip = zipArr.filter(function(digit){
+    return (Number(digit) || Number(digit) == 0)
+  })
+  
+  // take first five digits update input value
+  zip = zip.slice(0,5).join('')
+  if (zip){
+    zip = Number(zip)
+  }
+  else {
+    zip = ''
+  }
+  document.getElementById('zipReferral').value = zip
+  
+  return zip
+}
+
+function cleanCity(city){
+  city = city.split(', UT')[0]
+  city = city.split(', Utah')[0]
+  city = city.split(', ut')[0]
   var cityLetters = city.trim().split('')
+  
+  // remove numbers then trim again
+  cityLetters = cityLetters.filter(function(letter){
+//    return Boolean(Number(letter)) != true && letter != '-'
+    return (letter.length === 1 && letter.match(/[a-z]/i)) || letter == ' '
+  }).join('').trim().split('')
+  
+  
+  // capitalize first letter of each word, lowercase others
   city = cityLetters.map(function(letter, i){
     if(i == 0){
       return letter.toUpperCase()
@@ -222,6 +265,9 @@ function capitalizeCity(city){
       return letter.toLowerCase()
     }
   }).join('')
+  
+  // update city input value
+  document.getElementById('cityReferral').value = city
   
   return city
 }

@@ -198,7 +198,14 @@ function updateDashboard(data){
     return buyer.source == 'L.A. Seller>Buyer'
   }).length
   var sellerPct = (sellerCount / submitCount) * 100
-  sellerPct = String(sellerPct).split('.')[0] + '.' + String(sellerPct).split('.')[1][0]
+  var pctPart1 = String(sellerPct).split('.')[0]
+  var pctPart2 = String(sellerPct).split('.')[1]
+  if (!pctPart2){
+    pctPart2 = '0' 
+  }
+  sellerPct = Number(pctPart1 + '.' + String(pctPart2).split('')[0])
+  
+  
   var closedSum = closedCount * 600
   
   document.getElementById('submitCount').innerText = submitCount
@@ -226,14 +233,22 @@ function runGetLeaderboard(){
 
 function updateLeaderboard(leaders){
   var e = document.getElementsByClassName('leaderboardList')[0]
+  var userName = document.user.userName
   
+  var leader
   var html = ''
   leaders.forEach(function(leader, i){
+    name = String(leader.name).trim()
+    var style = ''
+    if (name == userName){
+      style = ' style="color: #58dbc2"'
+    }
+  
     html += (
       '<div class="miniText leader">' +
-        '<div class="leaderPlace">' + (i + 1) + '.</div>' +
-        '<div class="leaderName">' + leader.name + '</div>' +
-        '<div class="leaderPct">' + leader.pct + '%</div>' +
+        '<div class="leaderPlace"' + style + '>' + (i + 1) + '.</div>' +
+        '<div class="leaderName"' + style + '>' + leader.name + '</div>' +
+        '<div class="leaderPct"' + style + '>' + leader.pct + '%</div>' +
       '</div>'
     )
   })

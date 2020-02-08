@@ -81,9 +81,9 @@
   #loadBack {
     min-width: 100vw;
     min-height: 100vh;
-    background-color: rgba(255,255,255,.3);
+    background-color: rgba(255,255,255,.7);
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     display: none;
     align-items: center;
     justify-content: center;
@@ -97,7 +97,7 @@
     display: none;
     padding: 10px 20px;
     font-weight: 900;
-    z-index: 1;
+    z-index: 2;
   }
   
   #loading {
@@ -436,30 +436,49 @@
     align-items: flex-end;
   }
   
-  .bar {
+  .barDiv {
     width: 16.4%;
     height: 100%;
-    background: silver;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;   
+    position: relative;
+  }
+  
+  .bar {
+    position: absolute;
+    align-self: flex-end;
+    width: 100%;
+  }
+  
+  .num {
+    z-index: 1;
   }
   
   #barUC {
     background: #58dbc2;
+    height: 10%;
   }
   
   #barOffer {
     background: #83e6d4;
+    height: 5%;
   }
   
   #barTour {
     background: #a0eedf;
+    height: 20%;
   }
   
   #barSearch {
     background: #b6f3e8;
+    height: 50%;
   }
   
   #barLead {
     background: #cff9f1;
+    height: 100%;
   }
   
   .graphBottom {
@@ -476,6 +495,7 @@
     position: absolute;
     right: 0;
     margin-top: 17px;
+    font-weight: 500;
   }
   
   #closedSum {

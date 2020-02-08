@@ -102,14 +102,32 @@ function tabUpdate(className){
   eOther.removeAttribute('id')
   eNew.setAttribute('id', 'activeTab')
 
-  if (className == 'tab'){
-  document.getElementsByClassName('dash')[0].style.display = 'none'
-  document.getElementsByClassName('newReferral')[0].style.display = 'flex'
+  if (className == 'tab1'){
+    document.getElementsByClassName('dash')[0].style.display = 'none'
+    document.getElementsByClassName('newReferral')[0].style.display = 'flex'
+    resetGraph()
   }
   else {
-  document.getElementsByClassName('newReferral')[0].style.display = 'none'
-  document.getElementsByClassName('dash')[0].style.display = 'flex'
+    document.getElementsByClassName('newReferral')[0].style.display = 'none'
+    document.getElementsByClassName('dash')[0].style.display = 'flex'
+    updateGraph()
   }
+}
+
+function updateGraph(){
+  document.getElementById('barUC').style.height = document.user.barUCHeight + '%'
+  document.getElementById('barOffer').style.height = document.user.barOfferHeight + '%'
+  document.getElementById('barTour').style.height = document.user.barTourHeight + '%'
+  document.getElementById('barSearch').style.height = document.user.barSearchHeight + '%'
+  document.getElementById('barLead').style.height = document.user.barLeadHeight + '%'
+}
+
+function resetGraph(){
+  document.getElementById('barUC').style.height = 0
+  document.getElementById('barOffer').style.height = 0
+  document.getElementById('barTour').style.height = 0
+  document.getElementById('barSearch').style.height = 0
+  document.getElementById('barLead').style.height = 0
 }
 
 </script>

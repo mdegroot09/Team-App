@@ -33,11 +33,11 @@ function runGetData(loadText){
   google.script.run
   // if successful, display the data 
   .withSuccessHandler(function(res){
-    showLoading(false, '') // hide loading view
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
     updateDash(res.data)
+    showLoading(false, '') // hide loading view
     console.log('Page is loaded')
   })
   // if error
@@ -213,8 +213,71 @@ function updateDash(data){
   document.getElementById('sellerPct').innerText = sellerPct + '%'
   document.getElementById('closedSum').innerText = '$' + closedSum
   
+  console.log('before updateGraph')
+  setupGraph(data)
+  console.log('after updateGraph')
+  
   // get leaderboard data then update
   runGetLeaderboard()
+}
+
+function setupGraph(data){
+  console.log('updateGraph running')
+  var numUC = data.filter(function(buyer){
+    return buyer.stage == 'UC'
+  }).length
+  var numOffer = data.filter(function(buyer){
+    return buyer.stage == 'Offering'
+  }).length
+  var numTour = data.filter(function(buyer){
+    return buyer.stage == 'Touring'
+  }).length
+  var numSearch = data.filter(function(buyer){
+    return buyer.stage == 'Searching'
+  }).length
+  var numLead = data.filter(function(buyer){
+    return (buyer.stage == 'New Lead' || buyer.stage == 'Warm Lead' || buyer.stage == 'Cold Lead')
+  }).length
+  
+  document.getElementById('numUC').innerText = numUC
+  document.getElementById('numOffer').innerText = numOffer
+  document.getElementById('numTour').innerText = numTour
+  document.getElementById('numSearch').innerText = numSearch
+  document.getElementById('numLead').innerText = numLead
+  
+  console.log('numUC: ' + numUC)
+  console.log('numOffer: ' + numOffer)
+  console.log('numTour: ' + numTour)
+  console.log('numSearch: ' + numSearch)
+  console.log('numLead: ' + numLead)
+
+//  document.user.numUC = numUC
+//  document.user.numOffer = numOffer
+//  document.user.numTour = numTour
+//  document.user.numSearch = numSearch
+//  document.user.numLead = numLead
+  
+  var counts = [numUC, numOffer, numTour, numSearch, numLead]
+
+  setBarHeights(counts)
+}
+
+function setBarHeights(counts){
+//  var numHighest = counts.sort(function(a, b){return b-a})[0]
+  var numHighest = Math.max(...counts)
+  console.log('highest: ' + numHighest)
+  
+  document.user.barUCHeight = Math.round((counts[0] / numHighest) * 100)
+  document.user.barOfferHeight = Math.round((counts[1] / numHighest) * 100)
+  document.user.barTourHeight = Math.round((counts[2] / numHighest) * 100)
+  document.user.barSearchHeight = Math.round((counts[3] / numHighest) * 100)
+  document.user.barLeadHeight = Math.round((counts[4] / numHighest) * 100)
+  
+  console.log('barUCHeight: ' + Math.round((counts[0] / numHighest) * 100))
+  console.log('barOfferHeight: ' + Math.round((counts[1] / numHighest) * 100))
+  console.log('barTourHeight: ' + Math.round((counts[2] / numHighest) * 100))
+  console.log('barSearchHeight: ' + Math.round((counts[3] / numHighest) * 100))
+  console.log('barLeadHeight: ' + Math.round((counts[4] / numHighest) * 100))
 }
 
 function runGetLeaderboard(){

@@ -440,57 +440,52 @@
     width: 16.4%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     font-weight: 500;   
-    position: relative;
   }
   
   .bar {
-    position: absolute;
-    align-self: flex-end;
     width: 100%;
-    transition: height 2s;
+    transition: height .75s ease-out 0s;
   }
   
   .num {
-    z-index: 1;
+    opacity: 0;
+    transition: opacity 2s;
   }
   
   #barUC {
     background: #58dbc2;
     height: 0%;
-    transition: height 2s;
   }
   
   #barOffer {
     background: #83e6d4;
     height: 0%;
-    transition: height 2s;
   }
   
   #barTour {
     background: #a0eedf;
     height: 0%;
-    transition: height 2s;
   }
   
   #barSearch {
     background: #b6f3e8;
     height: 0%;
-    transition: height 2s;
   }
   
   #barLead {
     background: #cff9f1;
     height: 0%;
-    transition: height 2s;
   }
   
   .graphBottom {
     width: 100%; 
     height: 30%;
     position: relative;
+    border-top: 1px solid silver;
   }
   
   .graphStage {

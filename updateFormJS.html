@@ -241,14 +241,11 @@ function cleanZip(zip){
 }
 
 function cleanCity(city){
-  city = city.split(', UT')[0]
-  city = city.split(', Utah')[0]
-  city = city.split(', ut')[0]
+  city = city.split(',')[0]
   var cityLetters = city.trim().split('')
   
   // remove numbers then trim again
   cityLetters = cityLetters.filter(function(letter){
-//    return Boolean(Number(letter)) != true && letter != '-'
     return (letter.length === 1 && letter.match(/[a-z]/i)) || letter == ' '
   }).join('').trim().split('')
   

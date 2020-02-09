@@ -35,7 +35,7 @@
       </div>
       
       <!-- Form and dashboard section -->
-      <div class="formDash">
+      <div class="dashData">
       
         <!-- Tabs -->
         <div class="tabDiv">
@@ -47,159 +47,166 @@
           </div>
         </div>
         
-        <!-- Form -->
-        <div class="newReferralDiv">
-          <div class="newReferral">
-            <div class="referralLeft">
-              <p class="referralHeader">Buyer Contact</p>
-              <input id="nameReferral" placeholder="buyer name" type="text" style="margin-top: 0" onChange="updateColor(document.getElementById(this.id))">
-              <input id="phoneReferral" placeholder="phone" type="text" onChange="updateColor(document.getElementById(this.id))">
-              <input id="emailReferral" placeholder="email" type="text" onChange="updateColor(document.getElementById(this.id))">
-              <br>
-              <p class="referralHeader">Referral Type</p>
-              <div id="referralTypeDiv">
-                <select class="custom-select" id="referralType" onChange="updateSourceStyling()">
-                  <option value="0" selected>choose...</option>
-                  <option value="1">Unrepped Buyer</option>
-                  <option value="2">Homie Seller</option>
-                  <option value="3">SOI</option>
-                  <option value="4">Other</option>
-                </select>
-              </div>
-              <br>
-              <p class="referralHeader">Listing Agent</p>
-              <div id="listingAgents">
-                <select class="custom-select" id="dropdownLA" onChange="updateColor(document.getElementById(this.id))">
-                  <option value="0" selected>choose...</option>
-                </select>
-              </div>
-            </div>
-            <div class="referralMiddle">
-              <p class="referralHeader">Location</p>
-              <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0" onChange="updateColor(document.getElementById(this.id))">
-              <input id="cityReferral" placeholder="city" type="text" onChange="updateZip(this.value)">
-              <input id="zipReferral" placeholder="zip" type="text" onChange="updateCity(this.value)">
-              <br>
-              <p class="referralHeader">Source</p>
-              <div id="sourceDiv">
-                <select class="custom-select sourceClass" id="source" onChange="updateColor(document.getElementsByClassName('sourceClass')[0])" disabled>
-                  <option value="0" selected>choose...</option>
-                  <option value="1">Homie Platform</option>
-                  <option value="2">KSL</option>
-                  <option value="3">MLS</option>
-                  <option value="4">Call/Text</option>
-                  <option value="5">Direct Email</option>
-                  <option value="6">Other</option>
-                </select>
-              </div>
-              <br>
-              <div class="submitDiv">
-                <button class="submitReferral" onclick="submit()" type="button">
-                  Submit
-                </button>
-              </div>
-            </div>
-            <div class="referralRight">
-              <p class="referralHeader">Other</p>
-              <textarea id="notesReferral" placeholder="notes" type="text" onChange="updateColor(document.getElementById(this.id))"></textarea>
-            </div>
-          </div>
+        <!-- Inner background behind dash and data -->
+        <div class="dashDataBack">
+        
+          <!-- Form/Dashboard -->
+          <div class="formDash">
           
-          <!-- Dashboard -->
-          <div class="dash">
-            <div class="dashLeft">
-              <div class="dashLeftTop">
-                <div class="dashMini">
-                  <div class="miniText">Referrals<br>Submitted</div>
-                  <div id="submitCount">27</div>
+            <!-- New referral form-->
+            <div class="newReferral">
+              <div class="referralLeft">
+                <p class="referralHeader">Buyer Contact</p>
+                <input id="nameReferral" placeholder="buyer name" type="text" style="margin-top: 0" onChange="updateColor(document.getElementById(this.id))">
+                <input id="phoneReferral" placeholder="phone" type="text" onChange="updateColor(document.getElementById(this.id))">
+                <input id="emailReferral" placeholder="email" type="text" onChange="updateColor(document.getElementById(this.id))">
+                <br>
+                <p class="referralHeader">Referral Type</p>
+                <div id="referralTypeDiv">
+                  <select class="custom-select" id="referralType" onChange="updateSourceStyling()">
+                    <option value="0" selected>choose...</option>
+                    <option value="1">Unrepped Buyer</option>
+                    <option value="2">Homie Seller</option>
+                    <option value="3">SOI</option>
+                    <option value="4">Other</option>
+                  </select>
                 </div>
-                <div class="dashMini">
-                  <div class="miniText">Referrals<br>Closed</div>
-                  <div id="closedCount">3</div>
-                </div>
-                <div class="dashMini">
-                  <div class="miniText" style="font-size: 1.3vw">Seller ><br>Buyer %</div>
-                  <div id="sellerPct">12%</div>
+                <br>
+                <p class="referralHeader">Listing Agent</p>
+                <div id="listingAgents">
+                  <select class="custom-select" id="dropdownLA" onChange="updateColor(document.getElementById(this.id))">
+                    <option value="0" selected>choose...</option>
+                  </select>
                 </div>
               </div>
-              <div class="dashLeftBottom">
-                <div class="dashMedium">
-                  <div class="miniText">Total Closed Referral<br>Commission</div>
-                  <div id="closedSum">$1800</div>
+              <div class="referralMiddle">
+                <p class="referralHeader">Location</p>
+                <input id="streetReferral" placeholder="street address" type="text" style="margin-top: 0" onChange="updateColor(document.getElementById(this.id))">
+                <input id="cityReferral" placeholder="city" type="text" onChange="updateZip(this.value)">
+                <input id="zipReferral" placeholder="zip" type="text" onChange="updateCity(this.value)">
+                <br>
+                <p class="referralHeader">Source</p>
+                <div id="sourceDiv">
+                  <select class="custom-select sourceClass" id="source" onChange="updateColor(document.getElementsByClassName('sourceClass')[0])" disabled>
+                    <option value="0" selected>choose...</option>
+                    <option value="1">Homie Platform</option>
+                    <option value="2">KSL</option>
+                    <option value="3">MLS</option>
+                    <option value="4">Call/Text</option>
+                    <option value="5">Direct Email</option>
+                    <option value="6">Other</option>
+                  </select>
                 </div>
-                <div class="dashMedium">
-                  <div class="graph">
-                    <div class="graphTop">
-                      <div class="barDiv">
-                        <div class="num" id="numUC">0</div>
-                        <div class="bar" id="barUC"></div>
+                <br>
+                <div class="submitDiv">
+                  <button class="submitReferral" onclick="submit()" type="button">
+                    Submit
+                  </button>
+                </div>
+              </div>
+              <div class="referralRight">
+                <p class="referralHeader">Other</p>
+                <textarea id="notesReferral" placeholder="notes" type="text" onChange="updateColor(document.getElementById(this.id))"></textarea>
+              </div>
+            </div>
+            
+            <!-- Dashboard -->
+            <div class="dash">
+              <div class="dashLeft">
+                <div class="dashLeftTop">
+                  <div class="dashMini">
+                    <div class="miniText">Referrals<br>Submitted</div>
+                    <div id="submitCount">27</div>
+                  </div>
+                  <div class="dashMini">
+                    <div class="miniText">Referrals<br>Closed</div>
+                    <div id="closedCount">3</div>
+                  </div>
+                  <div class="dashMini">
+                    <div class="miniText" style="font-size: 1.3vw">Seller ><br>Buyer %</div>
+                    <div id="sellerPct">12%</div>
+                  </div>
+                </div>
+                <div class="dashLeftBottom">
+                  <div class="dashMedium">
+                    <div class="miniText">Total Closed Referral<br>Commission</div>
+                    <div id="closedSum">$1800</div>
+                  </div>
+                  <div class="dashMedium">
+                    <div class="graph">
+                      <div class="graphTop">
+                        <div class="barDiv">
+                          <div class="num" id="numUC">0</div>
+                          <div class="bar" id="barUC"></div>
+                        </div>
+                        <div class="barDiv">
+                          <div class="num" id="numOffer">0</div>
+                          <div class="bar" id="barOffer"></div>
+                        </div>
+                        <div class="barDiv">
+                          <div class="num" id="numTour">0</div>
+                          <div class="bar" id="barTour"></div>
+                        </div>
+                        <div class="barDiv">
+                          <div class="num" id="numSearch">0</div>
+                          <div class="bar" id="barSearch"></div>
+                        </div>
+                        <div class="barDiv">
+                          <div class="num" id="numLead">0</div>
+                          <div class="bar" id="barLead"></div>
+                        </div>
                       </div>
-                      <div class="barDiv">
-                        <div class="num" id="numOffer">0</div>
-                        <div class="bar" id="barOffer"></div>
+                      <div class="graphBottom">
+                        <div class="graphStage" style="margin-right: 83.6%">UC</div>
+                        <div class="graphStage" style="margin-right: 64.2%">Offering</div>
+                        <div class="graphStage" style="margin-right: 44.8%">Touring</div>
+                        <div class="graphStage" style="margin-right: 25.4%">Searching</div>
+                        <div class="graphStage" style="margin-right: 6%">Lead</div>
                       </div>
-                      <div class="barDiv">
-                        <div class="num" id="numTour">0</div>
-                        <div class="bar" id="barTour"></div>
-                      </div>
-                      <div class="barDiv">
-                        <div class="num" id="numSearch">0</div>
-                        <div class="bar" id="barSearch"></div>
-                      </div>
-                      <div class="barDiv">
-                        <div class="num" id="numLead">0</div>
-                        <div class="bar" id="barLead"></div>
-                      </div>
-                    </div>
-                    <div class="graphBottom">
-                      <div class="graphStage" style="margin-right: 83.6%">UC</div>
-                      <div class="graphStage" style="margin-right: 64.2%">Offering</div>
-                      <div class="graphStage" style="margin-right: 44.8%">Touring</div>
-                      <div class="graphStage" style="margin-right: 25.4%">Searching</div>
-                      <div class="graphStage" style="margin-right: 6%">Lead</div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="dashRight">
-              <div class="leaderboard">
-                <div class="miniText leaderboardTitle">Seller > Buyer<br>Leaderboard</div>
-                <div class="leaderboardList">
-                  <div style="margin-top: 70px">loading...</div>
+              <div class="dashRight">
+                <div class="leaderboard">
+                  <div class="miniText leaderboardTitle">Seller > Buyer<br>Leaderboard</div>
+                  <div class="leaderboardList">
+                    <div style="margin-top: 70px">loading...</div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        
-      </div>
+              
+          </div>  <!-- End of formDash -->
       
-      <!-- All the referral data -->
-      <div class="showData">
-        <div class="column">
-          <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
-          <div id="showBuyers"></div>
-        </div>
-        <div class="column">
-          <div class="sheetHeader columnTitle rowEach">Buyer Agent</div>
-          <div id="showBuyerAgents"></div>
-        </div>
-        <div class="column">
-          <div class="sheetHeader columnTitle rowEach">Stage</div>
-          <div id="showStages"></div>
-        </div>
-        <div class="column">
-          <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
-            <span>Listing Agent</span>
-            <div onclick="runGetData('pulling latest referrals')">
-              <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
+          <!-- All referral data -->
+          <div class="showData">
+            <div class="column">
+              <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
+              <div id="showBuyers"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader columnTitle rowEach">Buyer Agent</div>
+              <div id="showBuyerAgents"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader columnTitle rowEach">Stage</div>
+              <div id="showStages"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
+                <span>Listing Agent</span>
+                <div onclick="runGetData('pulling latest referrals')">
+                  <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
+                </div>
+              </div>
+              <div id="showListingAgents"></div>
             </div>
           </div>
-          <div id="showListingAgents"></div>
-        </div>
-      </div>
-      
+          
+        </div> <!-- End of dashDataBack -->
+        
+      </div> <!-- End of dashData -->
     </div> <!-- End of mainDiv -->
     
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

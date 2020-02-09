@@ -159,15 +159,26 @@
     margin: 0 0 20px 0;
   }
   
-  .formDash {
+  .dashData {
     display: flex; 
     flex-direction: column;
     align-items: center;
     width: 100%;
   }
   
-  .formDash:hover {
+  .dashData:hover {
     cursor: default;
+  }
+  
+  .dashDataBack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 100px);
+    max-width: 1100px;
+    background: rgba(255,255,255,0.75);
+    border-radius: 5px;
+    margin-bottom: 50px;
   }
   
   .tabDiv {
@@ -215,14 +226,13 @@
     border-top-right-radius: 5px;
   }
   
-  .newReferralDiv {
+  .formDash {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 350px;
-    width: calc(100% - 100px);
-    max-width: 1100px;
+    width: 100%;
     border: solid 1px #aaaaaa;
     border-radius: 5px;
     background-color: #cff9f1;
@@ -233,7 +243,6 @@
     align-items: flex-start;
     justify-content: space-between;
     width: calc(100% - 20px);
-    max-width: 1100px;
     height: calc(100% - 20px);
   }
   
@@ -399,6 +408,8 @@
     font-size: 3.5vw;
     font-weight: 500;
     color: #58dbc2;
+    opacity: 0;
+    transition: opacity 2s;
   }
   
   #closedCount {
@@ -406,6 +417,8 @@
     font-size: 3.5vw;
     font-weight: 500;
     color: #58dbc2;
+    opacity: 0;
+    transition: opacity 2s;
   }
   
   #sellerPct {
@@ -413,6 +426,8 @@
     font-size: 2.75vw;
     font-weight: 500;
     color: #58dbc2;
+    opacity: 0;
+    transition: opacity 2s;
   }
   
   .dashLeftBottom{
@@ -518,6 +533,8 @@
     font-size: calc(2rem + (4vw - 1rem));
     font-weight: 500;
     color: #58dbc2;
+    opacity: 0;
+    transition: opacity 2s;
   }
   
   .dashRight {
@@ -556,6 +573,8 @@
     align-items: center;
     justify-content: flex-start;
     overflow: auto;
+    opacity: 0;
+    transition: opacity 2s;
   }
   
   .leader {
@@ -586,9 +605,8 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: calc(100% - 100px);
-    max-width: 1100px;
-    margin: 20px 0 50px 0;
+    width: 100%;
+    margin: 20px 0 0 0;
   }
     
   .rowEach {
@@ -644,10 +662,6 @@
   
   .lost {
     background-color: #f4cccc;
-  }
-  
-  #showBuyers {
-    
   }
   
   @keyframes rotation {

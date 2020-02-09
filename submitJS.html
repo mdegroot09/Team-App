@@ -130,6 +130,12 @@ function updateGraph(){
     for (var i = 0; i < 5; i++){
       document.getElementsByClassName('num')[i].style.opacity = 1
     }
+    
+    document.getElementById('submitCount').style.opacity = 1
+    document.getElementById('closedCount').style.opacity = 1
+    document.getElementById('sellerPct').style.opacity = 1
+    document.getElementById('closedSum').style.opacity = 1
+    document.getElementsByClassName('leaderboardList')[0].style.opacity = 1
   }, 10)
 }
 
@@ -142,6 +148,12 @@ function resetGraph(){
   for (var i = 0; i < 5; i++){
     document.getElementsByClassName('num')[i].style.opacity = 0
   }
+  
+  document.getElementById('submitCount').style.opacity = 0
+  document.getElementById('closedCount').style.opacity = 0
+  document.getElementById('sellerPct').style.opacity = 0
+  document.getElementById('closedSum').style.opacity = 0
+  document.getElementsByClassName('leaderboardList')[0].style.opacity = 0
 }
 
 </script>

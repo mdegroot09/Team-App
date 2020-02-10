@@ -8,7 +8,7 @@ function submit(){
   var city = document.getElementById('cityReferral').value
   var zip = document.getElementById('zipReferral').value
   var notes = document.getElementById('notesReferral').value
-  var typeE = document.getElementById('referralType')
+  var typeE = document.getElementById('type')
   var type = typeE.options[typeE.selectedIndex].text
   var sourceE = document.getElementsByClassName('sourceClass')[0]
   var source = sourceE.options[sourceE.selectedIndex].text
@@ -102,7 +102,7 @@ function tabUpdate(className){
   eOther.removeAttribute('id')
   eNew.setAttribute('id', 'activeTab')
 
-  if (className == 'tab1'){
+  if (className == 'tab1a'){
     document.getElementsByClassName('dash')[0].style.display = 'none'
     document.getElementsByClassName('newReferral')[0].style.display = 'flex'
     resetGraph()

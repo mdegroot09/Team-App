@@ -169,26 +169,22 @@
   .dashData:hover {
     cursor: default;
   }
-  
-  .dashDataBack {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+  .tabs {
     width: calc(100% - 100px);
     max-width: 1100px;
-    background: rgba(255,255,255,0.75);
-    border-radius: 5px;
-    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
   }
   
-  .tabDiv {
-    width: calc(100% - 100px);
-    max-width: 1100px;
+  .tabsLeft {
+    margin-left: 5px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
   }
-  
+
   #activeTab {
     height: 43px;
     cursor: default;
@@ -199,14 +195,14 @@
     border-bottom: none;
   }
   
-  .tab1 {
+  .tab1a {
     height: 40px;
     width: 130px;
     background: #cff9f1;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 0 0 20px;
+    margin: 0;
     font-weight: 900;
     border: #aaaaaa 1px solid;
     border-bottom: none;
@@ -216,14 +212,87 @@
     border-right: none;
   }
   
-  .tab2 {
-    margin-left: 0;
+  .tab1b {
     background-color: #cff9f1;
     cursor: pointer;
     border-left: none;
     border-right: #aaaaaa 1px solid;
     border-top-left-radius: 0px;
     border-top-right-radius: 5px;
+  }
+    
+  .tabsRight {
+    height: 30px;
+    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  
+  .agentDropdowns {
+    height: 100%;
+    background: #58dbc2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: #aaaaaa 1px solid;
+    border-bottom: none;
+  }
+  
+  .dropdownHeader {
+    width: 35px;
+    font-weight: 600;
+    padding: 0 0 0 5px;
+    border: none;
+    margin-right: 5px;
+    text-align: center;
+  }
+    
+  #laDiv {
+    height: 100%;
+    width: 150px;
+    border-left: 1px solid #aaaaaa;
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  #la {
+    background: #cff9f1;
+    margin: 0;
+    height: 100%;
+    color: gray;
+    border-radius: 0px;
+    border-top-right-radius: 5px;
+    border: none;
+    padding: 0 20px 0 5px;
+    outline: none;
+  }
+  
+  #la:hover {
+    cursor: pointer;
+  } 
+  
+  .dropdownArrow {
+    position: absolute; 
+    right: 5px;
+    height: 15px;
+  }
+  
+  .dashDataBack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 100px);
+    max-width: 1100px;
+    background: rgba(255,255,255,0.75);
+    border-radius: 5px;
+    margin-bottom: 50px;
   }
   
   .formDash {
@@ -294,12 +363,12 @@
     align-self: flex-end;
   }
   
-  #referralTypeDiv {
+  #typeDiv {
     width: calc(100% - 15px);
     align-self: flex-end;
   }
   
-  #referralType {
+  #type {
     color: gray;
     border-radius: 5px;
     border: #aaaaaa 1px solid;
@@ -307,7 +376,7 @@
     background-color: white;
   }
   
-  #referralType:hover {
+  #type:hover {
     cursor: pointer;
   }
   

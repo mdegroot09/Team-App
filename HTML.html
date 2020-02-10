@@ -38,12 +38,46 @@
       <div class="dashData">
       
         <!-- Tabs -->
-        <div class="tabDiv">
-          <div class="tab1" id="activeTab" onclick="tabUpdate('tab1')">
-            <div>New Referral</div>
+        <div class="tabs">
+          <div class="tabsLeft">
+            <div class="tab1a" id="activeTab" onclick="tabUpdate('tab1a')">
+              <div>New Referral</div>
+            </div>
+            <div class="tab1a tab1b" onclick="tabUpdate('tab1b')">
+              <div>Dashboard</div>
+            </div>
           </div>
-          <div class="tab1 tab2" onclick="tabUpdate('tab2')">
-            <div>Dashboard</div>
+          <div class="tabsRight">
+            <div class="agentDropdowns">
+              <div class="dropdownHeader">
+                BA
+              </div>
+              <div id="laDiv">
+                <select class="custom-select" id="la" onChange="">
+                  <option value="0" selected>All</option>
+                  <option value="1">Unrepped Buyer</option>
+                  <option value="2">Homie Seller</option>
+                  <option value="3">SOI</option>
+                  <option value="4">Other</option>
+                </select>
+                <img src="https://i.stack.imgur.com/jJa0Y.png" alt="dropdown icon" class="dropdownArrow">
+              </div>
+            </div>
+            <div class="agentDropdowns" style="border-radius: 0px">
+              <div class="dropdownHeader">
+                LA
+              </div>
+              <div id="laDiv">
+                <select class="custom-select" id="la" onChange="" style="border-radius: 0px">
+                  <option value="0" selected>All</option>
+                  <option value="1">Unrepped Buyer</option>
+                  <option value="2">Homie Seller</option>
+                  <option value="3">SOI</option>
+                  <option value="4">Other</option>
+                </select>
+                <img src="https://i.stack.imgur.com/jJa0Y.png" alt="dropdown icon" class="dropdownArrow">
+              </div>
+            </div>
           </div>
         </div>
         
@@ -62,8 +96,8 @@
                 <input id="emailReferral" placeholder="email" type="text" onChange="updateColor(document.getElementById(this.id))">
                 <br>
                 <p class="referralHeader">Referral Type</p>
-                <div id="referralTypeDiv">
-                  <select class="custom-select" id="referralType" onChange="updateSourceStyling()">
+                <div id="typeDiv">
+                  <select class="custom-select" id="type" onChange="updateSourceStyling()">
                     <option value="0" selected>choose...</option>
                     <option value="1">Unrepped Buyer</option>
                     <option value="2">Homie Seller</option>

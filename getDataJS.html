@@ -38,6 +38,7 @@ function runGetData(loadText){
     showData(res.data) // show the referral data
     updateDash(res.data)
     showLoading(false, '') // hide loading view
+    updateBuyerAgents(res.data)
     console.log('Page is loaded')
   })
   // if error
@@ -270,11 +271,20 @@ function setBarHeights(counts){
 //  var numHighest = counts.sort(function(a, b){return b-a})[0]
   var numHighest = Math.max(...counts)
   
-  document.user.barUCHeight = Math.round((counts[0] / numHighest) * 100)
-  document.user.barOfferHeight = Math.round((counts[1] / numHighest) * 100)
-  document.user.barTourHeight = Math.round((counts[2] / numHighest) * 100)
-  document.user.barSearchHeight = Math.round((counts[3] / numHighest) * 100)
-  document.user.barLeadHeight = Math.round((counts[4] / numHighest) * 100)
+  if (numHighest > 0){
+    document.user.barUCHeight = Math.round((counts[0] / numHighest) * 100)
+    document.user.barOfferHeight = Math.round((counts[1] / numHighest) * 100)
+    document.user.barTourHeight = Math.round((counts[2] / numHighest) * 100)
+    document.user.barSearchHeight = Math.round((counts[3] / numHighest) * 100)
+    document.user.barLeadHeight = Math.round((counts[4] / numHighest) * 100)
+  }
+  else {
+    document.user.barUCHeight = 0
+    document.user.barOfferHeight = 0
+    document.user.barTourHeight = 0
+    document.user.barSearchHeight = 0
+    document.user.barLeadHeight = 0
+  }
 }
 
 function runGetLeaderboard(){
@@ -312,6 +322,35 @@ function updateLeaderboard(leaders){
     )
   })
   
+  e.innerHTML = html
+}
+
+function updateBuyerAgents(data){
+  var buyerAgents = []
+  var unassigned = 0
+  data.forEach(function(lead){
+    if (buyerAgents.indexOf(lead.buyerAgent) < 0){
+      if (lead.buyerAgent){
+        buyerAgents.push(lead.buyerAgent)
+      }
+      else {
+        unassigned += 1
+      }
+    }
+  })
+  
+  var html = '<option value="0">All</option>'
+  
+  buyerAgents.sort()
+  if (unassigned > 0){
+    buyerAgents.splice(0, 0, 'None')
+  }
+  
+  for (var i = 0; i < buyerAgents.length; i++){
+    html += '<option value="' + (i + 1) + '">' + buyerAgents[i] + '</option>'
+  }
+  
+  var e = document.getElementById('ba')
   e.innerHTML = html
 }
 

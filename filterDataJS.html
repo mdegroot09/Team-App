@@ -1,0 +1,49 @@
+<script>
+
+function filter(){
+  var data = document.data
+  var laE = document.getElementById('la')
+  var la = laE.options[laE.selectedIndex].text
+  var baE = document.getElementById('ba')
+  var ba = baE.options[baE.selectedIndex].text
+  
+  if (la === 'All' || la === 'None'){
+    la = ''
+  }
+  if (ba === 'All' || ba === 'None'){
+    ba = ''
+  }
+  
+  var filteredData = data.filter(function(lead){
+    if (la && ba){
+      return lead.listingAgent == la && lead.buyerAgent == ba
+    }
+    else if (la){
+      return lead.listingAgent == la
+    }
+    else if (ba){
+      return lead.buyerAgent == ba
+    }
+    else {
+      return true
+    }
+  })
+  
+  var val = document.getElementById('activeTab').innerText
+  
+  setTimeout(function(){
+    showData(filteredData)
+    updateDash(filteredData)
+    runGetLeaderboard()
+    
+    // if dashboard is open, update tab and graphs
+    if (val == 'Dashboard'){
+      tabUpdate('tab1b')
+    }
+    else {
+      tabUpdate('tab1a')
+    }
+  }, 10)
+}
+
+</script>

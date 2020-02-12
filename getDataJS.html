@@ -240,20 +240,20 @@ function updateDash(data){
 
 function setupGraph(data){
   var numUC = data.filter(function(buyer){
-    return buyer.stage == 'UC'
+    return buyer.stage == 'UC' && buyer.status != 'Lost'
   }).length
   var numOffer = data.filter(function(buyer){
-    return buyer.stage == 'Offering'
+    return buyer.stage == 'Offering' && buyer.status != 'Lost'
   }).length
   var numTour = data.filter(function(buyer){
-    return buyer.stage == 'Touring'
+    return buyer.stage == 'Touring' && buyer.status != 'Lost'
   }).length
   var numSearch = data.filter(function(buyer){
-    return buyer.stage == 'Searching'
+    return buyer.stage == 'Searching' && buyer.status != 'Lost'
   }).length
   var numLead = data.filter(function(buyer){
     // return (buyer.stage == 'New Lead' || buyer.stage == 'Warm Lead' || buyer.stage == 'Cold Lead')
-    return (buyer.stage == 'New Lead' || buyer.stage == 'Warm Lead')
+    return ((buyer.stage == 'New Lead' || buyer.stage == 'Warm Lead') && buyer.status != 'Lost')
   }).length
   
   document.getElementById('numUC').innerText = numUC
@@ -326,6 +326,10 @@ function updateLeaderboard(leaders){
 }
 
 function updateBuyerAgents(data){
+  var e = document.getElementById('ba')
+  var baName = e.options[e.selectedIndex].text
+  var value
+  
   var buyerAgents = []
   var unassigned = 0
   data.forEach(function(lead){
@@ -347,10 +351,14 @@ function updateBuyerAgents(data){
   }
   
   for (var i = 0; i < buyerAgents.length; i++){
-    html += '<option value="' + (i + 1) + '">' + buyerAgents[i] + '</option>'
+    if (buyerAgents[i] == baName && baName){
+      html += '<option selected value="' + (i + 1) + '">' + buyerAgents[i] + '</option>'
+    }
+    else {
+      html += '<option value="' + (i + 1) + '">' + buyerAgents[i] + '</option>'
+    }
   }
   
-  var e = document.getElementById('ba')
   e.innerHTML = html
 }
 

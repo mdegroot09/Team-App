@@ -16,7 +16,7 @@ function filter(){
   
   var filteredData = data.filter(function(lead){
     if (la && ba){
-      return lead.listingAgent == la && lead.buyerAgent == ba
+      return (lead.listingAgent == la && lead.buyerAgent == ba)
     }
     else if (la){
       return lead.listingAgent == la

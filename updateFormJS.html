@@ -269,4 +269,12 @@ function cleanCity(city){
   return city
 }
 
+function updateRadius(val){
+  var num = val.trim().split('').filter(function(a){
+    return ((Number(a) || Number(a) == 0) && a != ' ')
+  }).join('')
+  
+  document.getElementById('radius').value = Number(num)
+}
+
 </script>

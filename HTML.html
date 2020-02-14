@@ -123,7 +123,6 @@
                     <option value="6">Other</option>
                   </select>
                 </div>
-                <br>
                 <div class="submitDiv">
                   <button class="submitReferral" onclick="submit()" type="button">Submit</button>
                   <button class="clearForm" onclick="clearValues()" type="button">Clear</button>
@@ -133,9 +132,11 @@
                 <p class="referralHeader">Other</p>
                 <textarea id="notesReferral" placeholder="notes" type="text" onChange="updateColor(document.getElementById(this.id))"></textarea>
                 <div class="radiusAgent">
+                  <br>
+                  <p class="referralHeader">Radius</p>
                   <div class="radiusDiv">
-                    <p class="referralHeader radiusTitle">Mile Radius:</p>
                     <input id="radius" placeholder="miles" type="text" onChange="updateRadius(this.value)">
+                    <p class="referralHeader radiusType">miles</p>
                   </div>
                   <br>
                   <div style="width: 100%; display: flex; justify-content: space-between">

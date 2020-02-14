@@ -207,7 +207,7 @@
     border: #aaaaaa 1px solid;
     border-bottom: none;
     border-top-left-radius: 5px;
-    border-top-right-radius: 0px;
+    border-top-right-radius: 5px;
     cursor: pointer;
     border-right: none;
   }
@@ -217,8 +217,13 @@
     cursor: pointer;
     border-left: none;
     border-right: #aaaaaa 1px solid;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 5px;
+  }
+  
+  .tab1c {
+    background-color: #cff9f1;
+    cursor: pointer;
+    border-left: none;
+    border-right: #aaaaaa 1px solid;
   }
     
   .tabsRight {
@@ -389,6 +394,7 @@
   
   .radiusType {
     margin-left: 10px; 
+    margin-bottom: 0;
     text-align: right; 
     width: auto;
   }
@@ -489,29 +495,29 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    width: calc(100% - 15px);
+    width: 100%;
+  }
+   
+  .submitReferral {
+    height: 38px;
+    width: calc(50% - 17.5px);
+    font-weight: 900;
+    font-size: 15px;
+    color: #3e494c;
+    border: 1px solid #aaaaaa;
     margin-left: 15px;
   }
   
   .clearForm {
     height: 38px;
-    width: calc(50% - 10px);
+    width: calc(50% - 17.5px);
     font-weight: 900;
     font-size: 15px;
     color: #3e494c;
     border: 1px solid #aaaaaa;
     background-color: #ededed;
   }
-  
-  .submitReferral {
-    height: 38px;
-    width: calc(50% - 10px);
-    font-weight: 900;
-    font-size: 15px;
-    color: #3e494c;
-    border: 1px solid #aaaaaa;
-  }
-  
+ 
   .dash {
     display: flex;
     align-items: flex-start;

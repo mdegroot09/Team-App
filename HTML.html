@@ -46,6 +46,9 @@
             <div class="tab1a tab1b" onclick="tabUpdate('tab1b')">
               <div>Dashboard</div>
             </div>
+            <div class="tab1a tab1c" onclick="tabUpdate('tab1c')">
+              <div>Queue</div>
+            </div>
           </div>
           <div class="tabsRight">
             <div class="agentFiltersDiv">
@@ -82,8 +85,8 @@
             <!-- New referral form-->
             <div class="newReferral">
               <div class="referralLeft">
-                <p class="referralHeader">Buyer Contact</p>
-                <input id="nameReferral" placeholder="buyer name" type="text" style="margin-top: 0" onChange="updateColor(document.getElementById(this.id))">
+                <p class="referralHeader">Buyer Info</p>
+                <input id="nameReferral" placeholder="name" type="text" style="margin-top: 0" onChange="updateColor(document.getElementById(this.id))">
                 <input id="phoneReferral" placeholder="phone" type="text" onChange="updateColor(document.getElementById(this.id))">
                 <input id="emailReferral" placeholder="email" type="text" onChange="updateColor(document.getElementById(this.id))">
                 <br>
@@ -135,7 +138,7 @@
                   <br>
                   <p class="referralHeader">Radius</p>
                   <div class="radiusDiv">
-                    <input id="radius" placeholder="miles" type="text" onChange="updateRadius(this.value)">
+                    <input id="radius" type="text" onChange="updateRadius(this.value)">
                     <p class="referralHeader radiusType">miles</p>
                   </div>
                   <br>

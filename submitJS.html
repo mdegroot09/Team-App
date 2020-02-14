@@ -97,22 +97,36 @@ function runSubmit(details){
 }
 
 function tabUpdate(className){
-  var eOther = document.getElementById('activeTab')
+  var eOld = document.getElementById('activeTab')
   var eNew = document.getElementsByClassName(className)[0]
+  var tab1a = document.getElementsByClassName('tab1a')[0]
+  var tab1b = document.getElementsByClassName('tab1b')[0]
+  var tab1c = document.getElementsByClassName('tab1c')[0]
   
   // add id to selected element, remove from other
-  eOther.removeAttribute('id')
+  eOld.removeAttribute('id')
   eNew.setAttribute('id', 'activeTab')
 
   if (className == 'tab1a'){
     document.getElementsByClassName('dash')[0].style.display = 'none'
     document.getElementsByClassName('newReferral')[0].style.display = 'flex'
+    tab1b.style.borderRight = '1px solid #aaaaaa'
+    tab1b.style.borderLeft = 'none'
     resetGraph()
   }
-  else {
+  else if (className == 'tab1b'){
     document.getElementsByClassName('newReferral')[0].style.display = 'none'
     document.getElementsByClassName('dash')[0].style.display = 'flex'
+    tab1b.style.borderRight = '1px solid #aaaaaa'
+    tab1b.style.borderLeft = '1px solid #aaaaaa'
     updateGraph()
+  }
+  else if (className == 'tab1c'){
+    document.getElementsByClassName('newReferral')[0].style.display = 'none'
+    document.getElementsByClassName('dash')[0].style.display = 'none'
+    tab1b.style.borderLeft = '1px solid #aaaaaa'
+    tab1b.style.borderRight = 'none'
+    resetGraph()
   }
 }
 

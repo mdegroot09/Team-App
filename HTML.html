@@ -135,11 +135,17 @@
                 <textarea id="notesReferral" placeholder="notes" type="text" onChange="updateColor(document.getElementById(this.id))"></textarea>
                 <div class="radiusAgent">
                   <div class="radiusDiv">
-                    <p class="referralHeader radiusTitle">Radius:</p>
+                    <p class="referralHeader radiusTitle">Mile Radius:</p>
                     <input id="radius" placeholder="miles" type="text" onChange="updateRadius(this.value)">
                   </div>
                   <br>
-                  <p class="referralHeader">Buyer Agent</p>
+                  <div style="width: 100%; display: flex; justify-content: space-between">
+                    <p class="referralHeader">Buyer Agent</p>
+                    <div style="display: flex; height: 100%">
+                      <input id="checkbox" type="checkbox">
+                      <p class="referralHeader" style="margin-left: 7px">Black Ops</p>
+                    </div>
+                  </div>
                   <div id="baSelectDiv">
                     <select class="custom-select" id="baSelect" onChange="updateSourceStyling()">
                       <option value="0" selected>choose...</option>

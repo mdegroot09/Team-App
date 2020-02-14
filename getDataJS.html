@@ -39,6 +39,7 @@ function runGetData(loadText){
     updateDash(res.data)
     showLoading(false, '') // hide loading view
     updateBuyerAgents(res.data)
+    runGetAllBAs()
     console.log('Page is loaded')
   })
   // if error
@@ -366,6 +367,33 @@ function updateBuyerAgents(data){
   }
   
   e.innerHTML = html
+}
+
+function runGetAllBAs(){
+  google.script.run  
+  .withSuccessHandler(function(res){
+    console.log('Done. Time taken: ' + res.loadTime + 's')
+    updateSelectBA(res)
+  })
+  
+  // if error
+  .withFailureHandler(function(err){
+    console.error("error occured", err);
+    showMessage(false, 'Something went wrong. Please refresh the page.')
+  })
+  .getAllBAs()
+}
+
+function updateSelectBA(agents){
+  var html = '<option selected value="0">choose...</option>'
+  
+  agents.sort()
+  
+  for (var i = 0; i < agents.length; i++){
+    html += '<option value="' + (i + 1) + '">' + agents[i] + '</option>'
+  }
+  
+  document.getElementById('baSelect').innerHTML = html
 }
 
 </script>

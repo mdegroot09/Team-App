@@ -486,16 +486,28 @@
   }
   
   .submitDiv {
+    height: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100%;
+    justify-content: space-evenly;
+    width: calc(100% - 20px);
     margin-top: 10px;
+    margin-left: 15px;
+  }
+  
+  .clearForm {
+    height: 100%;
+    width: calc(50% - 15px);
+    font-weight: 900;
+    font-size: 15px;
+    color: #3e494c;
+    border: 1px solid #aaaaaa;
+    background-color: #ededed;
   }
   
   .submitReferral {
-    height: 40px;
-    width: 130px;
+    height: 100%;
+    width: calc(50% - 10px);
     font-weight: 900;
     font-size: 15px;
     color: #3e494c;

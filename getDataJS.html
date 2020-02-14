@@ -38,7 +38,7 @@ function runGetData(loadText){
     showData(res.data) // show the referral data
     updateDash(res.data)
     showLoading(false, '') // hide loading view
-    updateBuyerAgents(res.data)
+    updateFilterBA(res.data)
     runGetAllBAs()
     console.log('Page is loaded')
   })
@@ -332,7 +332,7 @@ function updateLeaderboard(leaders){
   e.innerHTML = html
 }
 
-function updateBuyerAgents(data){
+function updateFilterBA(data){
   var e = document.getElementById('ba')
   var baName = e.options[e.selectedIndex].text
   var value
@@ -371,9 +371,12 @@ function updateBuyerAgents(data){
 
 function runGetAllBAs(){
   google.script.run  
+  
+  // if successful
   .withSuccessHandler(function(res){
-    console.log('Done. Time taken: ' + res.loadTime + 's')
+    document.buyerAgents = res
     updateSelectBA(res)
+    updateQueue(res)
   })
   
   // if error
@@ -384,16 +387,25 @@ function runGetAllBAs(){
   .getAllBAs()
 }
 
-function updateSelectBA(agents){
+function updateSelectBA(agentData){
   var html = '<option selected value="0">choose...</option>'
   
-  agents.sort()
+  // grab just the buyer agents' names
+  var agents = agentData.map(function(agent){
+    return agent.name
+  })
   
+  // sort then 
+  agents.sort()
   for (var i = 0; i < agents.length; i++){
     html += '<option value="' + (i + 1) + '">' + agents[i] + '</option>'
   }
   
   document.getElementById('baSelect').innerHTML = html
+}
+
+function updateQueue(agentData){
+  
 }
 
 </script>

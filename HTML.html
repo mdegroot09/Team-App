@@ -142,7 +142,7 @@
                   <div style="width: 100%; display: flex; justify-content: space-between">
                     <p class="referralHeader">Buyer Agent</p>
                     <div style="display: flex; height: 100%">
-                      <input id="checkbox" type="checkbox">
+                      <input id="checkbox" type="checkbox" onChange="showHideBlackOps(this.checked)" checked>
                       <p class="referralHeader" style="margin-left: 7px">Black Ops</p>
                     </div>
                   </div>
@@ -150,6 +150,9 @@
                     <select class="custom-select" id="baSelect" onChange="updateSourceStyling()">
                       <option value="0" selected>choose...</option>
                     </select>
+                  </div>
+                  <div id="baInputDiv">
+                    <input class="custom-select" type="text" id="baInput" placeholder="name" onChange="updateSourceStyling()">
                   </div>
                 </div>
               </div>

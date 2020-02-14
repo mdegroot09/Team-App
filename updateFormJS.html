@@ -270,11 +270,25 @@ function cleanCity(city){
 }
 
 function updateRadius(val){
+  // return only numbers from input val
   var num = val.trim().split('').filter(function(a){
     return ((Number(a) || Number(a) == 0) && a != ' ')
   }).join('')
   
   document.getElementById('radius').value = Number(num)
+}
+
+function showHideBlackOps(checked){
+  if (checked){
+    console.log(true)
+    document.getElementById('baSelectDiv').style.display = 'flex'
+    document.getElementById('baInputDiv').style.display = 'none'
+  }
+  else {
+    console.log(false)
+    document.getElementById('baInputDiv').style.display = 'flex'
+    document.getElementById('baSelectDiv').style.display = 'none'
+  }
 }
 
 </script>

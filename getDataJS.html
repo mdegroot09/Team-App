@@ -14,7 +14,8 @@ function load(){
     document.user = res.user
     displayUserInfo(res.user) // display user info on DOM
     updateListingAgents(res.listingAgents) // add listing agents to dropdown options
-    runGetData('collecting referrals') // display data based on user info
+    showLoading(false, '') // hide loading view
+    runGetData() // display data based on user info
   })
   // if error
   .withFailureHandler(function(err){
@@ -23,11 +24,11 @@ function load(){
   .getUserInfo()
 }
 
-function runGetData(loadText){
+function runGetData(){
+  var e = document.getElementById('updateShowData')
+  e.style.display = 'none'
 
   var user = document.user
-
-  showLoading(true, loadText) // show loading view
 
   // Get data from spreadsheet 
   google.script.run
@@ -37,10 +38,10 @@ function runGetData(loadText){
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
     updateDash(res.data)
-    showLoading(false, '') // hide loading view
     updateFilterBA(res.data)
     runGetAllBAs()
     console.log('Page is loaded')
+    e.style.display = 'block'
   })
   // if error
   .withFailureHandler(function(err){
@@ -369,6 +370,12 @@ function updateFilterBA(data){
   e.innerHTML = html
 }
 
+function manualUpdateQueue(){
+  var e = document.getElementById('updateQueue')
+  e.style.display = 'none'
+  runGetAllBAs()
+}
+
 function runGetAllBAs(){
   google.script.run  
   
@@ -377,6 +384,7 @@ function runGetAllBAs(){
     document.buyerAgents = res
     updateSelectBA(res)
     updateQueue(res)
+    document.getElementById('updateQueue').style.display = 'block'
   })
   
   // if error

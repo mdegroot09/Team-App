@@ -37,11 +37,14 @@ function filter(){
     runGetLeaderboard()
     
     // if dashboard is open, update tab and graphs
-    if (val == 'Dashboard'){
+    if (val == 'New Referral'){
+      tabUpdate('tab1a')
+    }
+    else if (val == 'Dashboard'){
       tabUpdate('tab1b')
     }
     else {
-      tabUpdate('tab1a')
+      tabUpdate('tab1c')
     }
   }, 10)
 }

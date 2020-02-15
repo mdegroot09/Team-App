@@ -233,6 +233,9 @@
             
             <!-- Queue -->
             <div class="queue">
+              <div onclick="manualUpdateQueue()" id="updateQueue" style="display: none; position: absolute; position: absolute; top: 2.5px; right: 5px;">
+                <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
+              </div>
               <div class="queueData">
                 <div class="queueColumn" style="border-top-left-radius: inherit; border-bottom-left-radius: inherit; ">
                   <div class="queueHeader">Agent</div>
@@ -278,7 +281,7 @@
             <div class="column">
               <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
                 <span>Listing Agent</span>
-                <div onclick="runGetData('pulling latest referrals')">
+                <div onclick="runGetData()" id="updateShowData" style="display: none">
                   <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
                 </div>
               </div>

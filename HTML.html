@@ -247,7 +247,10 @@
                 </div>
                 <div class="queueColumn">
                   <div class="queueHeader">Zip</div>
-                  <div class="queueColData" id="col3" style="text-align: center"></div>
+                  <div class="queueColData" id="col3" style="text-align: center">
+                    <!-- Initial loading view -->
+                    <div style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center"><span>loading...</span></div>
+                  </div>
                 </div>
                 <div class="queueColumn">
                   <div class="queueHeader">Last Received</div>
@@ -264,7 +267,7 @@
           </div>  
           <!-- End of formDash -->
       
-          <!-- All referral data -->
+          <!-- Show Data -->
           <div class="showData">
             <div class="column">
               <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
@@ -288,6 +291,9 @@
               <div id="showListingAgents"></div>
             </div>
           </div>
+          <div class="showDataLoading">loading...</div>
+          <div class="showDataBase"></div>
+          <!-- End of Show Data -->
           
         </div> 
         <!-- End of dashDataBack -->

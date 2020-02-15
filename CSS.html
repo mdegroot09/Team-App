@@ -759,15 +759,13 @@
   }
   
   .queue {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: space-between;
     justify-content: flex-start;
     width: calc(100% - 60px);
     height: calc(100% - 60px);
-    display: none;
     background: white;
-    border-radius: 5px;
     position: relative;
   }
   
@@ -835,8 +833,25 @@
     border-right: #aaaaaa solid 1px;
   }
   
-  .bottom {
-    border-bottom: #58dbc2 solid 1px;
+  .showDataLoading {
+    height: 100px;
+    width: 100%;
+    border-left: #aaaaaa solid 1px;
+    border-right: #aaaaaa solid 1px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .showDataBase {
+    width: 100%;
+    height: 40px;
+    background: #58dbc2;
+    border: 1px solid #aaaaaa;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    align-self: flex-end;
   }
   
   .columnTitle {

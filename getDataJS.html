@@ -405,7 +405,63 @@ function updateSelectBA(agentData){
 }
 
 function updateQueue(agentData){
+  buildQueueHTML(agentData, 'col1', 'name')
+  buildQueueHTML(agentData, 'col2', 'city')
+  buildQueueHTML(agentData, 'col3', 'zip')
+  buildQueueHTML(agentData, 'col4', 'lastReceived')
+  buildQueueHTML(agentData, 'col5', 'sevenDayTotal')
+}
+
+function buildQueueHTML(agentData, colId, key){
+  var e = document.getElementById(colId)
+  var html = ''
   
+  agentData.forEach(function(agent, i){
+    var val = ''
+    var rowClass = ''
+    
+    // convert val to Date if applicable
+    if (key == 'lastReceived'){
+      val = convertTime(agent[key])
+    }
+    else {
+      val = agent[key]
+    }
+    
+    // create background style depending on row num
+    if (i % 3 == 0){
+      rowClass = 'rowOne'
+    }
+    else if (i % 3 == 1){
+      rowClass = 'rowTwo'
+    }
+    else {
+      rowClass = 'rowThree'
+    }
+  
+    html += '<div class="' + rowClass + '"><span style="margin: 0 10px; white-space: nowrap;">' + val + '</span></div>'
+  })
+  
+  e.innerHTML = html
+}
+
+function convertTime(timestamp){
+  var date = new Date(timestamp)
+  var mm = date.getMonth() + 1
+  var dd = date.getDate()
+  var hour = date.getHours()
+  var mins = date.getMinutes()
+  var amPm = 'a'
+  
+  if (hour > 12){
+    hour -= 12
+    amPm = 'p'
+  }
+  if (mins < 10){
+    mins = '0' + mins
+  }
+  
+  return (mm + '/' + dd + ' ' + hour + ':' + mins + amPm)
 }
 
 </script>

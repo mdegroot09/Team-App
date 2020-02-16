@@ -15,6 +15,10 @@ function submit(){
   var listingAgentE = document.getElementById('dropdownLA')
   var listingAgent = listingAgentE.options[listingAgentE.selectedIndex].text
   
+  if (!document.submitReady){
+    return console.log('Submit not ready.')
+  }
+  
   var userType 
   if (listingAgent === 'None'){
     userType = document.user.userType

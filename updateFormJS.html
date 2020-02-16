@@ -151,6 +151,14 @@ function updateCity(zip){
   city = cleanCity(city)
   
   var citiesZips = document.citiesZips
+  // reset function if citiesZips not found
+  if (!citiesZips){
+    console.log('Data still loading. \nCannot find city name.')
+    return (setTimeout(function(){
+      updateCity(zip)
+    }, 100))
+  }
+  
   var zipMatches = citiesZips.filter(function(val){
     return val.zip == zip
   })
@@ -178,6 +186,7 @@ function updateCity(zip){
   }
   
   document.getElementById('cityReferral').value = city
+  getNextBA(zip)
 }
 
 function updateZip(city){
@@ -192,6 +201,14 @@ function updateZip(city){
   }
   
   var citiesZips = document.citiesZips
+  // reset function if citiesZips not found
+  if (!citiesZips){
+    console.log('Data still loading. \nCannot find zip code.')
+    return (setTimeout(function(){
+      updateZip(city)
+    }, 100))
+  }
+  
   var zip = document.getElementById('zipReferral').value
   if (zip){
     zip = cleanZip(zip)
@@ -224,6 +241,7 @@ function updateZip(city){
   }
 
   document.getElementById('zipReferral').value = zip
+  getNextBA(zip)
 }
 
 function cleanZip(zip){
@@ -282,19 +300,92 @@ function updateRadius(val){
   }).join('')
   
   document.getElementById('radius').value = Number(num)
+  
+  var zip = document.getElementById('zipReferral').value
+  if (zip) {
+    getNextBA(zip)
+  }
 }
 
 function showHideBlackOps(checked){
   if (checked){
-    console.log(true)
     document.getElementById('baSelectDiv').style.display = 'flex'
     document.getElementById('baInputDiv').style.display = 'none'
   }
   else {
-    console.log(false)
     document.getElementById('baInputDiv').style.display = 'flex'
     document.getElementById('baSelectDiv').style.display = 'none'
   }
+}
+
+function getNextBA(zip){
+  var buyerAgentsAll = document.buyerAgents
+  blockSubmit(true)
+  
+  // if no existing buyerAgentsAll, refresh function 
+  if (!buyerAgentsAll){
+    return (
+      setTimeout(function(){
+        getNextBA(zip)
+      }, 100)
+    )
+  }
+
+  var radius = document.getElementById('radius').value
+  
+  // Get user info
+  google.script.run  
+  // if successful, display the data 
+  .withSuccessHandler(function(res){
+    autoSelectBA(res)
+    blockSubmit(false)
+  })
+  // if error
+  .withFailureHandler(function(err){
+    console.error("error occured", err);
+  })
+  .filterSortAgents(buyerAgentsAll, zip, radius)
+}
+
+function blockSubmit(block){
+  var e = document.getElementsByClassName('submitReferral')[0]
+  
+  if (block){
+//    e.style.background = '#ededed'
+//    e.style.background = '#cff9f1'
+    e.style.background = '#aeeade'
+    e.style.cursor = 'default'
+    e.style.color = 'gray'
+    document.submitReady = false
+  }
+  else {
+    e.style.background = '#58dbc2'
+    e.style.cursor = 'pointer'
+    e.style.color = '#3e494c'
+    document.submitReady = true
+  }
+}
+
+function autoSelectBA(filteredAgents){
+  var buyerAgentsAll = document.buyerAgents
+  var html = '<option selected value="0">choose...</option>'
+  
+  filteredAgents.forEach(function(agent, i){
+    var selected = ''
+    if (i == 0){
+      selected = ' selected'
+    }
+    else {
+      selected = ''
+    }
+  
+    var dist = Math.round(10 * agent.distance) / 10
+    html += '<option' + selected + ' value="' + (i + 1) + '">' + agent.name + ' (' + dist + ' miles)</option>'
+  })
+  
+  var e = document.getElementById('baSelect')
+  e.innerHTML = html
+  e.value = 1
 }
 
 </script>

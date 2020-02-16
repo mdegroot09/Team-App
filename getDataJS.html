@@ -11,6 +11,7 @@ function load(){
   google.script.run  
   // if successful, display the data 
   .withSuccessHandler(function(res){
+    blockSubmit(true) // disallow submit button
     document.user = res.user
     displayUserInfo(res.user) // display user info on DOM
     updateListingAgents(res.listingAgents) // add listing agents to dropdown options
@@ -42,6 +43,7 @@ function runGetData(){
     runGetAllBAs()
     console.log('Page is loaded')
     e.style.display = 'block'
+    blockSubmit(false) // disallow submit button
   })
   // if error
   .withFailureHandler(function(err){
@@ -100,10 +102,10 @@ function showData(data){
   
   // if no data, show empty row
   else {
-    buyerNamesHTML += '<div class="rowEach rowOne bottom" style="border-left: solid 1px #58dbc2;"><span>No referrals</span></div>'
+    buyerNamesHTML += '<div class="rowEach rowOne bottom" style="border-left: solid 1px #aaaaaa;"><span>No referrals</span></div>'
     buyerAgentsHTML += '<div class="rowEach rowOne bottom"></div>'
     stagesHTML += '<div class="rowEach rowOne bottom"></div>'
-    listingAgentsHTML += '<div class="rowEach rowOne bottom" style="border-right: solid 1px #58dbc2;"></div>'
+    listingAgentsHTML += '<div class="rowEach rowOne bottom" style="border-right: solid 1px #aaaaaa;"></div>'
   }
   
   document.getElementById('showBuyers').innerHTML = buyerNamesHTML
@@ -373,7 +375,7 @@ function runGetAllBAs(){
   // if successful
   .withSuccessHandler(function(res){
     document.buyerAgents = res
-    updateSelectBA(res)
+    addResetSelectBA(res)
     updateQueue(res)
     document.getElementById('updateQueue').style.display = 'block'
   })
@@ -386,7 +388,7 @@ function runGetAllBAs(){
   .getAllBAs()
 }
 
-function updateSelectBA(agentData){
+function addResetSelectBA(agentData){
   var html = '<option selected value="0">choose...</option>'
   
   // grab just the buyer agents' names
@@ -406,7 +408,7 @@ function updateSelectBA(agentData){
 function updateQueue(agentData){
   buildQueueHTML(agentData, 'col1', 'name')
   buildQueueHTML(agentData, 'col2', 'city')
-  buildQueueHTML(agentData, 'col3', 'zip')
+  buildQueueHTML(agentData, 'col3', 'distance')
   buildQueueHTML(agentData, 'col4', 'lastReceived')
   buildQueueHTML(agentData, 'col5', 'sevenDayTotal')
 }
@@ -423,7 +425,7 @@ function buildQueueHTML(agentData, colId, key){
     if (key == 'lastReceived'){
       val = convertTime(agent[key])
     }
-    else {
+    else if (agent[key] || agent[key] == 0){
       val = agent[key]
     }
     

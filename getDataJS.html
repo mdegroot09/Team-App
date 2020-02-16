@@ -366,7 +366,8 @@ function updateFilterBA(data){
 function manualUpdateQueue(){
   var e = document.getElementById('updateQueue')
   e.style.display = 'none'
-  runGetAllBAs()
+  // runGetAllBAs()
+  runDistSortAgents()
 }
 
 function runGetAllBAs(){
@@ -421,9 +422,12 @@ function buildQueueHTML(agentData, colId, key){
     var val = ''
     var rowClass = ''
     
-    // convert val to Date if applicable
+    // convert val depending on key and value
     if (key == 'lastReceived'){
       val = convertTime(agent[key])
+    }
+    else if (key == 'distance' && agent.distance){
+      val = Math.round(agent[key] * 10) / 10
     }
     else if (agent[key] || agent[key] == 0){
       val = agent[key]

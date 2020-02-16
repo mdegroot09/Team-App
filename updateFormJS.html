@@ -15,7 +15,7 @@ function updateSourceStyling(){
   else {
     e.setAttribute("id", "source")
     e.disabled = true
-    }
+  }
   
   makeGray(typeE)
 }
@@ -33,7 +33,8 @@ function checkForBlanks(details){
     {text: details.notes, e: document.getElementById('notesReferral')},
     {text: details.type, e: document.getElementById('type')},
     {text: details.referringName, e: document.getElementById('dropdownLA')},
-    {text: details.source, e: document.getElementsByClassName('sourceClass')[0], source: true}
+    {text: details.source, e: document.getElementsByClassName('sourceClass')[0], source: true},
+    {text: details.buyerAgent.name, e: details.baElement, buyerAgent: true}
   ]
   
   inputs.forEach(function(input){
@@ -56,6 +57,17 @@ function checkForBlanks(details){
           makeRed(input.e)
           formReady = false
         }
+      }
+      else {
+        makeGray(input.e)
+      }
+    }
+    
+    // check for buyerAgent
+    else if (input.buyerAgent){
+      if (!input.text && document.user.userType == 'Admin'){
+        makeRed(input.e)
+        formReady = false
       }
       else {
         makeGray(input.e)
@@ -333,12 +345,12 @@ function getNextBA(zip){
 
   var radius = document.getElementById('radius').value
   
-  // Get user info
   google.script.run  
   // if successful, display the data 
   .withSuccessHandler(function(res){
     autoSelectBA(res)
     blockSubmit(false)
+    runDistSortAgents() // update queue miles column
   })
   // if error
   .withFailureHandler(function(err){
@@ -383,9 +395,48 @@ function autoSelectBA(filteredAgents){
     html += '<option' + selected + ' value="' + (i + 1) + '">' + agent.name + ' (' + dist + ' miles)</option>'
   })
   
+  var valueNum = filteredAgents.length
+  
+  // add rest of agents without a distance  
+  for (var i = 0; i < buyerAgentsAll.length; i++){
+    var match = false
+    for (var j = 0; j < filteredAgents.length; j++){
+      if (buyerAgentsAll[i].name == filteredAgents[j].name){
+        match = true
+      }
+    }
+    
+    if (!match){
+      valueNum += 1
+      html += '<option value="' + valueNum + '">' + buyerAgentsAll[i].name + '</option>'
+    }
+  }
+  
   var e = document.getElementById('baSelect')
   e.innerHTML = html
   e.value = 1
+}
+
+function runDistSortAgents(){
+  var buyerAgentsAll = document.buyerAgents
+  var zip = document.getElementById('zipReferral').value
+  
+  // quit if no agents or zip found
+  if (!buyerAgentsAll || !zip){
+    return runGetAllBAs()
+  }
+
+  google.script.run  
+  // if successful, display the data 
+  .withSuccessHandler(function(res){
+    updateQueue(res)
+    document.getElementById('updateQueue').style.display = 'block'
+  })
+  // if error
+  .withFailureHandler(function(err){
+    console.error("error occured", err);
+  })
+  .distSortAgents(buyerAgentsAll, zip)
 }
 
 </script>

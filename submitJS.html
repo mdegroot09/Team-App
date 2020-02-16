@@ -14,6 +14,10 @@ function submit(){
   var source = sourceE.options[sourceE.selectedIndex].text
   var listingAgentE = document.getElementById('dropdownLA')
   var listingAgent = listingAgentE.options[listingAgentE.selectedIndex].text
+  var baSelectE = document.getElementById('baSelect')
+  var baSelect = baSelectE.options[baSelectE.selectedIndex].text
+  var baInput = document.getElementById('baInput').value
+  var checked = document.getElementById('checkbox').checked
   
   if (!document.submitReady){
     return console.log('Submit not ready.')
@@ -42,6 +46,42 @@ function submit(){
     listingAgent = ''
   }
   
+  // reset buyerAgent if needed
+  var buyerAgent = ''
+  var baElement = ''
+  if (checked){
+    baElement = document.getElementById('baSelect')
+    if (baSelect === 'choose...'){
+      buyerAgent = {name: ''}
+    }
+    else {
+      var buyerAgents = document.buyerAgents
+      var agentInfo = buyerAgents.filter(function(agent){
+        return agent.name == baSelect.split(' (')[0]
+      })
+    
+      buyerAgent = agentInfo[0]
+    }
+  }
+  else {
+    baElement = document.getElementById('baInput')
+    var buyerAgents = document.buyerAgents
+    var agentInfo = buyerAgents.filter(function(agent){
+      return agent.name == baInput
+    })
+    
+    if (agentInfo.length > 0){
+      buyerAgent = agentInfo[0]
+    }
+    else {
+      buyerAgent = {
+        name: baInput,
+        email: '',
+        ssId: '1HHuqqbnmW1ihOJDkQW7tfppNovoeELtifjrhSm-Yf1U'
+      }
+    }
+  }
+  
   var details = {
     buyerName: buyerName,
     buyerPhone: buyerPhone,
@@ -53,7 +93,9 @@ function submit(){
     type: type,
     source: source,
     referringName: listingAgent,
-    referringType: userType
+    referringType: userType,
+    buyerAgent: buyerAgent,
+    baElement: baElement
   }
   
   var submitReady = checkForBlanks(details)

@@ -48,9 +48,9 @@ function submit(){
   
   // reset buyerAgent if needed
   var buyerAgent = ''
-  var baElement = ''
+  var baId
   if (checked){
-    baElement = document.getElementById('baSelect')
+    baId = 'baSelect'
     if (baSelect === 'choose...'){
       buyerAgent = {name: ''}
     }
@@ -64,7 +64,7 @@ function submit(){
     }
   }
   else {
-    baElement = document.getElementById('baInput')
+    baId = 'baInput'
     var buyerAgents = document.buyerAgents
     var agentInfo = buyerAgents.filter(function(agent){
       return agent.name == baInput
@@ -81,6 +81,7 @@ function submit(){
       }
     }
   }
+  buyerAgent.baId = baId
   
   var details = {
     buyerName: buyerName,
@@ -94,8 +95,7 @@ function submit(){
     source: source,
     referringName: listingAgent,
     referringType: userType,
-    buyerAgent: buyerAgent,
-    baElement: baElement
+    buyerAgent: buyerAgent
   }
   
   var submitReady = checkForBlanks(details)

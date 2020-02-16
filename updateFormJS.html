@@ -34,7 +34,7 @@ function checkForBlanks(details){
     {text: details.type, e: document.getElementById('type')},
     {text: details.referringName, e: document.getElementById('dropdownLA')},
     {text: details.source, e: document.getElementsByClassName('sourceClass')[0], source: true},
-    {text: details.buyerAgent.name, e: details.baElement, buyerAgent: true}
+    {text: details.buyerAgent.name, e: document.getElementById(details.buyerAgent.baId), buyerAgent: true}
   ]
   
   inputs.forEach(function(input){

@@ -32,56 +32,53 @@ function submit(){
   }
   
   // reset type if needed
-  if (type === 'choose...' || type === ''){
-    type = ''
-  }
+  if (type === 'choose...' || type === ''){type = ''}
   
   // reset source if needed
-  if (source === 'choose...' || type === 'Homie Seller' || type === 'SOI') {
-    source = ''
-  }
+  if (source === 'choose...' || type === 'Homie Seller' || type === 'SOI') {source = ''}
   
   // reset listingAgent if needed 
-  if (listingAgent === 'choose...'){
-    listingAgent = ''
-  }
+  if (listingAgent === 'choose...'){listingAgent = ''}
   
-  // reset buyerAgent if needed
+  // Find or create buyerAgent object
   var buyerAgent = ''
   var baId
   if (checked){
-    baId = 'baSelect'
+    baId = 'baSelect' // name of element id to reset
     if (baSelect === 'choose...'){
       buyerAgent = {name: ''}
     }
     else {
       var buyerAgents = document.buyerAgents
       var agentInfo = buyerAgents.filter(function(agent){
-        return agent.name == baSelect.split(' (')[0]
+        return agent.name == baSelect.split(' (')[0] // remove distance if any
       })
     
       buyerAgent = agentInfo[0]
     }
   }
   else {
-    baId = 'baInput'
+    baId = 'baInput' // name of element id to reset
     var buyerAgents = document.buyerAgents
     var agentInfo = buyerAgents.filter(function(agent){
       return agent.name == baInput
     })
     
+    // send buyerAgent found on document if name matches
     if (agentInfo.length > 0){
       buyerAgent = agentInfo[0]
     }
+    
+    // for unfound buyerAgent name inputs, send new data
     else {
       buyerAgent = {
         name: baInput,
-        email: '',
+        email: 'mike.degroot@homie.com',
         ssId: '1HHuqqbnmW1ihOJDkQW7tfppNovoeELtifjrhSm-Yf1U'
       }
     }
   }
-  buyerAgent.baId = baId
+  buyerAgent.baId = baId  // element id to reset
   
   var details = {
     buyerName: buyerName,
@@ -123,7 +120,8 @@ function runSubmit(details){
     if (!res.error){
       showMessage(true, res.message)
       clearValues() // clear values and dropdowns
-      runGetData('updating data') // reload data to bring in updated info
+      showLoading(false, '')
+      runGetData() // reload data to bring in updated info
     }
     
     // handle errors

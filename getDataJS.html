@@ -26,7 +26,7 @@ function load(){
 }
 
 function runGetData(){
-  var e = document.getElementById('updateShowData')
+  var e = document.getElementById('updateOpps')
   e.style.display = 'none'
 
   var user = document.user
@@ -114,7 +114,7 @@ function showData(data){
   document.getElementById('showListingAgents').innerHTML = listingAgentsHTML
   
   // hide loading view
-  document.getElementsByClassName('showDataLoading')[0].style.display = 'none'
+  document.getElementsByClassName('oppsLoading')[0].style.display = 'none'
 }
 
 function updateListingAgents(listingAgents){

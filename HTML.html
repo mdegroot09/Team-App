@@ -40,13 +40,13 @@
         <!-- Tabs -->
         <div class="tabs">
           <div class="tabsLeft">
-            <div class="tab1a" id="activeTab" onclick="tabUpdate('tab1a')">
+            <div class="tab1a" id="activeTab1" onclick="tabUpdate('tab1a', 1)">
               <div>New Referral</div>
             </div>
-            <div class="tab1a tab1b" onclick="tabUpdate('tab1b')">
+            <div class="tab1a tab1b" onclick="tabUpdate('tab1b', 1)">
               <div>Dashboard</div>
             </div>
-            <div class="tab1a tab1c" onclick="tabUpdate('tab1c')">
+            <div class="tab1a tab1c" onclick="tabUpdate('tab1c', 1)">
               <div>Queue</div>
             </div>
           </div>
@@ -275,13 +275,13 @@
           <!-- Tabs -->
           <div class="tabs" style="align-self: flex-start; justify-self: flex-end; margin-top: 30px;">
             <div class="tabsLeft">
-              <div class="tab1a tab2a" id="activeTab2" onclick="tabUpdate('tab2a')">
+              <div class="tab1a tab2a" id="activeTab2" onclick="tabUpdate('tab2a', 2)">
                 <div>Opportunities</div>
               </div>
-              <div class="tab1a tab1b tab2b" onclick="tabUpdate('tab2b')">
+              <div class="tab1a tab1b tab2b" onclick="tabUpdate('tab2b', 2)">
                 <div>Leads</div>
               </div>
-              <div class="tab1a tab1c tab2c" onclick="tabUpdate('tab2c')">
+              <div class="tab1a tab1c tab2c" onclick="tabUpdate('tab2c', 2)">
                 <div>Closed</div>
               </div>
             </div>
@@ -289,7 +289,7 @@
           <!-- End of Tabs -->
       
           <!-- Show Data -->
-          <div class="showData">
+          <div class="opps">
             <div class="column">
               <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
               <div id="showBuyers"></div>
@@ -305,15 +305,15 @@
             <div class="column">
               <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
                 <span>Listing Agent</span>
-                <div onclick="runGetData()" id="updateShowData" style="display: none">
+                <div onclick="runGetData()" id="updateOpps" style="display: none">
                   <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
                 </div>
               </div>
               <div id="showListingAgents"></div>
             </div>
           </div>
-          <div class="showDataLoading">loading...</div>
-          <div class="showDataBase"></div>
+          <div class="oppsLoading">loading...</div>
+          <div class="oppsBase"></div>
           <!-- End of Show Data -->
           
         </div> 

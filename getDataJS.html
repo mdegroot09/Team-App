@@ -240,6 +240,9 @@ function updateDash(data){
 }
 
 function setupGraph(data){
+  var numClosed = data.filter(function(buyer){
+    return buyer.stage == 'Closed' && buyer.status != 'Lost'
+  }).length
   var numUC = data.filter(function(buyer){
     return buyer.stage == 'UC' && buyer.status != 'Lost'
   }).length
@@ -252,18 +255,19 @@ function setupGraph(data){
   var numSearch = data.filter(function(buyer){
     return buyer.stage == 'Searching' && buyer.status != 'Lost'
   }).length
-  var numLead = data.filter(function(buyer){
-    // return (buyer.stage == 'New Lead' || buyer.stage == 'Warm Lead' || buyer.stage == 'Cold Lead')
-    return ((buyer.stage == 'New Lead' || buyer.stage == 'Warm Lead') && buyer.status != 'Lost')
-  }).length
+//  var numLead = data.filter(function(buyer){
+//    // return (buyer.stage == 'New Lead' || buyer.stage == 'Warm Lead' || buyer.stage == 'Cold Lead')
+//    return ((buyer.stage == 'New Lead' || buyer.stage == 'Warm Lead') && buyer.status != 'Lost')
+//  }).length
   
+  document.getElementById('numClosed').innerText = numClosed
   document.getElementById('numUC').innerText = numUC
   document.getElementById('numOffer').innerText = numOffer
   document.getElementById('numTour').innerText = numTour
   document.getElementById('numSearch').innerText = numSearch
-  document.getElementById('numLead').innerText = numLead
+//  document.getElementById('numLead').innerText = numLead
   
-  var counts = [numUC, numOffer, numTour, numSearch, numLead]
+  var counts = [numClosed, numUC, numOffer, numTour, numSearch]
 
   setBarHeights(counts)
 }
@@ -273,18 +277,20 @@ function setBarHeights(counts){
   var numHighest = Math.max(...counts)
   
   if (numHighest > 0){
-    document.user.barUCHeight = Math.round((counts[0] / numHighest) * 100)
-    document.user.barOfferHeight = Math.round((counts[1] / numHighest) * 100)
-    document.user.barTourHeight = Math.round((counts[2] / numHighest) * 100)
-    document.user.barSearchHeight = Math.round((counts[3] / numHighest) * 100)
-    document.user.barLeadHeight = Math.round((counts[4] / numHighest) * 100)
+    document.user.barClosedHeight = Math.round((counts[0] / numHighest) * 100)
+    document.user.barUCHeight = Math.round((counts[1] / numHighest) * 100)
+    document.user.barOfferHeight = Math.round((counts[2] / numHighest) * 100)
+    document.user.barTourHeight = Math.round((counts[3] / numHighest) * 100)
+    document.user.barSearchHeight = Math.round((counts[4] / numHighest) * 100)
+//    document.user.barLeadHeight = Math.round((counts[4] / numHighest) * 100)
   }
   else {
+    document.user.barClosedHeight = 0
     document.user.barUCHeight = 0
     document.user.barOfferHeight = 0
     document.user.barTourHeight = 0
     document.user.barSearchHeight = 0
-    document.user.barLeadHeight = 0
+//    document.user.barLeadHeight = 0
   }
 }
 

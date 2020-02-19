@@ -73,7 +73,7 @@ function submit(){
     else {
       buyerAgent = {
         name: baInput,
-        email: 'mike.degroot@homie.com',
+        email: 'leads@homie.com',
         ssId: '1HHuqqbnmW1ihOJDkQW7tfppNovoeELtifjrhSm-Yf1U'
       }
     }
@@ -182,17 +182,19 @@ function tabUpdate(className){
 
 function updateGraph(){
   setTimeout(() => {
+    var barClosedHeight = document.user.barClosedHeight
     var barUCHeight = document.user.barUCHeight
     var barOfferHeight = document.user.barOfferHeight
     var barTourHeight = document.user.barTourHeight
     var barSearchHeight = document.user.barSearchHeight
-    var barLeadHeight = document.user.barLeadHeight
+//    var barLeadHeight = document.user.barLeadHeight
     var pct = .8
+    document.getElementById('barClosed').style.height = (barClosedHeight * pct) + '%'
     document.getElementById('barUC').style.height = (barUCHeight * pct) + '%'
     document.getElementById('barOffer').style.height = (barOfferHeight * pct) + '%'
     document.getElementById('barTour').style.height = (barTourHeight * pct) + '%'
     document.getElementById('barSearch').style.height = (barSearchHeight * pct) + '%'
-    document.getElementById('barLead').style.height = (barLeadHeight * pct) + '%'
+//    document.getElementById('barLead').style.height = (barLeadHeight * pct) + '%'
     for (var i = 0; i < 5; i++){
       document.getElementsByClassName('num')[i].style.opacity = 1
     }
@@ -206,11 +208,12 @@ function updateGraph(){
 }
 
 function resetGraph(){
+  document.getElementById('barClosed').style.height = 0
   document.getElementById('barUC').style.height = 0
   document.getElementById('barOffer').style.height = 0
   document.getElementById('barTour').style.height = 0
   document.getElementById('barSearch').style.height = 0
-  document.getElementById('barLead').style.height = 0
+//  document.getElementById('barLead').style.height = 0
   for (var i = 0; i < 5; i++){
     document.getElementsByClassName('num')[i].style.opacity = 0
   }

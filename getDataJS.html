@@ -125,6 +125,7 @@ function displayFilteredData(filteredData){
   var stagesHTML = ''
   var listingAgentsHTML = ''
   
+  
   // display data if there is any
   if (filteredData.length > 0){
     for (var i = 0; i < filteredData.length; i++){
@@ -164,7 +165,7 @@ function displayFilteredData(filteredData){
   
   // if no data, show empty row
   else {
-    buyerNamesHTML += '<div class="rowEach rowOne bottom" style="border-left: solid 1px #aaaaaa;"><span>No referrals</span></div>'
+    buyerNamesHTML += '<div class="rowEach rowOne bottom" style="border-left: solid 1px #aaaaaa;"><span>No matches</span></div>'
     buyerAgentsHTML += '<div class="rowEach rowOne bottom"></div>'
     stagesHTML += '<div class="rowEach rowOne bottom"></div>'
     listingAgentsHTML += '<div class="rowEach rowOne bottom" style="border-right: solid 1px #aaaaaa;"></div>'
@@ -479,8 +480,6 @@ function addResetSelectBA(agentData){
 }
 
 function updateQueue(agentData){
-  console.log('fired')
-  console.log(agentData)
   buildQueueHTML(agentData, 'col1', 'name')
   buildQueueHTML(agentData, 'col2', 'city')
   buildQueueHTML(agentData, 'col3', 'distance')

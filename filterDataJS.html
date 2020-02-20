@@ -1,7 +1,37 @@
 <script>
 
-function filter(){
+function filter(isAgentChange){
   var data = document.data
+  
+  // quit function if page not loaded yet
+  if (!data){return}
+  
+  var filteredData = filterData(data)
+  
+  var val = document.getElementById('activeTab1').innerText
+  
+  setTimeout(function(){
+    showData(filteredData)
+    updateDash(filteredData)
+    
+    if (isAgentChange){
+      runGetLeaderboard()
+    }
+    
+    // if dashboard is open, update tab and graphs
+    if (val == 'New Referral'){
+      tabUpdate('tab1a', 1)
+    }
+    else if (val == 'Dashboard'){
+      tabUpdate('tab1b', 1)
+    }
+    else {
+      tabUpdate('tab1c', 1)
+    }
+  }, 10)
+}
+
+function filterData(data){
   var laE = document.getElementById('la')
   var la = laE.options[laE.selectedIndex].text
   var baE = document.getElementById('ba')
@@ -13,7 +43,7 @@ function filter(){
   if (ba === 'All' || ba === 'None'){
     ba = ''
   }
-  
+
   var filteredData = data.filter(function(lead){
     if (la && ba){
       return (lead.listingAgent == la && lead.buyerAgent == ba)
@@ -29,24 +59,49 @@ function filter(){
     }
   })
   
-  var val = document.getElementById('activeTab1').innerText
-  
-  setTimeout(function(){
-    showData(filteredData)
-    updateDash(filteredData)
-    runGetLeaderboard()
+  var filterInput = document.getElementById('filterInput').value.split(' ')
+  if (filterInput.length > 0){
     
-    // if dashboard is open, update tab and graphs
-    if (val == 'New Referral'){
-      tabUpdate('tab1a')
-    }
-    else if (val == 'Dashboard'){
-      tabUpdate('tab1b')
-    }
-    else {
-      tabUpdate('tab1c')
-    }
-  }, 10)
+    var inputFilteredData = filteredData.filter(function(lead){
+      var include = false
+      for (var i = 0; i < filterInput.length; i++){
+        if (lead.source.toLowerCase().includes(filterInput[i].toLowerCase())){
+          include = true
+        }
+        else if (lead.email.toLowerCase().includes(filterInput[i].toLowerCase())){
+          include = true
+        }
+        else if (lead.buyerAgent.toLowerCase().includes(filterInput[i].toLowerCase())){
+          include = true
+        }
+        else if (lead.buyerName.toLowerCase().includes(filterInput[i].toLowerCase())){
+          include = true
+        }
+        else if (lead.tags.toLowerCase().includes(filterInput[i].toLowerCase())){
+          include = true
+        }
+        else if (lead.stage.toLowerCase().includes(filterInput[i].toLowerCase())){
+          include = true
+        }
+        else if (lead.phone.toLowerCase().includes(filterInput[i].toLowerCase())){
+          include = true
+        }
+        else if (lead.status.toLowerCase().includes(filterInput[i].toLowerCase())){
+          include = true
+        }
+        else {
+          include = false
+        }
+      }
+      return include
+    })
+    
+    return inputFilteredData
+  }
+  
+  else {
+    return filteredData
+  }
 }
 
 </script>

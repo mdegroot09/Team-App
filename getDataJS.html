@@ -44,12 +44,21 @@ function runGetData(){
     console.log('Page is loaded')
     e.style.display = 'block'
     blockSubmit(false) // disallow submit button
+    setDataInterval()
   })
   // if error
   .withFailureHandler(function(err){
     console.error("error occured", err);
   })
   .getData(user) // run function in gs file to pull data
+}
+
+function setDataInterval(){
+  document.dataInterval = setInterval(function(){
+    console.log('runGetData()')
+    var date = new Date()
+    runGetData()
+  }, 60000 * 5)
 }
 
 function displayUserInfo(user){

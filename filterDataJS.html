@@ -59,7 +59,7 @@ function filterData(data){
     }
   })
   
-  var filterInput = document.getElementById('filterInput').value.split(' ')
+  var filterInput = document.getElementById('filterInput').value.trim().split(' ')
   if (filterInput.length > 0){
     
     var inputFilteredData = filteredData.filter(function(lead){
@@ -69,9 +69,6 @@ function filterData(data){
           include = true
         }
         else if (lead.email.toLowerCase().includes(filterInput[i].toLowerCase())){
-          include = true
-        }
-        else if (lead.buyerAgent.toLowerCase().includes(filterInput[i].toLowerCase())){
           include = true
         }
         else if (lead.buyerName.toLowerCase().includes(filterInput[i].toLowerCase())){

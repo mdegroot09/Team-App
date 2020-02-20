@@ -178,6 +178,12 @@
     align-items: flex-end;
   }
   
+  .tabs2 {
+    align-self: flex-start; 
+    justify-self: flex-end; 
+    width: 100%;
+  }
+  
   .tabsLeft {
     margin-left: 5px;
     display: flex;
@@ -235,27 +241,46 @@
     border-left: none;
     border-right: #aaaaaa 1px solid;
   }
-    
-  .tabsRight {
-    height: 30px;
-    margin-right: 5px;
+  
+  .filters {
+    height: 50px;
+    width: 100%;
+    margin: 10px 0;
+    background: #cff9f1;
+    border: #aaaaaa 1px solid;
+    border-radius: 5px;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .filterSection {
+    height: 100%;
+    width: calc((100% - 80px) / 3);
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+
+  .filterHeader {
+    width: 100%;
+    background: #58dbc2;
+    border-bottom: #aaaaaa 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .agentFiltersDiv {
-    height: 100%;
-    background: #58dbc2;
+    height: calc(100% - 10px);
+    width: calc(100% - 10px);
     background: #cff9f1;
+    background: #58dbc2;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
     border: #aaaaaa 1px solid;
-    border-bottom: none;
+    border-radius: 5px;
   }
   
   .dropdownHeader {
@@ -270,12 +295,14 @@
     
   .agentFilters {
     height: 100%;
-    width: 150px;
+    width: calc(100% - 35px);
     white-space: nowrap;
     overflow: hidden;
     display: flex;
     align-items: center;
     position: relative;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
   
   .agentSelect {
@@ -288,6 +315,13 @@
     border: none;
     padding: 0 20px 0 5px;
     outline: none;
+  }
+  
+  .search {
+    height: calc(100% - 15px);
+    width: calc(100% - 10px);
+    margin: 0;
+    align-self: center;
   }
   
   .agentSelect:hover {
@@ -907,8 +941,12 @@
     background-color: #cff9f1;
   }
   
+  .closedBack {
+    background-color: #cff9f1;
+  }
+  
   .lostBack {
-    background-color: #f4cccc;
+    background-color: #ffe8e8;
   }
   
   @keyframes rotation {

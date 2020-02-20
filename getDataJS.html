@@ -128,16 +128,20 @@ function displayFilteredData(filteredData){
   // display data if there is any
   if (filteredData.length > 0){
     for (var i = 0; i < filteredData.length; i++){
-      var background, stage, lost
+      var background, stage, classBack
       
       // show lost if applicable, otherwise show stage
       if (filteredData[i].status == 'Lost'){
         stage = filteredData[i].status
-        lost = ' lost'
+        classBack = ' lostBack'
+      }
+      else if (filteredData[i].stage == 'Closed'){
+        stage = filteredData[i].stage
+        classBack = ' closedBack'
       }
       else {
         stage = filteredData[i].stage
-        lost = ''
+        classBack = ''
       }
       
       // set class name per row number for background color
@@ -153,7 +157,7 @@ function displayFilteredData(filteredData){
     
       buyerNamesHTML += '<div class="rowEach ' + background + '" style="border-left: solid 1px #aaaaaa' + '"><span>' + filteredData[i].buyerName + '</span></div>'
       buyerAgentsHTML += '<div class="rowEach ' + background + '"><span>' + filteredData[i].buyerAgent + '</span></div>'
-      stagesHTML += '<div class="rowEach ' + background + lost + '"><span>' + stage + '</span></div>'
+      stagesHTML += '<div class="rowEach ' + background + classBack + '"><span>' + stage + '</span></div>'
       listingAgentsHTML += '<div class="rowEach ' + background + '" style="border-right: solid 1px #aaaaaa' + '"><span>' + filteredData[i].listingAgent + '</span></div>'
     }
   }

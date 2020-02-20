@@ -150,15 +150,18 @@ function tabUpdate(className, num){
   var dash = document.getElementsByClassName('dash')[0]
   var queue = document.getElementsByClassName('queue')[0]
   var opps = document.getElementsByClassName('opps')[0]
-  var oppsBase = document.getElementsByClassName('oppsBase')[0]
+  var leads = document.getElementsByClassName('leads')[0]
+  var closed = document.getElementsByClassName('closed')[0]
+  var lost = document.getElementsByClassName('lost')[0]
   
   // add id to selected element, remove from other
   eOld.removeAttribute('id')
   eNew.setAttribute('id', 'activeTab' + num)
 
   if (className == 'tab' + num + 'a'){
-    tabB.style.borderRight = '1px solid #aaaaaa'
     tabB.style.borderLeft = 'none'
+    tabB.style.borderRight = '1px solid #aaaaaa'
+    tabC.style.borderRight = '1px solid #aaaaaa'
     
     if (className == 'tab1a'){
       form.style.display = 'flex'
@@ -167,14 +170,16 @@ function tabUpdate(className, num){
       resetGraph()
     }
     else if (className == 'tab2a'){
-      console.log('tab2a clicked')
       opps.style.display = 'flex'
-      oppsBase.style.display = 'flex'
+      leads.style.display = 'none'
+      closed.style.display = 'none'
+      lost.style.display = 'none'
     }
   }
   else if (className == 'tab' + num + 'b'){
-    tabB.style.borderRight = '1px solid #aaaaaa'
     tabB.style.borderLeft = '1px solid #aaaaaa'
+    tabB.style.borderRight = '1px solid #aaaaaa'
+    tabC.style.borderRight = '1px solid #aaaaaa'
     
     if (className == 'tab1b'){
       form.style.display = 'none'
@@ -183,14 +188,16 @@ function tabUpdate(className, num){
       updateGraph()
     }
     else if (className == 'tab2b'){
-      console.log('tab2b clicked')
       opps.style.display = 'none'
-      oppsBase.style.display = 'none'
+      leads.style.display = 'flex'
+      closed.style.display = 'none'
+      lost.style.display = 'none'
     }
   }
   else if (className == 'tab' + num + 'c'){
     tabB.style.borderLeft = '1px solid #aaaaaa'
     tabB.style.borderRight = 'none'
+    tabC.style.borderRight = '1px solid #aaaaaa'
     
     if (className == 'tab1c'){
       form.style.display = 'none'
@@ -199,9 +206,28 @@ function tabUpdate(className, num){
       resetGraph()
     }
     else if (className == 'tab2c'){
-      console.log('tab2c clicked')
       opps.style.display = 'none'
-      oppsBase.style.display = 'none'
+      leads.style.display = 'none'
+      closed.style.display = 'flex'
+      lost.style.display = 'none'
+    }
+  }
+  else if (className == 'tab' + num + 'd'){
+    tabB.style.borderLeft = '1px solid #aaaaaa'
+    tabB.style.borderRight = '1px solid #aaaaaa'
+    tabC.style.borderRight = 'none'
+    
+    if (className == 'tab1d'){
+      form.style.display = 'none'
+      dash.style.display = 'none'
+      queue.style.display = 'none'
+      resetGraph()
+    }
+    else if (className == 'tab2d'){
+      opps.style.display = 'none'
+      leads.style.display = 'none'
+      closed.style.display = 'none'
+      lost.style.display = 'flex'
     }
   }
 }

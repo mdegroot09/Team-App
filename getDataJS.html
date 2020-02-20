@@ -26,7 +26,7 @@ function load(){
 }
 
 function runGetData(){
-  var e = document.getElementById('updateOpps')
+  var e = document.getElementById('updateData')
   e.style.display = 'none'
 
   var user = document.user
@@ -61,6 +61,64 @@ function displayUserInfo(user){
 
 function showData(data){
 
+  var oppsData = data.filter(function(lead){
+    return (
+      ((lead.stage == 'UC' ||
+      lead.stage == 'Offering' ||
+      lead.stage == 'Touring' ||
+      lead.stage == 'Cancelled') &&
+      lead.status != 'Lost')
+    )
+  })
+  var leadsData = data.filter(function(lead){
+    return (
+      ((lead.stage == 'Searching' ||
+      lead.stage == 'New Lead' ||
+      lead.stage == 'Warm Lead' ||
+      lead.stage == 'Cold Lead') &&
+      lead.status != 'Lost')
+    )
+  })
+  var closedData = data.filter(function(lead){
+    return (
+      (lead.stage == 'Closed' &&
+      lead.status != 'Lost')
+    )
+  })
+  var lostData = data.filter(function(lead){
+    return lead.status == 'Lost'
+  })
+  
+  var oppsHTML = displayFilteredData(oppsData)
+  document.getElementById('oppsBuyers').innerHTML = oppsHTML.buyerNames
+  document.getElementById('oppsBuyerAgents').innerHTML = oppsHTML.buyerAgents
+  document.getElementById('oppsStages').innerHTML = oppsHTML.stages
+  document.getElementById('oppsListingAgents').innerHTML = oppsHTML.listingAgents
+  
+  var leadsHTML = displayFilteredData(leadsData)
+  document.getElementById('leadsBuyers').innerHTML = leadsHTML.buyerNames
+  document.getElementById('leadsBuyerAgents').innerHTML = leadsHTML.buyerAgents
+  document.getElementById('leadsStages').innerHTML = leadsHTML.stages
+  document.getElementById('leadsListingAgents').innerHTML = leadsHTML.listingAgents
+  
+  var closedHTML = displayFilteredData(closedData)
+  document.getElementById('closedBuyers').innerHTML = closedHTML.buyerNames
+  document.getElementById('closedBuyerAgents').innerHTML = closedHTML.buyerAgents
+  document.getElementById('closedStages').innerHTML = closedHTML.stages
+  document.getElementById('closedListingAgents').innerHTML = closedHTML.listingAgents
+  
+  var lostHTML = displayFilteredData(lostData)
+  document.getElementById('lostBuyers').innerHTML = lostHTML.buyerNames
+  document.getElementById('lostBuyerAgents').innerHTML = lostHTML.buyerAgents
+  document.getElementById('lostStages').innerHTML = lostHTML.stages
+  document.getElementById('lostListingAgents').innerHTML = lostHTML.listingAgents
+  
+  // hide loading view
+  document.getElementsByClassName('dataLoading')[0].style.display = 'none'
+}
+
+function displayFilteredData(filteredData){
+
   // display buyer names
   var buyerNamesHTML = ''
   var buyerAgentsHTML = ''
@@ -68,17 +126,17 @@ function showData(data){
   var listingAgentsHTML = ''
   
   // display data if there is any
-  if (data.length > 0){
-    for (var i = 0; i < data.length; i++){
+  if (filteredData.length > 0){
+    for (var i = 0; i < filteredData.length; i++){
       var background, stage, lost
       
       // show lost if applicable, otherwise show stage
-      if (data[i].status == 'Lost'){
-        stage = data[i].status
+      if (filteredData[i].status == 'Lost'){
+        stage = filteredData[i].status
         lost = ' lost'
       }
       else {
-        stage = data[i].stage
+        stage = filteredData[i].stage
         lost = ''
       }
       
@@ -93,10 +151,10 @@ function showData(data){
         background = 'rowThree'
       }
     
-      buyerNamesHTML += '<div class="rowEach ' + background + '" style="border-left: solid 1px #aaaaaa' + '"><span>' + data[i].buyerName + '</span></div>'
-      buyerAgentsHTML += '<div class="rowEach ' + background + '"><span>' + data[i].buyerAgent + '</span></div>'
+      buyerNamesHTML += '<div class="rowEach ' + background + '" style="border-left: solid 1px #aaaaaa' + '"><span>' + filteredData[i].buyerName + '</span></div>'
+      buyerAgentsHTML += '<div class="rowEach ' + background + '"><span>' + filteredData[i].buyerAgent + '</span></div>'
       stagesHTML += '<div class="rowEach ' + background + lost + '"><span>' + stage + '</span></div>'
-      listingAgentsHTML += '<div class="rowEach ' + background + '" style="border-right: solid 1px #aaaaaa' + '"><span>' + data[i].listingAgent + '</span></div>'
+      listingAgentsHTML += '<div class="rowEach ' + background + '" style="border-right: solid 1px #aaaaaa' + '"><span>' + filteredData[i].listingAgent + '</span></div>'
     }
   }
   
@@ -108,13 +166,17 @@ function showData(data){
     listingAgentsHTML += '<div class="rowEach rowOne bottom" style="border-right: solid 1px #aaaaaa;"></div>'
   }
   
-  document.getElementById('showBuyers').innerHTML = buyerNamesHTML
-  document.getElementById('showBuyerAgents').innerHTML = buyerAgentsHTML
-  document.getElementById('showStages').innerHTML = stagesHTML
-  document.getElementById('showListingAgents').innerHTML = listingAgentsHTML
+  return {
+    buyerNames: buyerNamesHTML,
+    buyerAgents: buyerAgentsHTML,
+    stages: stagesHTML,
+    listingAgents: listingAgentsHTML
+  }
   
-  // hide loading view
-  document.getElementsByClassName('oppsLoading')[0].style.display = 'none'
+//  document.getElementById(stage + 'Buyers').innerHTML = buyerNamesHTML
+//  document.getElementById(stage + 'BuyerAgents').innerHTML = buyerAgentsHTML
+//  document.getElementById(stage + 'Stages').innerHTML = stagesHTML
+//  document.getElementById(stage + 'ListingAgents').innerHTML = listingAgentsHTML
 }
 
 function updateListingAgents(listingAgents){
@@ -413,6 +475,8 @@ function addResetSelectBA(agentData){
 }
 
 function updateQueue(agentData){
+  console.log('fired')
+  console.log(agentData)
   buildQueueHTML(agentData, 'col1', 'name')
   buildQueueHTML(agentData, 'col2', 'city')
   buildQueueHTML(agentData, 'col3', 'distance')
@@ -452,7 +516,7 @@ function buildQueueHTML(agentData, colId, key){
     
     // make unavailable agents' names light red
     if (!agent.available){
-      rowClass = 'lost'
+      rowClass = 'lostBack'
     }
   
     html += '<div class="' + rowClass + '"><span style="margin: 0 10px; white-space: nowrap;">' + val + '</span></div>'

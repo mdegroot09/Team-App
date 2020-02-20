@@ -284,36 +284,119 @@
               <div class="tab1a tab1c tab2c" onclick="tabUpdate('tab2c', 2)">
                 <div>Closed</div>
               </div>
+              <div class="tab1a tab1c tab2d" onclick="tabUpdate('tab2d', 2)">
+                <div>Lost</div>
+              </div>
             </div>
           </div>
           <!-- End of Tabs -->
       
-          <!-- Show Data -->
+          <!-- Opps -->
           <div class="opps">
             <div class="column">
               <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
-              <div id="showBuyers"></div>
+              <div id="oppsBuyers"></div>
             </div>
             <div class="column">
               <div class="sheetHeader columnTitle rowEach">Buyer Agent</div>
-              <div id="showBuyerAgents"></div>
+              <div id="oppsBuyerAgents"></div>
             </div>
             <div class="column">
               <div class="sheetHeader columnTitle rowEach">Stage</div>
-              <div id="showStages"></div>
+              <div id="oppsStages"></div>
             </div>
             <div class="column">
               <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
                 <span>Listing Agent</span>
-                <div onclick="runGetData()" id="updateOpps" style="display: none">
+                <div onclick="runGetData()" id="updateData" style="display: none">
                   <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
                 </div>
               </div>
-              <div id="showListingAgents"></div>
+              <div id="oppsListingAgents"></div>
             </div>
           </div>
-          <div class="oppsLoading">loading...</div>
-          <div class="oppsBase"></div>
+          <!-- End of Opps -->
+          
+          <!-- Leads -->
+          <div class="opps leads">
+            <div class="column">
+              <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
+              <div id="leadsBuyers"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader columnTitle rowEach">Buyer Agent</div>
+              <div id="leadsBuyerAgents"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader columnTitle rowEach">Stage</div>
+              <div id="leadsStages"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
+                <span>Listing Agent</span>
+                <div onclick="runGetData()" id="updateData" style="display: none">
+                  <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
+                </div>
+              </div>
+              <div id="leadsListingAgents"></div>
+            </div>
+          </div>
+          <!-- End of Leads -->
+          
+          <!-- Closed -->
+          <div class="opps closed">
+            <div class="column">
+              <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
+              <div id="closedBuyers"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader columnTitle rowEach">Buyer Agent</div>
+              <div id="closedBuyerAgents"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader columnTitle rowEach">Stage</div>
+              <div id="closedStages"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
+                <span>Listing Agent</span>
+                <div onclick="runGetData()" id="updateData" style="display: none">
+                  <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
+                </div>
+              </div>
+              <div id="closedListingAgents"></div>
+            </div>
+          </div>
+          <!-- End of Closed -->
+          
+          <!-- Lost -->
+          <div class="opps lost">
+            <div class="column">
+              <div class="sheetHeader borderLeft columnTitle rowEach" style="border-top-left-radius: 5px">Buyer</div>
+              <div id="lostBuyers"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader columnTitle rowEach">Buyer Agent</div>
+              <div id="lostBuyerAgents"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader columnTitle rowEach">Stage</div>
+              <div id="lostStages"></div>
+            </div>
+            <div class="column">
+              <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
+                <span>Listing Agent</span>
+                <div onclick="runGetData()" id="updateData" style="display: none">
+                  <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
+                </div>
+              </div>
+              <div id="lostListingAgents"></div>
+            </div>
+          </div>
+          <!-- End of Leads -->
+          
+          <div class="dataLoading">loading...</div>
+          <div class="dataFooter"></div>
           <!-- End of Show Data -->
           
         </div> 

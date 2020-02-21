@@ -45,6 +45,7 @@ function runGetData(){
     e.style.display = 'block'
     blockSubmit(false) // disallow submit button
     setDataInterval()
+    filter(false)
   })
   // if error
   .withFailureHandler(function(err){
@@ -71,10 +72,12 @@ function disableFilters(bool){
 }
 
 function setDataInterval(){
+  if (document.dataInterval){
+    clearInterval(document.dataInterval)
+  }
   document.dataInterval = setInterval(function(){
-    console.log('runGetData()')
-    var date = new Date()
-    runGetData()
+    console.log('filter(isAgentChange)')
+    filter(true)
   }, 60000 * 5)
 }
 
@@ -204,24 +207,25 @@ function displayFilteredData(filteredData, isListingAgent){
       // if user is a listing agent, show a date created column
       if (isListingAgent){
         var date = new Date(Number(filteredData[i].dateCreated))
+        var dateStr = convertDate(date)
         var dateStr = ''
-        if (Number(date)){
-          var month = date.getMonth() + 1
-          var day = date.getDate()
-          var hh = date.getHours()
-          var amPm = 'a'
-          if (hh >= 12){
-          amPm = 'p'
-          if (hh > 12){
-          hh -= 12
-          }
-          }
-          var mins = date.getMinutes()
-          if (mins < 10){
-          mins = '0' + mins
-          }
-          dateStr = month + '/' + day + ' ' + hh + ':' + mins + amPm
-        }
+//        if (Number(date)){
+//          var month = date.getMonth() + 1
+//          var day = date.getDate()
+//          var hh = date.getHours()
+//          var amPm = 'a'
+//          if (hh >= 12){
+//          amPm = 'p'
+//          if (hh > 12){
+//          hh -= 12
+//          }
+//          }
+//          var mins = date.getMinutes()
+//          if (mins < 10){
+//          mins = '0' + mins
+//          }
+//          dateStr = month + '/' + day + ' ' + hh + ':' + mins + amPm
+//        }
         listingAgentsHTML += '<div class="rowEach rowHover ' + background + '" style="border-right: solid 1px #aaaaaa" onclick="' + onclick + '"><span>' + dateStr + '</span></div>'
       }
       
@@ -246,6 +250,28 @@ function displayFilteredData(filteredData, isListingAgent){
     stages: stagesHTML,
     listingAgents: listingAgentsHTML
   }
+}
+
+function convertDate(date){
+  var dateStr = ''
+  if (Number(date)){
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var hh = date.getHours()
+    var amPm = 'a'
+    if (hh >= 12){
+      amPm = 'p'
+      if (hh > 12){
+        hh -= 12
+      }
+    }
+    var mins = date.getMinutes()
+    if (mins < 10){
+      mins = '0' + mins
+    }
+    dateStr = month + '/' + day + ' ' + hh + ':' + mins + amPm
+  }
+  return dateStr
 }
 
 function getOnclick(lead){

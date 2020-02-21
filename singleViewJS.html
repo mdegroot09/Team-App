@@ -1,8 +1,19 @@
 <script>
 
+function showView(data){
+  console.log(data)
+  
+  var singleView = document.getElementsByClassName('singleView')[0]
+  var singleViewQuit = document.getElementsByClassName('singleViewQuit')[0]
+  singleView.style.display = 'flex'
+  singleViewQuit.style.display = 'block'
+}
+
 function quitView(){
-  var e = document.getElementsByClassName('singleView')[0]
-  e.style.display = 'none'
+  var singleView = document.getElementsByClassName('singleView')[0]
+  var singleViewQuit = document.getElementsByClassName('singleViewQuit')[0]
+  singleView.style.display = 'none'
+  singleViewQuit.style.display = 'none'
 }
 
 </script>

@@ -1,12 +1,12 @@
 <script>
 
 function showView(data){
-  console.log(data)
-  
   var singleView = document.getElementsByClassName('singleView')[0]
   var singleViewQuit = document.getElementsByClassName('singleViewQuit')[0]
   singleView.style.display = 'flex'
   singleViewQuit.style.display = 'block'
+  
+  document.getElementById('singleBuyerName').innerHTML = data.buyerName
 }
 
 function quitView(){

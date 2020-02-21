@@ -28,8 +28,8 @@ function load(){
 function runGetData(){
   var e = document.getElementById('updateData')
   e.style.display = 'none'
-
   var user = document.user
+  disableFilters(true)
 
   // Get data from spreadsheet 
   google.script.run
@@ -38,10 +38,10 @@ function runGetData(){
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
+    disableFilters(false)
     updateDash(res.data)
     updateFilterBA(res.data)
     runGetAllBAs()
-    console.log('Page is loaded')
     e.style.display = 'block'
     blockSubmit(false) // disallow submit button
     setDataInterval()
@@ -51,6 +51,23 @@ function runGetData(){
     console.error("error occured", err);
   })
   .getData(user) // run function in gs file to pull data
+}
+
+function disableFilters(bool){
+  var filterInput = document.getElementById('filterInput')
+  filterInput.disabled = bool
+  if (bool){
+    filterInput.style.background = '#ededed'
+  }
+  else {
+    filterInput.style.background = 'white'
+  }
+  
+  var ba = document.getElementById('ba')
+  ba.disabled = bool
+  
+  var la = document.getElementById('la')
+  la.disabled = bool
 }
 
 function setDataInterval(){
@@ -98,25 +115,39 @@ function showData(data){
     return lead.status == 'Lost'
   })
   
-  var oppsHTML = displayFilteredData(oppsData)
+  // if not a listing agent, change data display in col4
+  var isListingAgent
+  var userType = document.user.userType
+  if (userType == 'Listing Agent'){
+    isListingAgent = true
+  }
+  else {
+    isListingAgent = false
+    var els = document.getElementsByClassName('col4Header')
+    for (var i = 0; i < els.length; i++){
+      els[i].innerHTML = 'Listing Agent'
+    }
+  }
+  
+  var oppsHTML = displayFilteredData(oppsData, isListingAgent)
   document.getElementById('oppsBuyers').innerHTML = oppsHTML.buyerNames
   document.getElementById('oppsBuyerAgents').innerHTML = oppsHTML.buyerAgents
   document.getElementById('oppsStages').innerHTML = oppsHTML.stages
   document.getElementById('oppsListingAgents').innerHTML = oppsHTML.listingAgents
   
-  var leadsHTML = displayFilteredData(leadsData)
+  var leadsHTML = displayFilteredData(leadsData, isListingAgent)
   document.getElementById('leadsBuyers').innerHTML = leadsHTML.buyerNames
   document.getElementById('leadsBuyerAgents').innerHTML = leadsHTML.buyerAgents
   document.getElementById('leadsStages').innerHTML = leadsHTML.stages
   document.getElementById('leadsListingAgents').innerHTML = leadsHTML.listingAgents
   
-  var closedHTML = displayFilteredData(closedData)
+  var closedHTML = displayFilteredData(closedData, isListingAgent)
   document.getElementById('closedBuyers').innerHTML = closedHTML.buyerNames
   document.getElementById('closedBuyerAgents').innerHTML = closedHTML.buyerAgents
   document.getElementById('closedStages').innerHTML = closedHTML.stages
   document.getElementById('closedListingAgents').innerHTML = closedHTML.listingAgents
   
-  var lostHTML = displayFilteredData(lostData)
+  var lostHTML = displayFilteredData(lostData, isListingAgent)
   document.getElementById('lostBuyers').innerHTML = lostHTML.buyerNames
   document.getElementById('lostBuyerAgents').innerHTML = lostHTML.buyerAgents
   document.getElementById('lostStages').innerHTML = lostHTML.stages
@@ -126,14 +157,13 @@ function showData(data){
   document.getElementsByClassName('dataLoading')[0].style.display = 'none'
 }
 
-function displayFilteredData(filteredData){
+function displayFilteredData(filteredData, isListingAgent){
 
   // display buyer names
   var buyerNamesHTML = ''
   var buyerAgentsHTML = ''
   var stagesHTML = ''
   var listingAgentsHTML = ''
-  
   
   // display data if there is any
   if (filteredData.length > 0){
@@ -168,7 +198,32 @@ function displayFilteredData(filteredData){
       buyerNamesHTML += '<div class="rowEach ' + background + '" style="border-left: solid 1px #aaaaaa' + '"><span>' + filteredData[i].buyerName + '</span></div>'
       buyerAgentsHTML += '<div class="rowEach ' + background + '"><span>' + filteredData[i].buyerAgent + '</span></div>'
       stagesHTML += '<div class="rowEach ' + background + classBack + '"><span>' + stage + '</span></div>'
-      listingAgentsHTML += '<div class="rowEach ' + background + '" style="border-right: solid 1px #aaaaaa' + '"><span>' + filteredData[i].listingAgent + '</span></div>'
+      
+      if (!isListingAgent){
+        listingAgentsHTML += '<div class="rowEach ' + background + '" style="border-right: solid 1px #aaaaaa' + '"><span>' + filteredData[i].listingAgent + '</span></div>'
+      }
+      else {
+        var date = new Date(Number(filteredData[i].dateCreated))
+        var dateStr = ''
+        if (Number(date)){
+          var month = date.getMonth() + 1
+          var day = date.getDate()
+          var hh = date.getHours()
+          var amPm = 'a'
+          if (hh >= 12){
+          amPm = 'p'
+          if (hh > 12){
+          hh -= 12
+          }
+          }
+          var mins = date.getMinutes()
+          if (mins < 10){
+          mins = '0' + mins
+          }
+          dateStr = month + '/' + day + ' ' + hh + ':' + mins + amPm
+        }
+        listingAgentsHTML += '<div class="rowEach ' + background + '" style="border-right: solid 1px #aaaaaa' + '"><span>' + dateStr + '</span></div>'
+      }
     }
   }
   

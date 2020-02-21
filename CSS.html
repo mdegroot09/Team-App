@@ -950,6 +950,25 @@
     background-color: #ffe8e8;
   }
   
+  .singleView {
+    height: calc(100vh - 40px);
+    width: calc(100vw - 40px);
+    background: rgba(255, 255, 255, .97);
+    position: fixed;
+    top: 20px;
+    border-radius: 8px;
+    display: none;
+  }
+  
+  .quitView {
+    font-size: 40px;
+    font-weight: 400;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    cursor: pointer;
+  }
+  
   @keyframes rotation {
     from {
       transform: rotate(0deg);

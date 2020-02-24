@@ -49,6 +49,7 @@ function setInnerHTML(id, val, title, isDate = false){
     // e.innerHTML = ''
   }
   
+  // if value is a date, format view
   if (isDate){
     var date = new Date(Number(val))
     var dateStr = convertDate(date)

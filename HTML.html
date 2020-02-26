@@ -141,6 +141,9 @@
             
             <!-- Dashboard -->
             <div class="dash">
+              <div onclick="runGetData()" id="updateData">
+                <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
+              </div>
               <div class="dashLeft">
                 <div class="dashLeftTop">
                   <div class="dashMini">
@@ -294,10 +297,10 @@
               <div class="tab1a tab1b tab2b" onclick="tabUpdate('tab2b', 2)">
                 <div>Leads</div>
               </div>
-              <div class="tab1a tab1c tab2c" onclick="tabUpdate('tab2c', 2)">
+              <div class="tab1a tab1c tab2c" style="display: flex" onclick="tabUpdate('tab2c', 2)">
                 <div>Closed</div>
               </div>
-              <div class="tab1a tab1c tab2d" onclick="tabUpdate('tab2d', 2)">
+              <div class="tab1a tab1c tab2d" style="display: flex" onclick="tabUpdate('tab2d', 2)">
                 <div>Lost</div>
               </div>
             </div>
@@ -321,9 +324,6 @@
             <div class="column">
               <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
                 <span class="col4Header">Date Sent</span>
-                <div onclick="runGetData()" id="updateData" style="display: none">
-                  <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
-                </div>
               </div>
               <div id="oppsListingAgents"></div>
             </div>
@@ -347,9 +347,6 @@
             <div class="column">
               <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
                 <span class="col4Header">Date Sent</span>
-                <div onclick="runGetData()" id="updateData" style="display: none">
-                  <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
-                </div>
               </div>
               <div id="leadsListingAgents"></div>
             </div>
@@ -373,9 +370,6 @@
             <div class="column">
               <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
                 <span class="col4Header">Date Sent</span>
-                <div onclick="runGetData()" id="updateData" style="display: none">
-                  <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
-                </div>
               </div>
               <div id="closedListingAgents"></div>
             </div>
@@ -399,9 +393,6 @@
             <div class="column">
               <div class="sheetHeader borderRight columnTitle rowEach" style="border-top-right-radius: 5px; display: flex; justify-content: space-between;">
                 <div class="col4Header">Date Sent</div>
-                <div onclick="runGetData()" id="updateData" style="display: none">
-                  <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
-                </div>
               </div>
               <div id="lostListingAgents"></div>
             </div>

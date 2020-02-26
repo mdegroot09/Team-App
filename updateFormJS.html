@@ -126,7 +126,6 @@ function clearValues(){
   
   // reset dropdown values and styling
   var eDropdowns = [
-    document.getElementById('dropdownLA'),
     document.getElementById('type'),
     document.getElementById('baSelect'),
     document.getElementsByClassName('sourceClass')[0]
@@ -141,6 +140,12 @@ function clearValues(){
     e.value = 0
     makeGray(e)
   })  
+  
+  if (document.user.userType != 'Listing Agent'){
+    var e = document.getElementById('dropdownLA')
+    e.value = 0
+    makeGray(e)
+  }
   
   document.getElementById('radius').value = 20
   document.getElementById('checkbox').checked = true

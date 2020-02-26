@@ -76,7 +76,6 @@ function setDataInterval(){
     clearInterval(document.dataInterval)
   }
   document.dataInterval = setInterval(function(){
-    console.log('filter(isAgentChange)')
     filter(true)
   }, 60000 * 5)
 }

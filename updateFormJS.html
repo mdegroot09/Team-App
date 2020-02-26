@@ -380,10 +380,15 @@ function blockSubmit(block){
 
 function autoSelectBA(filteredAgents){
   var buyerAgentsAll = document.buyerAgents
-  var html = '<option selected value="0">choose...</option>'
+  var selected = ''
+  
+  if (filteredAgents.length == 0){
+    selected = ' selected'
+  }
+  var html = '<option ' + selected + ' value="0">choose...</option>'
   
   filteredAgents.forEach(function(agent, i){
-    var selected = ''
+    selected = ''
     if (i == 0){
       selected = ' selected'
     }

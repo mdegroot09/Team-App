@@ -1,6 +1,9 @@
 <script>
 
 function showView(data){
+  // clear previous values
+  clearSingleView()
+  
   var singleView = document.getElementsByClassName('singleView')[0]
   var singleViewQuit = document.getElementsByClassName('singleViewQuit')[0]
   singleView.style.display = 'flex'
@@ -8,7 +11,6 @@ function showView(data){
   
   document.getElementById('singleBuyerName').innerHTML = data.buyerName
   
-  setInnerHTML('singlePhone', data.phone, 'Phone: ')
   if (data.email != 'undefined' && data.email != 'null'){
     setInnerHTML('singleEmail', '<a href="mailto:' + data.email + '">' + data.email + '</a>', 'Email: ')
   }
@@ -18,6 +20,7 @@ function showView(data){
   if (data.toolsLink != 'undefined' && data.toolsLink != 'null'){
     setInnerHTML('singleToolsLink', '<a href="' + data.toolsLink + '">' + data.toolsLink + '</a>', 'Tools: ')
   }
+  setInnerHTML('singlePhone', data.phone, 'Phone: ')
   setInnerHTML('singleListingAgent', data.listingAgent, 'Referrer: ')
   setInnerHTML('singleStage', data.stage, 'Stage: ')
   // setInnerHTML('singleCommission', data.commission, 'Commission: ')
@@ -69,6 +72,38 @@ function quitView(){
   var singleViewQuit = document.getElementsByClassName('singleViewQuit')[0]
   singleView.style.display = 'none'
   singleViewQuit.style.display = 'none'
+}
+
+function clearSingleView(){
+  document.getElementById('singleBuyerName').innerHTML = ''
+  document.getElementById('singlePhone').innerHTML = ''
+  document.getElementById('singleEmail').innerHTML = ''
+  document.getElementById('singleDynamicsLink').innerHTML = ''
+  document.getElementById('singleToolsLink').innerHTML = ''
+  document.getElementById('singleListingAgent').innerHTML = ''
+  document.getElementById('singleStage').innerHTML = ''
+  // setInnerHTML('singleCommission', data.commission, 'Commission: ')
+  document.getElementById('singleSource').innerHTML = ''
+  document.getElementById('singleExpectedClose').innerHTML = ''
+  document.getElementById('singleBuyerAgent').innerHTML = ''
+  document.getElementById('singleStatus').innerHTML = ''
+  document.getElementById('singleLossReason').innerHTML = ''
+  document.getElementById('singleListingAgentManager').innerHTML = ''
+  document.getElementById('singleTags').innerHTML = ''
+  document.getElementById('singleMonth').innerHTML = ''
+  document.getElementById('singleYear').innerHTML = ''
+  // setInnerHTML('singleMonthYear', data.monthYear)
+  document.getElementById('singleAddress').innerHTML = ''
+  document.getElementById('singleListedPrice').innerHTML = ''
+  document.getElementById('singleUnderContractDate').innerHTML = ''
+  document.getElementById('singleDueDiligenceDate').innerHTML = ''
+  document.getElementById('singleFinancingDate').innerHTML = ''
+  document.getElementById('singleSettlementDate').innerHTML = ''
+  document.getElementById('singleClosedDate').innerHTML = ''
+  document.getElementById('singleDateCreated').innerHTML = ''
+  document.getElementById('singleNotes').innerHTML = ''
+  document.getElementById('singleLastUpdated').innerHTML = ''
+  document.getElementById('singleCommissionDate').innerHTML = ''
 }
 
 </script>

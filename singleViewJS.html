@@ -9,7 +9,9 @@ function showView(data){
   document.getElementById('singleBuyerName').innerHTML = data.buyerName
   
   setInnerHTML('singlePhone', data.phone, 'Phone: ')
-  setInnerHTML('singleEmail', data.email, 'Email: ')
+  if (data.email != 'undefined' && data.email != 'null'){
+    setInnerHTML('singleEmail', '<a href="mailto:' + data.email + '">' + data.email + '</a>', 'Email: ')
+  }
   if (data.dynamicsLink != 'undefined' && data.dynamicsLink != 'null'){
     setInnerHTML('singleDynamicsLink', '<a href="' + data.dynamicsLink + '">' + data.dynamicsLink + '</a>', 'Dynamics: ')
   }

@@ -10,13 +10,17 @@ function showView(data){
   
   setInnerHTML('singlePhone', data.phone, 'Phone: ')
   setInnerHTML('singleEmail', data.email, 'Email: ')
-  setInnerHTML('singleDynamicsLink', data.dynamicsLink, 'Dynamics: ')
-  setInnerHTML('singleToolsLink', data.toolsLink, 'Tools: ')
-  setInnerHTML('singleListingAgent', data.listingAgent, 'Listing Agent: ')
+  if (data.dynamicsLink != 'undefined' && data.dynamicsLink != 'null'){
+    setInnerHTML('singleDynamicsLink', '<a href="' + data.dynamicsLink + '">' + data.dynamicsLink + '</a>', 'Dynamics: ')
+  }
+  if (data.toolsLink != 'undefined' && data.toolsLink != 'null'){
+    setInnerHTML('singleToolsLink', '<a href="' + data.toolsLink + '">' + data.toolsLink + '</a>', 'Tools: ')
+  }
+  setInnerHTML('singleListingAgent', data.listingAgent, 'Referrer: ')
   setInnerHTML('singleStage', data.stage, 'Stage: ')
-  setInnerHTML('singleCommission', data.commission, 'Commission: ')
+  // setInnerHTML('singleCommission', data.commission, 'Commission: ')
   setInnerHTML('singleSource', data.source, 'Source: ')
-  setInnerHTML('singleExpectedClose', data.expectedClose, 'Expected Close: ')
+  setInnerHTML('singleExpectedClose', data.expectedClose, 'Expected Close: ', true)
   setInnerHTML('singleBuyerAgent', data.buyerAgent, 'Buyer Agent: ')
   setInnerHTML('singleStatus', data.status, 'Status: ')
   setInnerHTML('singleLossReason', data.lossReason, 'Loss Reason: ')

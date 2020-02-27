@@ -344,7 +344,7 @@ function getNextBA(zip){
     return (
       setTimeout(function(){
         getNextBA(zip)
-      }, 100)
+      }, 10)
     )
   }
 
@@ -387,10 +387,19 @@ function autoSelectBA(filteredAgents){
   var buyerAgentsAll = document.buyerAgents
   var selected = ''
   
+  // select value 0 if no agents returned
   if (filteredAgents.length == 0){
     selected = ' selected'
   }
   var html = '<option ' + selected + ' value="0">choose...</option>'
+  
+  // show who the next agent up is, if any
+  if (filteredAgents.length > 0){
+    console.log('next agent up: ' + filteredAgents[0].name)
+  }
+  else {
+    console.log('no agents in range')
+  }
   
   filteredAgents.forEach(function(agent, i){
     selected = ''

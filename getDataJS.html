@@ -412,24 +412,12 @@ function updateDash(data){
   var sellerCount = data.filter(function(buyer){
     return buyer.source == 'L.A. Seller>Buyer'
   }).length
-  if (submitCount){
-    var sellerPct = (sellerCount / submitCount) * 100
-    var pctPart1 = String(sellerPct).split('.')[0]
-    var pctPart2 = String(sellerPct).split('.')[1]
-    if (!pctPart2){
-      pctPart2 = '0' 
-    }
-    sellerPct = Number(pctPart1 + '.' + String(pctPart2).split('')[0])
-  }
-  else {
-    sellerPct = 0
-  }
   
   var closedSum = closedCount * 600
   
   document.getElementById('submitCount').innerText = submitCount
   document.getElementById('closedCount').innerText = closedCount
-  document.getElementById('sellerPct').innerText = sellerPct + '%'
+  document.getElementById('sellerCount').innerText = sellerCount
   document.getElementById('closedSum').innerText = '$' + closedSum
   
   setupGraph(data)

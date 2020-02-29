@@ -20,6 +20,17 @@ function showView(data){
   if (data.toolsLink != 'undefined' && data.toolsLink != 'null'){
     setInnerHTML('singleToolsLink', '<a href="' + data.toolsLink + '">' + data.toolsLink + '</a>', 'Tools: ')
   }
+  if (data.stage == 'UC' || data.stage == 'Closed'){
+    setInnerHTML('singleUnderContractDate', data.underContractDate, 'UC Date: ', true)
+    setInnerHTML('singleDueDiligenceDate', data.dueDiligenceDate, 'Due Diligence Deadline: ', true)
+    setInnerHTML('singleFinancingDate', data.financingDate, 'F&A Deadline: ', true)
+    setInnerHTML('singleSettlementDate', data.settlementDate, 'Settlement Deadline: ', true)
+    
+    if (data.stage == 'UC'){
+      setInnerHTML('singleClosedDate', data.closedDate, 'Closed Date: ', true)
+    }
+  }
+  
   setInnerHTML('singlePhone', data.phone, 'Phone: ')
   setInnerHTML('singleListingAgent', data.listingAgent, 'Referrer: ')
   setInnerHTML('singleStage', data.stage, 'Stage: ')
@@ -36,11 +47,6 @@ function showView(data){
   // setInnerHTML('singleMonthYear', data.monthYear)
   setInnerHTML('singleAddress', data.address, 'Address: ')
   setInnerHTML('singleListedPrice', data.listedPrice, 'Listed Price: ')
-  setInnerHTML('singleUnderContractDate', data.underContractDate, 'UC Date: ', true)
-  setInnerHTML('singleDueDiligenceDate', data.dueDiligenceDate, 'Due Diligence Deadline: ', true)
-  setInnerHTML('singleFinancingDate', data.financingDate, 'F&A Deadline: ', true)
-  setInnerHTML('singleSettlementDate', data.settlementDate, 'Settlement Deadline: ', true)
-  setInnerHTML('singleClosedDate', data.closedDate, 'Closed Date: ', true)
   setInnerHTML('singleDateCreated', data.dateCreated, 'Date Created: ', true)
   setInnerHTML('singleNotes', data.notes, 'Notes: ')
   setInnerHTML('singleLastUpdated', data.lastUpdated, 'Last Updated: ', true)

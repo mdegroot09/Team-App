@@ -380,7 +380,7 @@ function showLoading(show, text){
     document.reloadPrompt = this.setTimeout(
       function(){
         document.getElementById('reloadPromptDiv').style.display = 'block'
-      }, 3000
+      }, 15000
     )
     displayBack = 'flex'
   }
@@ -681,7 +681,6 @@ function convertTime(timestamp){
 }
 
 function reloadPage(){
-  // 
   window.stop()
   window.open('https://script.google.com/a/homie.com/macros/s/AKfycbw2oSiUqkYbD5Tr0IOiZZqCgACRXjJu6t6mtLZAjus/dev','_top')
 }

@@ -369,13 +369,26 @@ function updateListingAgents(listingAgents){
 }
 
 function showLoading(show, text){
+  // clear existing reloadPrompt
+  if (document.reloadPrompt){
+    clearTimeout(document.reloadPrompt)
+  }
+
+  // prompt for reload if lagging for too long
   var displayBack
   if (show){
+    document.reloadPrompt = this.setTimeout(
+      function(){
+        document.getElementById('reloadPromptDiv').style.display = 'block'
+      }, 3000
+    )
     displayBack = 'flex'
   }
   else {
+    document.getElementById('reloadPromptDiv').style.display = 'none'
     displayBack = 'none'
   }
+  
   document.getElementById('loadBack').style.display = displayBack
   document.getElementById('loadingText').innerText = text
 }
@@ -665,6 +678,12 @@ function convertTime(timestamp){
   }
   
   return (mm + '/' + dd + ' ' + hour + ':' + mins + amPm)
+}
+
+function reloadPage(){
+  // 
+  window.stop()
+  window.open('https://script.google.com/a/homie.com/macros/s/AKfycbw2oSiUqkYbD5Tr0IOiZZqCgACRXjJu6t6mtLZAjus/dev','_top')
 }
 
 </script>

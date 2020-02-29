@@ -19,6 +19,11 @@
       
       <div id="message"></div>
       <div id="loadBack">
+        <div id="reloadPromptDiv">
+          <span>Something's wrong. 
+            <span id="reloadPrompt" onClick="reloadPage()">Reload page</span>
+          </span>
+        </div>
         <img id="loading" src="https://www.jing.fm/clipimg/full/95-956857_pill-transparent-background-loading-spinner-icon-png.png" alt="loading icon">
         <p id="loadingText"></p>
       </div>
@@ -40,13 +45,13 @@
         <!-- Tabs -->
         <div class="tabs">
           <div class="tabsLeft">
-            <div class="tab1a" id="activeTab1" onclick="tabUpdate('tab1a', 1)">
+            <div class="tab1a" id="activeTab1" onClick="tabUpdate('tab1a', 1)">
               <div>New Referral</div>
             </div>
-            <div class="tab1a tab1b" onclick="tabUpdate('tab1b', 1)">
+            <div class="tab1a tab1b" onClick="tabUpdate('tab1b', 1)">
               <div>Dashboard</div>
             </div>
-            <div class="tab1a tab1c" onclick="tabUpdate('tab1c', 1)">
+            <div class="tab1a tab1c" onClick="tabUpdate('tab1c', 1)">
               <div>Queue</div>
             </div>
           </div>
@@ -104,8 +109,8 @@
                   </select>
                 </div>
                 <div class="submitDiv">
-                  <button class="submitReferral" onclick="submit()" type="button">Submit</button>
-                  <button class="clearForm" onclick="clearValues()" type="button">Clear</button>
+                  <button class="submitReferral" onClick="submit()" type="button">Submit</button>
+                  <button class="clearForm" onClick="clearValues()" type="button">Clear</button>
                 </div>
               </div>
               <div class="referralRight">
@@ -141,7 +146,7 @@
             
             <!-- Dashboard -->
             <div class="dash">
-              <div onclick="runGetData()" id="updateData">
+              <div onClick="runGetData()" id="updateData">
                 <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
               </div>
               <div class="dashLeft">
@@ -217,7 +222,7 @@
             
             <!-- Queue -->
             <div class="queue">
-              <div onclick="manualUpdateQueue()" id="updateQueue" style="display: none; position: absolute; position: absolute; top: 2.5px; right: 5px;">
+              <div onClick="manualUpdateQueue()" id="updateQueue" style="display: none; position: absolute; position: absolute; top: 2.5px; right: 5px;">
                 <img src="https://www.stickpng.com/assets/images/585e4831cb11b227491c338e.png" alt="refresh" style="height: 25px; cursor: pointer;"/>
               </div>
               <div class="queueData">
@@ -291,16 +296,16 @@
           <!-- Tabs #2 -->
           <div class="tabs tabs2">
             <div class="tabsLeft">
-              <div class="tab1a tab2a" id="activeTab2" onclick="tabUpdate('tab2a', 2)">
+              <div class="tab1a tab2a" id="activeTab2" onClick="tabUpdate('tab2a', 2)">
                 <div>Opportunities</div>
               </div>
-              <div class="tab1a tab1b tab2b" onclick="tabUpdate('tab2b', 2)">
+              <div class="tab1a tab1b tab2b" onClick="tabUpdate('tab2b', 2)">
                 <div>Leads</div>
               </div>
-              <div class="tab1a tab1c tab2c" style="display: flex" onclick="tabUpdate('tab2c', 2)">
+              <div class="tab1a tab1c tab2c" style="display: flex" onClick="tabUpdate('tab2c', 2)">
                 <div>Closed</div>
               </div>
-              <div class="tab1a tab1c tab2d" style="display: flex" onclick="tabUpdate('tab2d', 2)">
+              <div class="tab1a tab1c tab2d" style="display: flex" onClick="tabUpdate('tab2d', 2)">
                 <div>Lost</div>
               </div>
             </div>
@@ -410,9 +415,9 @@
       <!-- End of dashData -->
       
       <!-- singleView -->
-      <div class="singleViewQuit" onclick="quitView()"></div>
+      <div class="singleViewQuit" onClick="quitView()"></div>
       <div class="singleView">
-        <div class="singleViewX" onclick="quitView()">X</div>
+        <div class="singleViewX" onClick="quitView()">X</div>
         <div className="singleHeader">
           <h1 id="singleBuyerName"></h1>
           <span style="display: none; text-align: center" id="singlePhone"></span>

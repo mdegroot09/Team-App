@@ -630,7 +630,12 @@ function buildQueueHTML(agentData, colId, key){
     
     // convert val depending on key and value
     if (key == 'lastReceived'){
-      val = convertTime(agent[key])
+      if (agent[key]){
+        val = convertTime(agent[key])
+      }
+      else {
+        val = ''
+      }
     }
     else if (key == 'distance' && agent.distance){
       val = Math.round(agent[key] * 10) / 10

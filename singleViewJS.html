@@ -122,7 +122,9 @@ function showSingleViewInputs(){
 
 function showSingleViewData(){
   // show data
-  document.getElementsByClassName('singleViewEdit')[0].style.display = 'block'
+  if (document.user.userType == 'Admin' && document.user.userType == 'Buyer Agent'){
+    document.getElementsByClassName('singleViewEdit')[0].style.display = 'block'
+  }
   document.getElementsByClassName('singleViewHeader')[0].style.display = 'block'
   document.getElementById('singleViewData').style.display = 'block'
   

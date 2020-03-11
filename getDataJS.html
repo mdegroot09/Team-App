@@ -365,6 +365,10 @@ function updateListingAgents(listingAgents){
     document.getElementById('notesReferral').style.height = '104px'
     document.getElementsByClassName('radiusAgent')[0].style.display = 'flex'
     document.getElementsByClassName('tab1c')[0].style.display = 'flex'
+    document.getElementsByClassName('singleViewEdit')[0].style.display = 'block'
+  }
+  else if (user.userType == 'Buyer Agent'){
+    document.getElementsByClassName('singleViewEdit')[0].style.display = 'block'
   }
 }
 

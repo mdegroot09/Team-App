@@ -54,6 +54,8 @@ function showView(data){
   setInnerHTML('singleNotes', data.notes, 'Notes: ')
   setInnerHTML('singleLastUpdated', data.lastUpdated, 'Last Updated: ', true)
   setInnerHTML('singleCommissionDate', data.commissionDate, 'Commission Date: ', true)
+  
+  updateSingleViewInputs(data)
 }
 
 function setInnerHTML(id, val, title, isDate = false){
@@ -133,6 +135,47 @@ function showSingleViewData(){
   // hide inputs
   document.getElementsByClassName('singleViewHeader')[1].style.display = 'none'
   document.getElementById('singleViewInputs').style.display = 'none'
+}
+
+function updateSingleViewInputs(data){
+  document.getElementById("singleBuyerNameInput").value = checkTruthy(data.buyerName)
+  document.getElementById("singlePhoneInput").value = checkTruthy(data.phone)
+  document.getElementById("singleEmailInput").value = checkTruthy(data.email)
+  document.getElementById("singleDynamicsLinkInput").value = checkTruthy(data.dynamicsLink)
+  document.getElementById("singleToolsLinkInput").value = checkTruthy(data.toolsLink)
+  document.getElementById("singleListingAgentInput").value = checkTruthy(data.listingAgent)
+  document.getElementById("singleStageInput").value = checkTruthy(data.stage)
+  document.getElementById("singleCommissionInput").value 
+  document.getElementById("singleSourceInput").value 
+  document.getElementById("singleExpectedCloseInput").value 
+  document.getElementById("singleBuyerAgentInput").value 
+  document.getElementById("singleStatusInput").value 
+  document.getElementById("singleLossReasonInput").value 
+  document.getElementById("singleListingAgentManagerInput").value 
+  document.getElementById("singleTagsInput").value 
+  document.getElementById("singleMonthInput").value 
+  document.getElementById("singleYearInput").value 
+  document.getElementById("singleMonthYearInput").value 
+  document.getElementById("singleAddressInput").value 
+  document.getElementById("singleListedPriceInput").value 
+  document.getElementById("singleUnderContractDateInput").value 
+  document.getElementById("singleDueDiligenceDateInput").value 
+  document.getElementById("singleFinancingDateInput").value 
+  document.getElementById("singleSettlementDateInput").value 
+  document.getElementById("singleClosedDateInput").value 
+  document.getElementById("singleDateCreatedInput").value 
+  document.getElementById("singleNotesInput").value 
+  document.getElementById("singleLastUpdatedInput").value 
+  document.getElementById("singleCommissionDateInput").value 
+}
+
+function checkTruthy(val){
+  if (val && val != 'undefined' && val != 'null'){
+    return val
+  }
+  else {
+    return ''
+  }
 }
 
 </script>

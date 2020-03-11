@@ -417,16 +417,18 @@
       <!-- singleView -->
       <div class="singleViewQuit" onClick="quitView()"></div>
       <div class="singleView">
-        <div class="singleViewEdit" onClick="console.log('clicked')">
+        <div class="singleViewEdit" onClick="showSingleViewInputs()">
           <img class="singleViewEditImg" src="https://cdn.onlinewebfonts.com/svg/img_147067.png" alt="edit icon"/>
         </div>
         <div class="singleViewX" onClick="quitView()">X</div>
-        <div className="singleHeader">
+        <div class="singleViewHeader">
           <h1 id="singleBuyerName"></h1>
           <span style="display: none; text-align: center" id="singlePhone"></span>
           <span style="display: none; text-align: center" id="singleEmail"></span>
         </div>
-        <div style="width: calc(100% - 40px); overflow: hidden; white-space: nowrap; margin: 10px 20px">
+        
+        <!-- Buyer Data -->
+        <div id="singleViewData">
           <span style="display: none" id="singleDynamicsLink"></span>
           <span style="display: none" id="singleToolsLink"></span>
           <span style="display: none" id="singleListingAgent"></span>
@@ -454,6 +456,45 @@
           <span style="display: none" id="singleLastUpdated"></span>
           <span style="display: none" id="singleCommissionDate"></span>
         </div>
+        <!-- End of Buyer Data -->
+        
+        <!-- Update Buyer Info -->
+        <div class="singleViewHeader" style="margin-top: 20px; display: none">
+          <h1>Update Buyer Info</h1>
+        </div>
+        <div id="singleViewInputs">
+          <div class="singleViewInputDiv">Name: <input class="singleViewInput" id="singleBuyerNameInput"></div>
+          <div class="singleViewInputDiv">Phone: <input class="singleViewInput" id="singlePhoneInput"></div>
+          <div class="singleViewInputDiv">Email: <input class="singleViewInput" id="singleEmailInput"></div>
+          <div class="singleViewInputDiv">Dynamics Link: <input class="singleViewInput" id="singleDynamicsLinkInput"></div>
+          <div class="singleViewInputDiv">Tools Link: <input class="singleViewInput" id="singleToolsLinkInput"></div>
+          <div class="singleViewInputDiv">Referrer: <input class="singleViewInput" id="singleListingAgentInput"></div>
+          <div class="singleViewInputDiv">Stage: <input class="singleViewInput" id="singleStageInput"></div>
+          <div class="singleViewInputDiv">Commission: <input class="singleViewInput" id="singleCommissionInput"></div>
+          <div class="singleViewInputDiv">Source: <input class="singleViewInput" id="singleSourceInput"></div>
+          <div class="singleViewInputDiv">Expected Close: <input class="singleViewInput" id="singleExpectedCloseInput"></div>
+          <div class="singleViewInputDiv">Buyer Agent: <input class="singleViewInput" id="singleBuyerAgentInput"></div>
+          <div class="singleViewInputDiv">Status: <input class="singleViewInput" id="singleStatusInput"></div>
+          <div class="singleViewInputDiv">Loss Reason: <input class="singleViewInput" id="singleLossReasonInput"></div>
+          <div class="singleViewInputDiv">Referrer Manager: <input class="singleViewInput" id="singleListingAgentManagerInput"></div>
+          <div class="singleViewInputDiv">Tags: <input class="singleViewInput" id="singleTagsInput"></div>
+          <div class="singleViewInputDiv">Month: <input class="singleViewInput" id="singleMonthInput"></div>
+          <div class="singleViewInputDiv">Year: <input class="singleViewInput" id="singleYearInput"></div>
+          <div class="singleViewInputDiv">Month/Year: <input class="singleViewInput" id="singleMonthYearInput"></div>
+          <div class="singleViewInputDiv">Address: <input class="singleViewInput" id="singleAddressInput"></div>
+          <div class="singleViewInputDiv">Listing Price: <input class="singleViewInput" id="singleListedPriceInput"></div>
+          <div class="singleViewInputDiv">UC Date: <input class="singleViewInput" id="singleUnderContractDateInput"></div>
+          <div class="singleViewInputDiv">Due Diligence Deadline: <input class="singleViewInput" id="singleDueDiligenceDateInput"></div>
+          <div class="singleViewInputDiv">F&A Deadline: <input class="singleViewInput" id="singleFinancingDateInput"></div>
+          <div class="singleViewInputDiv">Settlement Deadline: <input class="singleViewInput" id="singleSettlementDateInput"></div>
+          <div class="singleViewInputDiv">Closed Date: <input class="singleViewInput" id="singleClosedDateInput"></div>
+          <div class="singleViewInputDiv">Date Created: <input class="singleViewInput" id="singleDateCreatedInput"></div>
+          <div class="singleViewInputDiv">Notes: <input class="singleViewInput" id="singleNotesInput"></div>
+          <div class="singleViewInputDiv">Last Updated: <input class="singleViewInput" id="singleLastUpdatedInput"></div>
+          <div class="singleViewInputDiv">Commission Paid Date: <input class="singleViewInput" id="singleCommissionDateInput"></div>
+        </div>
+        <!-- End of Update Buyer Info -->
+        
       </div>
       <!-- End of singleView -->
       

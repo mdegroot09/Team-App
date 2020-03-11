@@ -4,6 +4,9 @@ function showView(data){
   // clear previous values
   clearSingleView()
   
+  // hide inputs if previously shown
+  showSingleViewData()
+  
   var singleView = document.getElementsByClassName('singleView')[0]
   var singleViewQuit = document.getElementsByClassName('singleViewQuit')[0]
   singleView.style.display = 'flex'
@@ -74,10 +77,8 @@ function setInnerHTML(id, val, title, isDate = false){
 }
 
 function quitView(){
-  var singleView = document.getElementsByClassName('singleView')[0]
-  var singleViewQuit = document.getElementsByClassName('singleViewQuit')[0]
-  singleView.style.display = 'none'
-  singleViewQuit.style.display = 'none'
+  document.getElementsByClassName('singleView')[0].style.display = 'none'
+  document.getElementsByClassName('singleViewQuit')[0].style.display = 'none'
 }
 
 function clearSingleView(){
@@ -110,6 +111,28 @@ function clearSingleView(){
   document.getElementById('singleNotes').innerHTML = ''
   document.getElementById('singleLastUpdated').innerHTML = ''
   document.getElementById('singleCommissionDate').innerHTML = ''
+}
+
+function showSingleViewInputs(){
+  // hide data 
+  document.getElementsByClassName('singleViewEdit')[0].style.display = 'none'
+  document.getElementsByClassName('singleViewHeader')[0].style.display = 'none'
+  document.getElementById('singleViewData').style.display = 'none'
+  
+  // show inputs
+  document.getElementsByClassName('singleViewHeader')[1].style.display = 'flex'
+  document.getElementById('singleViewInputs').style.display = 'flex'
+}
+
+function showSingleViewData(){
+  // show data
+  document.getElementsByClassName('singleViewEdit')[0].style.display = 'block'
+  document.getElementsByClassName('singleViewHeader')[0].style.display = 'block'
+  document.getElementById('singleViewData').style.display = 'block'
+  
+  // hide inputs
+  document.getElementsByClassName('singleViewHeader')[1].style.display = 'none'
+  document.getElementById('singleViewInputs').style.display = 'none'
 }
 
 </script>

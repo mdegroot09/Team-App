@@ -28,7 +28,14 @@ function load(){
 function runGetData(){
   var e = document.getElementById('updateData')
   e.style.display = 'none'
-  var user = document.user
+  var userName = document.getElementById('userName').innerText
+  var userEmail = document.getElementById('userEmail').innerText
+  var userType = document.getElementById('userType').innerText
+  var user = {
+    userName: userName,
+    userEmail: userEmail,
+    userType: userType
+  }
   disableFilters(true)
 
   // Get data from spreadsheet 
@@ -82,7 +89,8 @@ function setDataInterval(){
 
 function displayUserInfo(user){
   var userInfoHTML = ''
-  userInfoHTML += '<div>' + user.userName + '</div>'
+  userInfoHTML += '<div id="userName">' + user.userName + '</div>'
+  userInfoHTML += '<div style="display: none" id="userEmail">' + user.userEmail + '</div>'
   userInfoHTML += '<div id="userType">' + user.userType + '</div>'
   document.getElementById('userInfo').innerHTML = userInfoHTML
 }
@@ -119,7 +127,7 @@ function showData(data){
   
   // if not a listing agent, change data display in col4
   var isListingAgent
-  var userType = document.user.userType
+  var userType = document.getElementById('userType').innerText
   if (userType == 'Listing Agent'){
     isListingAgent = true
   }
@@ -335,7 +343,15 @@ function updateListingAgents(listingAgents){
   agentFilter.innerHTML = html2
   
   // if user is listing agent, search for name in la dropdown then lock
-  var user = document.user
+  var userName = document.getElementById('userName').innerText
+  var userEmail = document.getElementById('userEmail').innerText
+  var userType = document.getElementById('userType').innerText
+  var user = {
+    userName: userName,
+    userEmail: userEmail,
+    userType: userType
+  }
+  
   if (user.userType == 'Listing Agent'){
     var value
     listingAgents.forEach(function(agent, i){
@@ -514,7 +530,7 @@ function runGetLeaderboard(){
 
 function updateLeaderboard(leaders){
   var e = document.getElementsByClassName('leaderboardList')[0]
-  var userName = document.user.userName
+  var userName = document.getElementById('userName').innerText
   
   var html = ''
   leaders.forEach(function(leader, i){

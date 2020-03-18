@@ -80,6 +80,8 @@ function submit(){
   }
   buyerAgent.baId = baId  // element id to reset
   
+  notes = handleQuotes(notes)
+  
   var details = {
     buyerName: buyerName,
     buyerPhone: buyerPhone,
@@ -102,6 +104,19 @@ function submit(){
   else {
     return showMessage(false, 'Please complete all required fields.')
   }
+}
+
+function handleQuotes(notes){
+  var str = notes.split('').map(function(val){
+    if (val == '"'){
+      return '\"'
+    }
+    else {
+      return val
+    }
+  }).join('')
+  
+  return str
 }
 
 function runSubmit(details){
@@ -134,6 +149,7 @@ function runSubmit(details){
   // if error
   .withFailureHandler(function(err){
     console.error("error occured", err);
+    google.script.run.sendErrorEmail(err, 'Submit Error')
     showMessage(false, 'Something went wrong. Please try again later.')
     showLoading(false, '')
   })

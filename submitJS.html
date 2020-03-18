@@ -107,16 +107,13 @@ function submit(){
 }
 
 function handleQuotes(notes){
-  var str = notes.split('').map(function(val){
-    if (val == '"'){
-      return '\"'
-    }
-    else {
-      return val
-    }
-  }).join('')
-  
-  return str
+  var i = notes.indexOf('"')
+  if (i > -1){
+    return notes
+  }
+  else {
+    return '"' + notes + '"'
+  }
 }
 
 function runSubmit(details){

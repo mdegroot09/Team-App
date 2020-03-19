@@ -51,7 +51,8 @@ function runGetData(){
     runGetAllBAs()
     e.style.display = 'block'
     blockSubmit(false) // disallow submit button
-    setDataInterval()
+    setReloadTimeout()
+    // setDataInterval()
     filter(false)
   })
   // if error
@@ -76,6 +77,23 @@ function disableFilters(bool){
   
   var la = document.getElementById('la')
   la.disabled = bool
+}
+
+function setReloadTimeout(){
+  if (document.reloadTimeout){
+    clearTimeout(document.reloadTimeout)
+  }
+  document.reloadTimeout = setTimeout(function(){
+    var e = document.getElementById('reloadPromptDiv')
+    e.style.display = 'flex'
+    e.style.alignSelf = 'center'
+    e.style.position = 'fixed'
+    e.innerHTML = (
+      '<span>Session timeout. ' +
+        '<span id="reloadPrompt" onClick="reloadPage()">Reload page</span>' +
+      '</span>'
+    )
+  }, 60000 * 10)
 }
 
 function setDataInterval(){
@@ -395,17 +413,25 @@ function showLoading(show, text){
   }
 
   // prompt for reload if lagging for too long
+  var e = document.getElementById('reloadPromptDiv')
   var displayBack
   if (show){
     document.reloadPrompt = this.setTimeout(
       function(){
-        document.getElementById('reloadPromptDiv').style.display = 'block'
-      }, 15000
+        e.style.display = 'flex'
+        e.style.alignSelf = 'flex-start'
+        e.style.position = 'fixed'
+        e.innerHTML = (
+          '<span>Something went wrong. ' +
+            '<span id="reloadPrompt" onClick="reloadPage()">Reload page</span>' +
+          '</span>'
+        )
+      }, 20000
     )
     displayBack = 'flex'
   }
   else {
-    document.getElementById('reloadPromptDiv').style.display = 'none'
+    e.style.display = 'none'
     displayBack = 'none'
   }
   

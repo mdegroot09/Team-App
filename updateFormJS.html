@@ -359,7 +359,7 @@ function getNextBA(zip){
   })
   // if error
   .withFailureHandler(function(err){
-    console.error("error occured", err);
+    console.log("error occured", err);
   })
   .filterSortAgents(buyerAgentsAll, zip, radius)
 }
@@ -460,7 +460,7 @@ function runDistSortAgents(){
   })
   // if error
   .withFailureHandler(function(err){
-    console.error("error occured", err);
+    console.log("error occured", err);
   })
   .distSortAgents(buyerAgentsAll, zip)
 }

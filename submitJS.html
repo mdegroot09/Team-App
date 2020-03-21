@@ -147,8 +147,8 @@ function runSubmit(details){
   
   // if error
   .withFailureHandler(function(err){
-    console.error("error occured", err);
-    google.script.run.sendErrorEmail(err, 'Error: submit(details)')
+    console.log("error occured", err);
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: submit(details)')
     showMessage(false, 'Something went wrong. Please refresh the page.')
     showLoading(false, '')
   })
@@ -290,6 +290,22 @@ function resetGraph(){
   document.getElementById('sellerCount').style.opacity = 0
   document.getElementById('closedSum').style.opacity = 0
   document.getElementsByClassName('leaderboardList')[0].style.opacity = 0
+}
+
+function runSendErrorEmail(err, subj){
+  var errData = {
+    err: err,
+    subj: subj
+  }
+  
+  google.script.run  
+  .withSuccessHandler(function(res){ // if successful
+    console.log('error email sent')
+  })
+  .withFailureHandler(function(err){ // if error
+    console.log("error email: ", err);
+  })
+  .sendErrorEmail(errData)
 }
 
 </script>

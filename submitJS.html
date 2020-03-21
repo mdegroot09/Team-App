@@ -146,8 +146,8 @@ function runSubmit(details){
   // if error
   .withFailureHandler(function(err){
     console.error("error occured", err);
-    google.script.run.sendErrorEmail(err, 'Submit Error')
-    showMessage(false, 'Something went wrong. Please try again later.')
+    google.script.run.sendErrorEmail(err, 'Error On submit()')
+    showMessage(false, 'Something went wrong. Please refresh the page.')
     showLoading(false, '')
   })
   .submit(details)

@@ -25,7 +25,8 @@ function submit(){
   
   var userType 
   if (listingAgent === 'None'){
-    userType = document.user.userType
+    var user = getLocalUserInfo()
+    userType = user.userType
   }
   else {
     userType = 'Listing Agent'
@@ -44,7 +45,7 @@ function submit(){
   var buyerAgent = ''
   var baId
   if (checked){
-    baId = 'baSelect' // name of element id to reset
+    baId = 'baSelect' // reset buyerAgent dropdown
     if (baSelect === 'choose...'){
       buyerAgent = {name: ''}
     }
@@ -60,7 +61,7 @@ function submit(){
   
   // if baSelect is unchecked
   else {
-    baId = 'baInput' // name of element id to reset
+    baId = 'baInput' // reset buyerAgent input
     var buyerAgents = document.buyerAgents
     var agentInfo = buyerAgents.filter(function(agent){
       return agent.name == baInput
@@ -119,8 +120,6 @@ function handleQuotes(notes){
 }
 
 function runSubmit(details){
-
-  var user = document.user
 
   // show loading view
   showLoading(true, 'submitting referral') 

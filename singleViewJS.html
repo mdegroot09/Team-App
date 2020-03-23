@@ -122,7 +122,8 @@ function showSingleViewInputs(){
 
 function showSingleViewData(){
   // show data
-  if (document.user.userType == 'Admin' && document.user.userType == 'Buyer Agent'){
+  var user = getLocalUserInfo()
+  if (user.userType == 'Admin' || user.userType == 'Buyer Agent'){
     document.getElementsByClassName('singleViewEdit')[0].style.display = 'block'
   }
   document.getElementsByClassName('singleViewHeader')[0].style.display = 'block'

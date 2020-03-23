@@ -28,14 +28,7 @@ function load(){
 function runGetData(){
   var e = document.getElementById('updateData')
   e.style.display = 'none'
-  var userName = document.getElementById('userName').innerText
-  var userEmail = document.getElementById('userEmail').innerText
-  var userType = document.getElementById('userType').innerText
-  var user = {
-    userName: userName,
-    userEmail: userEmail,
-    userType: userType
-  }
+  var user = getLocalUserInfo()
   disableFilters(true)
 
   // Get data from spreadsheet 
@@ -360,16 +353,10 @@ function updateListingAgents(listingAgents){
   dropdownLA.innerHTML = html1
   agentFilter.innerHTML = html2
   
-  // if user is listing agent, search for name in la dropdown then lock
-  var userName = document.getElementById('userName').innerText
-  var userEmail = document.getElementById('userEmail').innerText
-  var userType = document.getElementById('userType').innerText
-  var user = {
-    userName: userName,
-    userEmail: userEmail,
-    userType: userType
-  }
+  // get user info
+  var user = getLocalUserInfo()
   
+  // if user is listing agent, search for name in la dropdown then lock
   if (user.userType == 'Listing Agent'){
     var value
     listingAgents.forEach(function(agent, i){
@@ -735,6 +722,19 @@ function convertTime(timestamp){
 function reloadPage(){
   window.stop()
   window.open('https://script.google.com/a/homie.com/macros/s/AKfycbw2oSiUqkYbD5Tr0IOiZZqCgACRXjJu6t6mtLZAjus/dev','_top')
+}
+
+function getLocalUserInfo(){
+  // get user info
+  var userName = document.getElementById('userName').innerText
+  var userEmail = document.getElementById('userEmail').innerText
+  var userType = document.getElementById('userType').innerText
+  var user = {
+    userName: userName,
+    userEmail: userEmail,
+    userType: userType
+  }
+  return user
 }
 
 </script>

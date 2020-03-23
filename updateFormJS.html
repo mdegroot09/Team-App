@@ -65,7 +65,8 @@ function checkForBlanks(details){
     
     // check for buyerAgent
     else if (input.buyerAgent){
-      if (!input.text && document.user.userType == 'Admin'){
+      var user = getLocalUserInfo()
+      if (!input.text && user.userType == 'Admin'){
         makeRed(input.e)
         formReady = false
       }
@@ -141,7 +142,8 @@ function clearValues(){
     makeGray(e)
   })  
   
-  if (document.user.userType != 'Listing Agent'){
+  var user = getLocalUserInfo()
+  if (user.userType != 'Listing Agent'){
     var e = document.getElementById('dropdownLA')
     e.value = 0
     makeGray(e)

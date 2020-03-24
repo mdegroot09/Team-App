@@ -36,14 +36,14 @@ function showView(data){
   
   setInnerHTML('singlePhone', data.phone, 'Phone: ')
   setInnerHTML('singleListingAgent', data.listingAgent, 'Referrer: ')
-  setInnerHTML('singleStage', data.stage, 'Stage: ')
+  setInnerHTML('singleStageText', data.stage, 'Stage: ')
   // setInnerHTML('singleCommission', data.commission, 'Commission: ')
   setInnerHTML('singleSource', data.source, 'Source: ')
   setInnerHTML('singleExpectedClose', data.expectedClose, 'Expected Close: ', true)
   setInnerHTML('singleBuyerAgent', data.buyerAgent, 'Buyer Agent: ')
   setInnerHTML('singleStatus', data.status, 'Status: ')
   setInnerHTML('singleLossReason', data.lossReason, 'Loss Reason: ')
-  setInnerHTML('singleListingAgentManager', data.listingAgentManager, 'LA Manager: ')
+  // setInnerHTML('singleListingAgentManager', data.listingAgentManager, 'Referrer Manager: ')
   setInnerHTML('singleTags', data.tags, 'Tags: ')
   setInnerHTML('singleAddress', data.address, 'Address: ')
   setInnerHTML('singleListedPrice', data.listedPrice, 'Listed Price: ')
@@ -87,7 +87,7 @@ function clearSingleView(){
   document.getElementById('singleDynamicsLink').innerHTML = ''
   document.getElementById('singleToolsLink').innerHTML = ''
   document.getElementById('singleListingAgent').innerHTML = ''
-  document.getElementById('singleStage').innerHTML = ''
+  document.getElementById('singleStageText').innerHTML = ''
   // setInnerHTML('singleCommission', data.commission, 'Commission: ')
   document.getElementById('singleSource').innerHTML = ''
   document.getElementById('singleExpectedClose').innerHTML = ''
@@ -121,6 +121,12 @@ function showSingleViewInputs(){
 }
 
 function showSingleViewData(){
+  document.addEventListener("keydown", function(e) {
+    if(e.which == 27){
+      quitView()
+    }
+  })
+ 
   // show data
   var user = getLocalUserInfo()
   if (user.userType == 'Admin' || user.userType == 'Buyer Agent'){
@@ -148,7 +154,7 @@ function updateSingleViewInputs(data){
   document.getElementById("singleBuyerAgentInput").value = checkTruthy(data.buyerAgent)
   document.getElementById("singleStatusInput").value = checkTruthy(data.status)
   document.getElementById("singleLossReasonInput").value = checkTruthy(data.lossReason)
-  document.getElementById("singleListingAgentManagerInput").value = checkTruthy(data.listingAgentManager)
+  // document.getElementById("singleListingAgentManagerInput").value = checkTruthy(data.listingAgentManager)
   document.getElementById("singleTagsInput").value = checkTruthy(data.tags)
   document.getElementById("singleAddressInput").value = checkTruthy(data.address)
   document.getElementById("singleListedPriceInput").value = checkTruthy(data.listedPrice)

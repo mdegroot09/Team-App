@@ -34,10 +34,15 @@ function showView(data){
     }
   }
   
-  // if user is on listing side, show stage text without dropdown
+  // if user is on listing side, show text w/o dropdowns
   var user = getLocalUserInfo()
   if (user.userType.includes('Listing')){
     setInnerHTML('singleStageText', data.stage, 'Stage: ')
+    setInnerHTML('singleStatusText', data.status, 'Status: ')
+  }
+  else { // if user is buyer side, show dropdowns
+    setStageDD(data.stage)
+    setStatusDD(data.status)
   }
   
   setInnerHTML('singlePhone', data.phone, 'Phone: ')
@@ -46,7 +51,6 @@ function showView(data){
   setInnerHTML('singleSource', data.source, 'Source: ')
   setInnerHTML('singleExpectedClose', data.expectedClose, 'Expected Close: ', true)
   setInnerHTML('singleBuyerAgent', data.buyerAgent, 'Buyer Agent: ')
-  setInnerHTML('singleStatus', data.status, 'Status: ')
   setInnerHTML('singleLossReason', data.lossReason, 'Loss Reason: ')
   // setInnerHTML('singleListingAgentManager', data.listingAgentManager, 'Referrer Manager: ')
   setInnerHTML('singleTags', data.tags, 'Tags: ')
@@ -68,7 +72,7 @@ function setInnerHTML(id, val, title, isDate = false){
     e.style.margin = '5px'
   }
   else {
-    // e.innerHTML = ''
+    e.innerHTML = ''
   }
   
   // if value is a date, format view
@@ -78,6 +82,74 @@ function setInnerHTML(id, val, title, isDate = false){
     dateStr = dateStr.split(' 0:00')[0]
     e.innerHTML = title + dateStr
   }
+}
+
+function setStageDD(val){
+  var select0, select1, select2, select3, select4, select5, select6, select7
+  if (val == 'Cold Lead'){
+    select0 = ' selected'
+  }
+  else if (val == 'Warm Lead'){
+    select1 = ' selected'
+  }
+  else if (val == 'New Lead'){
+    select2 = ' selected'
+  }
+  else if (val == 'Searching'){
+    select3 = ' selected'
+  }
+  else if (val == 'Touring'){
+    select4 = ' selected'
+  }
+  else if (val == 'Offering'){
+    select5 = ' selected'
+  }
+  else if (val == 'UC'){
+    select6 = ' selected'
+  }
+  else if (val == 'Closed'){
+    select7 = ' selected'
+  }
+
+  var e = document.getElementById('singleStageDiv')
+  var html = (
+    '<span>Stage: </span>' +
+    '<select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="">' +
+      '<option value="0"' + select0 + '>Cold Lead</option>' +
+      '<option value="1"' + select1 + '>Warm Lead</option>' +
+      '<option value="2"' + select2 + '>New Lead</option>' +
+      '<option value="3"' + select3 + '>Searching</option>' +
+      '<option value="4"' + select4 + '>Touring</option>' +
+      '<option value="5"' + select5 + '>Offering</option>' +
+      '<option value="6"' + select6 + '>UC</option>' +
+      '<option value="7"' + select7 + '>Closed</option>' +
+    '</select>' 
+  )
+  e.innerHTML = html
+  e.style.display = 'block'
+  e.style.margin = '5px'
+}
+
+function setStatusDD(val){
+  var select0, select1
+  if (val == 'Open'){
+    select0 = ' selected'
+  }
+  else if (val == 'Lost'){
+    select1 = ' selected'
+  }
+
+  var e = document.getElementById('singleStatusDiv')
+  var html = (
+    '<span>Stage: </span>' +
+    '<select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="">' +
+      '<option value="0"' + select0 + '>Open</option>' +
+      '<option value="1"' + select1 + '>Lost</option>' +
+    '</select>' 
+  )
+  e.innerHTML = html
+  e.style.display = 'block'
+  e.style.margin = '5px'
 }
 
 function quitView(){
@@ -97,7 +169,7 @@ function clearSingleView(){
   document.getElementById('singleSource').innerHTML = ''
   document.getElementById('singleExpectedClose').innerHTML = ''
   document.getElementById('singleBuyerAgent').innerHTML = ''
-  document.getElementById('singleStatus').innerHTML = ''
+  document.getElementById('singleStatusText').innerHTML = ''
   document.getElementById('singleLossReason').innerHTML = ''
   document.getElementById('singleListingAgentManager').innerHTML = ''
   document.getElementById('singleTags').innerHTML = ''

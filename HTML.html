@@ -433,7 +433,7 @@
           <span style="display: none; min-height: 30px" id="singleStageText"></span>
           <div style="display: none; margin-left: 5px" id="singleStageDiv">
             <span>Stage: </span>
-            <select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="">
+            <select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="console.log(e.value)">
               <option value="0">Cold Lead</option>
               <option value="1">Warm Lead</option>
               <option value="2">New Lead</option>
@@ -448,7 +448,14 @@
           <span style="display: none; min-height: 30px" id="singleSource"></span>
           <span style="display: none; min-height: 30px" id="singleExpectedClose"></span>
           <span style="display: none; min-height: 30px" id="singleBuyerAgent"></span>
-          <span style="display: none; min-height: 30px" id="singleStatus"></span>
+          <span style="display: none; min-height: 30px" id="singleStatusText"></span>
+          <div style="display: none; margin-left: 5px" id="singleStatusDiv">
+            <span>Status: </span>
+            <select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="console.log(e.value)">
+              <option value="0">Open</option>
+              <option value="1">Lost</option>
+            </select>
+          </div>
           <span style="display: none; min-height: 30px" id="singleLossReason"></span>
           <span style="display: none; min-height: 30px" id="singleListingAgentManager"></span>
           <span style="display: none; min-height: 30px" id="singleTags"></span>

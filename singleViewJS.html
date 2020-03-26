@@ -41,8 +41,10 @@ function showView(data){
     setInnerHTML('singleStatusText', data.status, 'Status: ')
   }
   else { // if user is buyer side, show dropdowns
-    setStageDD(data.stage)
-    setStatusDD(data.status)
+    setStageDD('singleStageDiv', data.stage, true)
+    setStageDD('singleStageInputDiv', data.stage, false)
+    setStatusDD('singleStatusDiv', data.status, true)
+    setStatusDD('singleStatusInputDiv', data.status, false)
   }
   
   setInnerHTML('singlePhone', data.phone, 'Phone: ')
@@ -84,8 +86,16 @@ function setInnerHTML(id, val, title, isDate = false){
   }
 }
 
-function setStageDD(val){
-  var select0, select1, select2, select3, select4, select5, select6, select7
+function setStageDD(id, val, isViewOnly){
+  var select0 = ''
+  var select1 = ''
+  var select2 = ''
+  var select3 = ''
+  var select4 = ''
+  var select5 = ''
+  var select6 = ''
+  var select7 = ''
+  
   if (val == 'Cold Lead'){
     select0 = ' selected'
   }
@@ -111,10 +121,14 @@ function setStageDD(val){
     select7 = ' selected'
   }
 
-  var e = document.getElementById('singleStageDiv')
+  var e = document.getElementById(id)
+  var ifInput = ''
+  if (id.includes('Input')){
+    ifInput = 'Input'
+  }
   var html = (
     '<span>Stage: </span>' +
-    '<select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="">' +
+    '<select class="custom-select singleViewInput" id="singleStage' + ifInput + 'DD" style="margin-left: 10px; border-color: #aaaaaa;" onChange="updateStage(this.value)">' +
       '<option value="0"' + select0 + '>Cold Lead</option>' +
       '<option value="1"' + select1 + '>Warm Lead</option>' +
       '<option value="2"' + select2 + '>New Lead</option>' +
@@ -123,15 +137,19 @@ function setStageDD(val){
       '<option value="5"' + select5 + '>Offering</option>' +
       '<option value="6"' + select6 + '>UC</option>' +
       '<option value="7"' + select7 + '>Closed</option>' +
-    '</select>' 
+    '</select>'
   )
   e.innerHTML = html
-  e.style.display = 'block'
-  e.style.margin = '5px'
+  
+  if (isViewOnly){
+    e.style.display = 'block'
+    e.style.margin = '5px'
+  }
 }
 
-function setStatusDD(val){
-  var select0, select1
+function setStatusDD(id, val, isViewOnly){
+  var select0 = ''
+  var select1 = ''
   if (val == 'Open'){
     select0 = ' selected'
   }
@@ -139,17 +157,24 @@ function setStatusDD(val){
     select1 = ' selected'
   }
 
-  var e = document.getElementById('singleStatusDiv')
+  var e = document.getElementById(id)
+  var ifInput = ''
+  if (id.includes('Input')){
+    ifInput = 'Input'
+  }
   var html = (
-    '<span>Stage: </span>' +
-    '<select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="">' +
+    '<span>Status: </span>' +
+    '<select class="custom-select singleViewInput" id="singleStatus' + ifInput + 'DD" style="margin-left: 10px; border-color: #aaaaaa;" onChange="updateStatus(this.value)">' +
       '<option value="0"' + select0 + '>Open</option>' +
       '<option value="1"' + select1 + '>Lost</option>' +
-    '</select>' 
+    '</select>'
   )
   e.innerHTML = html
-  e.style.display = 'block'
-  e.style.margin = '5px'
+  
+  if (isViewOnly){
+    e.style.display = 'block'
+    e.style.margin = '5px'
+  }
 }
 
 function quitView(){
@@ -225,12 +250,12 @@ function updateSingleViewInputs(data){
   document.getElementById("singleDynamicsLinkInput").value = checkTruthy(data.dynamicsLink)
   document.getElementById("singleToolsLinkInput").value = checkTruthy(data.toolsLink)
   document.getElementById("singleListingAgentInput").value = checkTruthy(data.listingAgent)
-  document.getElementById("singleStageInput").value = checkTruthy(data.stage)
+  // document.getElementById("singleStageInput").value = checkTruthy(data.stage)
   document.getElementById("singleCommissionInput").value = checkTruthy(data.commission)
   document.getElementById("singleSourceInput").value = checkTruthy(data.source)
   document.getElementById("singleExpectedCloseInput").value = checkTruthy(data.expectedClose, true)
   document.getElementById("singleBuyerAgentInput").value = checkTruthy(data.buyerAgent)
-  document.getElementById("singleStatusInput").value = checkTruthy(data.status)
+  // document.getElementById("singleStatusInput").value = checkTruthy(data.status)
   document.getElementById("singleLossReasonInput").value = checkTruthy(data.lossReason)
   // document.getElementById("singleListingAgentManagerInput").value = checkTruthy(data.listingAgentManager)
   document.getElementById("singleTagsInput").value = checkTruthy(data.tags)

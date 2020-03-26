@@ -41,10 +41,10 @@ function showView(data){
     setInnerHTML('singleStatusText', data.status, 'Status: ')
   }
   else { // if user is buyer side, show dropdowns
-    setStageDD('singleStageDiv', data.stage, true)
-    setStageDD('singleStageInputDiv', data.stage, false)
-    setStatusDD('singleStatusDiv', data.status, true)
-    setStatusDD('singleStatusInputDiv', data.status, false)
+    setStageDD('singleStageDiv', data.stage)
+    setStageDD('singleStageInputDiv', data.stage)
+    setStatusDD('singleStatusDiv', data.status)
+    setStatusDD('singleStatusInputDiv', data.status)
   }
   
   setInnerHTML('singlePhone', data.phone, 'Phone: ')
@@ -87,7 +87,7 @@ function setInnerHTML(id, val, title, isDate = false){
   }
 }
 
-function setStageDD(id, val, isViewOnly){
+function setStageDD(id, val){
   var select0 = ''
   var select1 = ''
   var select2 = ''
@@ -133,7 +133,7 @@ function setStageDD(id, val, isViewOnly){
   // add onchange function for view page
   else {
     ifInput = ''
-    onChange = 'updateStatus(this.value)'
+    onChange = 'updateStage(this.value)'
   }
   
   var html = (
@@ -151,13 +151,13 @@ function setStageDD(id, val, isViewOnly){
   )
   e.innerHTML = html
   
-  if (isViewOnly){
+  if (!id.includes('Input')){
     e.style.display = 'block'
     e.style.margin = '5px'
   }
 }
 
-function setStatusDD(id, val, isViewOnly){
+function setStatusDD(id, val){
   var select0 = ''
   var select1 = ''
   if (val == 'Open'){
@@ -190,7 +190,7 @@ function setStatusDD(id, val, isViewOnly){
   )
   e.innerHTML = html
   
-  if (isViewOnly){
+  if (!id.includes('Input')){
     e.style.display = 'block'
     e.style.margin = '5px'
   }
@@ -349,12 +349,19 @@ function getObjStr(data){
 }
 
 function updateStage(val){
-  console.log('Stage: ' + val)
+  // update Input version
+  var e = document.getElementById('singleStageInputDD')
+  e.value = val
   
+  // update ss
 }
 
 function updateStatus(val){
-  console.log('Status: ' + val)
+  // update Input version
+  var e = document.getElementById('singleStatusInputDD')
+  e.value = val
+  
+  // update ss
 }
 
 function updateBuyerData(){

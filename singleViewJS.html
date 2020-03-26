@@ -123,13 +123,22 @@ function setStageDD(id, val, isViewOnly){
   }
 
   var e = document.getElementById(id)
-  var ifInput = ''
+  
+  // add "Input" in class name for edit page
+  var ifInput, onChange
   if (id.includes('Input')){
     ifInput = 'Input'
+    onChange = ''
   }
+  // add onchange function for view page
+  else {
+    ifInput = ''
+    onChange = 'updateStatus(this.value)'
+  }
+  
   var html = (
     '<span>Stage: </span>' +
-    '<select class="custom-select singleViewInput" id="singleStage' + ifInput + 'DD" style="margin-left: 10px; border-color: #aaaaaa;" onChange="updateStage(this.value)">' +
+    '<select class="custom-select singleViewInput" id="singleStage' + ifInput + 'DD" style="margin-left: 10px; border-color: #aaaaaa;" onChange="' + onChange + '">' +
       '<option value="0"' + select0 + '>Cold Lead</option>' +
       '<option value="1"' + select1 + '>Warm Lead</option>' +
       '<option value="2"' + select2 + '>New Lead</option>' +
@@ -159,13 +168,22 @@ function setStatusDD(id, val, isViewOnly){
   }
 
   var e = document.getElementById(id)
-  var ifInput = ''
+  
+  // add "Input" in class name for edit page
+  var ifInput, onChange
   if (id.includes('Input')){
     ifInput = 'Input'
+    onChange = ''
   }
+  // add onchange function for view page
+  else {
+    ifInput = ''
+    onChange = 'updateStatus(this.value)'
+  }
+  
   var html = (
     '<span>Status: </span>' +
-    '<select class="custom-select singleViewInput" id="singleStatus' + ifInput + 'DD" style="margin-left: 10px; border-color: #aaaaaa;" onChange="updateStatus(this.value)">' +
+    '<select class="custom-select singleViewInput" id="singleStatus' + ifInput + 'DD" style="margin-left: 10px; border-color: #aaaaaa;" onChange="' + onChange + '">' +
       '<option value="0"' + select0 + '>Open</option>' +
       '<option value="1"' + select1 + '>Lost</option>' +
     '</select>'
@@ -332,6 +350,7 @@ function getObjStr(data){
 
 function updateStage(val){
   console.log('Stage: ' + val)
+  
 }
 
 function updateStatus(val){

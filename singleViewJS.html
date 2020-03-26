@@ -64,6 +64,7 @@ function showView(data){
   setInnerHTML('singleCommissionDate', data.commissionDate, 'Commission Date: ', true)
   
   updateSingleViewInputs(data)
+  updateCancelBtn(data)
 }
 
 function setInnerHTML(id, val, title, isDate = false){
@@ -284,6 +285,63 @@ function checkTruthy(val, isDate = false){
   else {
     return ''
   }
+}
+
+function updateCancelBtn(data){
+  var e = document.getElementById('cancelUpdateBuyerBtn')
+  var obj = getObjStr(data)
+  e.onclick = function(){
+    showSingleViewData()
+    updateSingleViewInputs(data)
+  }
+}
+
+function getObjStr(data){
+  return ('{' +
+    'buyerName: ' + data.buyerName + ', ' +
+    'phone: ' + data.phone + ', ' +
+    'email: ' + data.email + ', ' +
+    'dynamicsLink: ' + data.dynamicsLink + ', ' +
+    'toolsLink: ' + data.toolsLink + ', ' +
+    'listingAgent: ' + data.listingAgent + ', ' +
+    'stage: ' + data.stage + ', ' +
+    'commission: ' + data.commission + ', ' +
+    'source: ' + data.source + ', ' +
+    'expectedClose: ' + data.expectedClose + ', ' +
+    'buyerAgent: ' + data.buyerAgent + ', ' +
+    'status: ' + data.status + ', ' +
+    'lossReason: ' + data.lossReason + ', ' +
+    'listingAgentManager: ' + data.listingAgentManager + ', ' +
+    'tags: ' + data.tags + ', ' +
+    'month: ' + data.month + ', ' +
+    'year: ' + data.year + ', ' +
+    'monthYear: ' + data.monthYear + ', ' +
+    'address: ' + data.address + ', ' +
+    'listedPrice: ' + data.listedPrice + ', ' +
+    'underContractDate: ' + data.underContractDate + ', ' +
+    'dueDiligenceDate: ' + data.dueDiligenceDate + ', ' +
+    'financingDate: ' + data.financingDate + ', ' +
+    'settlementDate: ' + data.settlementDate + ', ' +
+    'closedDate: ' + data.closedDate + ', ' +
+    'dateCreated: ' + data.dateCreated + ', ' +
+    'notes: ' + data.notes + ', ' +
+    'lastUpdated: ' + data.lastUpdated + ', ' +
+    'commissionDate: ' + data.commissionDate +
+  '}')
+}
+
+function updateStage(val){
+  console.log('Stage: ' + val)
+}
+
+function updateStatus(val){
+  console.log('Status: ' + val)
+}
+
+function updateBuyerData(){
+  console.log('updatedBuyerData()')
+
+  showSingleViewData()
 }
 
 </script>

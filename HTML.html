@@ -433,7 +433,7 @@
           <span style="display: none; min-height: 30px" id="singleStageText"></span>
           <div style="display: none; margin-left: 5px" id="singleStageDiv">
             <span>Stage: </span>
-            <select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="console.log(e.value)">
+            <select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="updateStage(this.value)">
               <option value="0">Cold Lead</option>
               <option value="1">Warm Lead</option>
               <option value="2">New Lead</option>
@@ -451,7 +451,7 @@
           <span style="display: none; min-height: 30px" id="singleStatusText"></span>
           <div style="display: none; margin-left: 5px" id="singleStatusDiv">
             <span>Status: </span>
-            <select class="custom-select singleViewInput" id="singleStageDD" style="margin-left: 10px" onChange="console.log(e.value)">
+            <select class="custom-select singleViewInput" id="singleStatusDD" style="margin-left: 10px" onChange="updateStatus(this.value)">
               <option value="0">Open</option>
               <option value="1">Lost</option>
             </select>
@@ -487,7 +487,7 @@
           <!-- <div class="singleViewInputDiv">Stage: <input class="singleViewInput" id="singleStageInput"></div> -->
           <div class="singleViewInputDiv" id="singleStageInputDiv" style="border-color: #aaaaaa;">
             <span>Stage: </span>
-            <select class="custom-select singleViewInput" id="singleStageInputDD" style="margin-left: 10px" onChange="console.log(e.value)">
+            <select class="custom-select singleViewInput" id="singleStageInputDD" style="margin-left: 10px" onChange="updateStage(this.value)">
               <option value="0">Cold Lead</option>
               <option value="1">Warm Lead</option>
               <option value="2">New Lead</option>
@@ -505,7 +505,7 @@
           <!-- <div class="singleViewInputDiv">Status: <input class="singleViewInput" id="singleStatusInput"></div> -->
           <div class="singleViewInputDiv" id="singleStatusInputDiv" style="border-color: #aaaaaa;">
             <span>Status: </span>
-            <select class="custom-select singleViewInput" id="singleStatusInputDD" style="margin-left: 10px" onChange="console.log(e.value)">
+            <select class="custom-select singleViewInput" id="singleStatusInputDD" style="margin-left: 10px" onChange="updateStatus(this.value)">
               <option value="0">Open</option>
               <option value="1">Lost</option>
             </select>
@@ -523,8 +523,8 @@
           <div class="singleViewInputDiv">Notes: <textarea class="singleViewInput" id="singleNotesInput" style="height: 100px"></textarea></div>
           <!-- <div class="singleViewInputDiv">Commission Paid Date: <input class="singleViewInput" id="singleCommissionDateInput"></div> -->
           <div class="singleViewBtns">
-            <button class="submitReferral" style="margin: 0; width: calc(50% - 7.5px)" onClick="" type="button">Update</button>
-            <button class="clearForm" style="margin: 0; width: calc(50% - 7.5px)" onClick="showSingleViewData()" type="button">Cancel</button>
+            <button class="submitReferral" style="margin: 0; width: calc(50% - 7.5px)" onClick="updateBuyerData()" type="button">Update</button>
+            <button class="clearForm" id="cancelUpdateBuyerBtn" style="margin: 0; width: calc(50% - 7.5px)" onClick="showSingleViewData()" type="button">Cancel</button>
           </div>
         </div>
         <!-- End of Update Buyer Info -->

@@ -86,7 +86,7 @@ function setReloadTimeout(){
         '<span id="reloadPrompt" onClick="reloadPage()">Reload page</span>' +
       '</span>'
     )
-  }, 60000 * 10)
+  }, 60000 * 30)
 }
 
 function setDataInterval(){
@@ -226,24 +226,6 @@ function displayFilteredData(filteredData, isListingAgent){
       if (isListingAgent){
         var date = new Date(Number(filteredData[i].dateCreated))
         var dateStr = convertDate(date)
-//        var dateStr = ''
-//        if (Number(date)){
-//          var month = date.getMonth() + 1
-//          var day = date.getDate()
-//          var hh = date.getHours()
-//          var amPm = 'a'
-//          if (hh >= 12){
-//          amPm = 'p'
-//          if (hh > 12){
-//          hh -= 12
-//          }
-//          }
-//          var mins = date.getMinutes()
-//          if (mins < 10){
-//          mins = '0' + mins
-//          }
-//          dateStr = month + '/' + day + ' ' + hh + ':' + mins + amPm
-//        }
         listingAgentsHTML += '<div class="rowEach rowHover ' + background + '" style="border-right: solid 1px #aaaaaa" onclick="' + onclick + '"><span>' + dateStr + '</span></div>'
       }
       
@@ -322,7 +304,10 @@ function getOnclick(lead){
     'dateCreated: \'' + checkUndefined(lead.dateCreated) + '\', ' +
     'notes: \'' + checkUndefined(lead.notes) + '\', ' +
     'lastUpdated: \'' + checkUndefined(lead.lastUpdated) + '\', ' +
-    'commissionDate: \'' + checkUndefined(lead.commissionDate) + '\'' + 
+    'commissionDate: \'' + checkUndefined(lead.commissionDate) + '\', ' + 
+    'url: \'' + checkUndefined(lead.url) + '\', ' + 
+    'tab: \'' + checkUndefined(lead.tab) + '\', ' + 
+    'row: \'' + checkUndefined(lead.row) + '\'' + 
   '})')
 }
 
@@ -623,7 +608,7 @@ function runGetAllBAs(){
   // if error
   .withFailureHandler(function(err){
     console.log("error occured", err);
-    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: getAllBAs()')
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: getAllBAs')
     showMessage(false, 'Something went wrong. Please refresh the page.')
   })
   .getAllBAs()

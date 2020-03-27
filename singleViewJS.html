@@ -228,6 +228,9 @@ function clearSingleView(){
   document.getElementById('singleNotes').innerHTML = ''
   document.getElementById('singleLastUpdated').innerHTML = ''
   document.getElementById('singleCommissionDate').innerHTML = ''
+  document.user.url = ''
+  document.user.tab = ''
+  document.user.row = ''
 }
 
 function showSingleViewInputs(){
@@ -289,6 +292,9 @@ function updateSingleViewInputs(data){
   document.getElementById("singleNotesInput").value = checkTruthy(data.notes)
   // document.getElementById("singleLastUpdatedInput").value = checkTruthy(data.lastUpdated, true)
   // document.getElementById("singleCommissionDateInput").value = checkTruthy(data.commissionDate, true)
+  document.user.url = data.url
+  document.user.tab = data.tab
+  document.user.row = data.row
 }
 
 function checkTruthy(val, isDate = false){
@@ -352,8 +358,68 @@ function updateStage(val){
   // update Input version
   var e = document.getElementById('singleStageInputDD')
   e.value = val
+  var stage = getStageText(val)
   
-  // update ss
+  // get Buyer Agent assigned
+  e = document.getElementById('singleBuyerAgent')
+  var buyerAgent = e.innerHTML
+  
+  // update stage on ss
+  var buyerAgents = document.buyerAgents
+  var url = document.user.url
+  var tab = document.user.tab
+  var row = document.user.row
+  //  buyerAgents.forEach(function(agent){
+  //    if (agent.name == buyerAgent){
+  //      url = agent.url
+  //    }
+  //  })
+  
+  runUpdateStage({
+    url: url,
+    tab: tab,
+    row: row,
+    stage: stage
+  })
+}
+
+function getStageText(val){
+  if (val == 0){
+    return 'Cold Lead'
+  }
+  else if (val == 1){
+    return 'Warm Lead'
+  }
+  else if (val == 2){
+    return 'New Lead'
+  }
+  else if (val == 3){
+    return 'Searching'
+  }
+  else if (val == 4){
+    return 'Touring'
+  }
+  else if (val == 5){
+    return 'Offering'
+  }
+  else if (val == 6){
+    return 'UC'
+  }
+  else if (val == 7){
+    return 'Closed'
+  }
+}
+
+function runUpdateStage(data){
+  google.script.run  
+  .withSuccessHandler(function(res){ // if successful
+    console.log('success!')
+  })
+  .withFailureHandler(function(err){ // if error
+    console.log("error email: ", err);
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: updateStage')
+  })
+  .updateStage(data)
 }
 
 function updateStatus(val){
@@ -361,7 +427,16 @@ function updateStatus(val){
   var e = document.getElementById('singleStatusInputDD')
   e.value = val
   
-  // update ss
+  // update status on ss
+}
+
+function getStatusText(val){
+  if (val == 0){
+    return 'Open'
+  }
+  else if (val == 1){
+    return 'Lost'
+  }
 }
 
 function updateBuyerData(){

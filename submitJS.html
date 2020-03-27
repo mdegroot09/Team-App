@@ -147,7 +147,7 @@ function runSubmit(details){
   // if error
   .withFailureHandler(function(err){
     console.log("error occured", err);
-    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: submit(details)')
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: submit')
     showMessage(false, 'Something went wrong. Please refresh the page.')
     showLoading(false, '')
   })

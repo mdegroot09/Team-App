@@ -1,6 +1,7 @@
 <script>
 
 function showView(data){
+  console.log('showView()')
   // clear previous values
   clearSingleView()
   
@@ -360,27 +361,17 @@ function updateStage(val){
   e.value = val
   var stage = getStageText(val)
   
-  // get Buyer Agent assigned
-  e = document.getElementById('singleBuyerAgent')
-  var buyerAgent = e.innerHTML
-  
   // update stage on ss
-  var buyerAgents = document.buyerAgents
   var url = document.user.url
   var tab = document.user.tab
   var row = document.user.row
-  //  buyerAgents.forEach(function(agent){
-  //    if (agent.name == buyerAgent){
-  //      url = agent.url
-  //    }
-  //  })
-  
-  runUpdateStage({
+  var data = {
     url: url,
     tab: tab,
     row: row,
     stage: stage
-  })
+  }
+  runUpdateStage(data)
 }
 
 function getStageText(val){
@@ -426,8 +417,19 @@ function updateStatus(val){
   // update Input version
   var e = document.getElementById('singleStatusInputDD')
   e.value = val
+  var status = getStatusText(val)
   
-  // update status on ss
+  // update stage on ss
+  var url = document.user.url
+  var tab = document.user.tab
+  var row = document.user.row
+  var data = {
+    url: url,
+    tab: tab,
+    row: row,
+    status: status
+  }
+  runUpdateStatus(data)
 }
 
 function getStatusText(val){
@@ -437,6 +439,18 @@ function getStatusText(val){
   else if (val == 1){
     return 'Lost'
   }
+}
+
+function runUpdateStatus(data){
+  google.script.run  
+  .withSuccessHandler(function(res){ // if successful
+    console.log('success!')
+  })
+  .withFailureHandler(function(err){ // if error
+    console.log("error email: ", err);
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: updateStatus')
+  })
+  .updateStatus(data)
 }
 
 function updateBuyerData(){

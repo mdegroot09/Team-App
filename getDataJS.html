@@ -35,6 +35,7 @@ function runGetData(){
   google.script.run
   // if successful, display the data 
   .withSuccessHandler(function(res){
+    // console.log(res.data)
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
@@ -218,6 +219,8 @@ function displayFilteredData(filteredData, isListingAgent){
       }
       
       var onclick = getOnclick(filteredData[i])
+      console.log(filteredData[i].buyerName)
+      console.log(onclick)
     
       buyerNamesHTML += '<div class="rowEach rowHover ' + background + '" style="border-left: solid 1px #aaaaaa" onclick="' + onclick + '"><span>' + filteredData[i].buyerName + '</span></div>'
       buyerAgentsHTML += '<div class="rowEach rowHover ' + background + '" onclick="' + onclick + '"><span>' + filteredData[i].buyerAgent + '</span></div>'
@@ -314,11 +317,28 @@ function getOnclick(lead){
 
 function checkUndefined(val){
   if (val != undefined && val != null && val != ''){
+    if (typeof(val) == 'string'){
+      val = checkValChars(val)
+    }
     return val + ''
   }
   else {
     return undefined
   }
+}
+
+function checkValChars(val){
+  return val.trim().split('').map(function(a){
+    if (a == "'"){
+      return "\\'"
+    }
+    else if (a == '"'){
+      return '\\"'
+    }
+    else {
+      return a
+    }
+  }).join('')
 }
 
 function updateListingAgents(listingAgents){

@@ -37,10 +37,10 @@ function filterData(data){
   var baE = document.getElementById('ba')
   var ba = baE.options[baE.selectedIndex].text
   
-  if (la === 'All' || la === 'None'){
+  if (la === 'All' || la === 'None' || !la){
     la = ''
   }
-  if (ba === 'All' || ba === 'None'){
+  if (ba === 'All' || ba === 'None' || !ba){
     ba = ''
   }
 
@@ -80,7 +80,7 @@ function filterData(data){
         else if (lead.stage.toLowerCase().includes(filterInput[i].toLowerCase())){
           include = true
         }
-        else if (lead.phone.toLowerCase().includes(filterInput[i].toLowerCase())){
+        else if (String(lead.phone).includes(filterInput[i].toLowerCase())){
           include = true
         }
         else if (lead.status.toLowerCase().includes(filterInput[i].toLowerCase())){

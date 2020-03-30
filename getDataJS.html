@@ -35,7 +35,6 @@ function runGetData(){
   google.script.run
   // if successful, display the data 
   .withSuccessHandler(function(res){
-    // console.log(res.data)
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data
@@ -219,8 +218,6 @@ function displayFilteredData(filteredData, isListingAgent){
       }
       
       var onclick = getOnclick(filteredData[i])
-      console.log(filteredData[i].buyerName)
-      console.log(onclick)
     
       buyerNamesHTML += '<div class="rowEach rowHover ' + background + '" style="border-left: solid 1px #aaaaaa" onclick="' + onclick + '"><span>' + filteredData[i].buyerName + '</span></div>'
       buyerAgentsHTML += '<div class="rowEach rowHover ' + background + '" onclick="' + onclick + '"><span>' + filteredData[i].buyerAgent + '</span></div>'
@@ -318,7 +315,7 @@ function getOnclick(lead){
 function checkUndefined(val){
   if (val != undefined && val != null && val != ''){
     if (typeof(val) == 'string'){
-      val = checkValChars(val)
+      val = replaceChars(val)
     }
     return val + ''
   }
@@ -327,13 +324,27 @@ function checkUndefined(val){
   }
 }
 
-function checkValChars(val){
+function replaceChars(val){
+  // avoid break line errors
+  var valArr = []
+  var valLines = val.split('\n')
+  valLines.forEach(function(line, i){
+    if (i == 0){
+      return valArr.push(line)
+    }
+    else {
+      return valArr.push('<br>' + line)
+    }
+  })
+  val = valArr.join('')
+  
+  // avoid quotes and apostrophe errors
   return val.trim().split('').map(function(a){
     if (a == "'"){
       return "\\'"
     }
     else if (a == '"'){
-      return '\\"'
+      return ''
     }
     else {
       return a

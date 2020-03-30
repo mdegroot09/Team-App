@@ -1,33 +1,57 @@
 function updateStage(data){
   var url = data.url
-  var tab = data.tab
   var row = data.row
+  var oldTab = data.oldTab
+  var newTab = data.newTab
   var stage = data.stage
-  var ss = SpreadsheetApp.openByUrl(url).getSheetByName(tab)
+  var ssOld = SpreadsheetApp.openByUrl(url).getSheetByName(oldTab)
   
   // update stage cell
-  ss.getRange('G' + row).setValue(stage)
+  ssOld.getRange('G' + row).setValue(stage)
   
   // update last updated cell
-  ss.getRange('AF' + row).setValue('=NOW()')
-  ss.getRange('AF' + row).setNumberFormat('m"/"d" "h":"mma/p')
-  var date = ss.getRange('AF' + row).getValue()
-  ss.getRange('AF' + row).setValue(date)
+  ssOld.getRange('AF' + row).setValue('=NOW()')
+  ssOld.getRange('AF' + row).setNumberFormat('m"/"d"/"yy')
+  var date = ssOld.getRange('AF' + row).getValue()
+  ssOld.getRange('AF' + row).setValue(date)
+    
+  // quit if stage name is different than expected
+  if (!newTab){
+    return {error: true, message: 'Something went wrong. Please refresh the page.'}
+  }
+  
+  // move buyer to new tab if applicable
+  if (newTab != oldTab && oldTab != 'Archive'){
+    changeTab(url, row, oldTab, newTab)
+  }
+  
+  return {error: false, message: 'Success. Stage updated'}
+}
+
+function changeTab(url, row, oldTab, newTab){
+  var ssOld = SpreadsheetApp.openByUrl(url).getSheetByName(oldTab)
+  var ssNew = SpreadsheetApp.openByUrl(url).getSheetByName(newTab)
+  
+  // copy values to new tab then delete old tab
+  var vals = ssOld.getRange(row + ':' + row).getValues()
+  ssNew.insertRowsBefore(4, 1);
+  ssNew.getRange('4:4').setValues(vals)
+  ssOld.deleteRows(row, 1)
 }
 
 function updateStatus(data){
   var url = data.url
-  var tab = data.tab
+  var oldTab = data.tab
   var row = data.row
-  var stage = data.stage
-  var ss = SpreadsheetApp.openByUrl(url).getSheetByName(tab)
+  var status = data.status
+  var ssOld = SpreadsheetApp.openByUrl(url).getSheetByName(oldTab)
   
   // update status cell
-  ss.getRange('L' + row).setValue(stage)
+  ssOld.getRange('L' + row).setValue(stage)
   
   // update last updated cell
-  ss.getRange('AF' + row).setValue('=NOW()')
-  ss.getRange('AF' + row).setNumberFormat('m"/"d" "h":"mma/p')
-  var date = ss.getRange('AF' + row).getValue()
-  ss.getRange('AF' + row).setValue(date)
+  ssOld.getRange('AF' + row).setValue('=NOW()')
+  ssOld.getRange('AF' + row).setNumberFormat('m"/"d" "h":"mma/p')
+  var date = ssOld.getRange('AF' + row).getValue()
+  ssOld.getRange('AF' + row).setValue(date)
 }

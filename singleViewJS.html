@@ -359,55 +359,94 @@ function updateStage(val){
   // update Input version
   var e = document.getElementById('singleStageInputDD')
   e.value = val
-  var stage = getStageText(val)
+  
+  // get new stage info
+  var stageInfo = getStageText(val)
+  var stage = stageInfo.stage
+  var newTab = stageInfo.newTab
   
   // update stage on ss
   var url = document.user.url
-  var tab = document.user.tab
+  var oldTab = document.user.tab
   var row = document.user.row
   var data = {
     url: url,
-    tab: tab,
     row: row,
+    oldTab: oldTab,
+    newTab: newTab,
     stage: stage
   }
+  console.log('data:')
+  console.log(data)
+  
   runUpdateStage(data)
 }
 
 function getStageText(val){
+  var stage = ''
   if (val == 0){
-    return 'Cold Lead'
+    stage = 'Cold Lead'
   }
   else if (val == 1){
-    return 'Warm Lead'
+    stage = 'Warm Lead'
   }
   else if (val == 2){
-    return 'New Lead'
+    stage = 'New Lead'
   }
   else if (val == 3){
-    return 'Searching'
+    stage = 'Searching'
   }
   else if (val == 4){
-    return 'Touring'
+    stage = 'Touring'
   }
   else if (val == 5){
-    return 'Offering'
+    stage = 'Offering'
   }
   else if (val == 6){
-    return 'UC'
+    stage = 'UC'
   }
   else if (val == 7){
-    return 'Closed'
+    stage = 'Closed'
+  }
+  
+  var newTab = ''
+  if (stage == 'UC' || stage == 'Offering' || stage == 'Touring' || stage == 'Searching' || stage == 'Canceled' || stage == 'Cancelled'){
+    newTab = 'Opportunities'
+  }
+  else if (stage == 'New Lead' || stage == 'Warm Lead'){
+    newTab = 'New/Warm Leads'
+  }
+  else if (stage == 'Cold Lead'){
+    newTab = 'Cold Leads'
+  }
+  else if (stage == 'Closed'){
+    newTab = 'Archive'
+  }
+  
+  return {
+    stage: stage,
+    newTab: newTab
   }
 }
 
 function runUpdateStage(data){
+  showLoading(true, 'updating stage')
+
   google.script.run  
   .withSuccessHandler(function(res){ // if successful
-    console.log('success!')
+    if (res.error){
+      showMessage(false, 'Something went wrong. Please refresh the page.')
+    }
+    else {
+      console.log('success!')
+      
+      showLoading(false, '')
+    }
   })
   .withFailureHandler(function(err){ // if error
     console.log("error email: ", err);
+    showLoading(false, '')
+    showMessage(false, 'Something went wrong. Please refresh the page.')
     runSendErrorEmail('Error occured: <br><br>' + err, 'Error: updateStage')
   })
   .updateStage(data)

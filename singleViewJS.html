@@ -200,6 +200,7 @@ function setStatusDD(id, val){
 function quitView(){
   document.getElementsByClassName('singleView')[0].style.display = 'none'
   document.getElementsByClassName('singleViewQuit')[0].style.display = 'none'
+  clearSingleView()
 }
 
 function clearSingleView(){
@@ -439,8 +440,9 @@ function runUpdateStage(data){
     }
     else {
       console.log('success!')
-      
       showLoading(false, '')
+      runGetData()
+      // **** UPDATE CURRENT SINGLEVIEWDATA ****
     }
   })
   .withFailureHandler(function(err){ // if error

@@ -94,9 +94,10 @@ function setDataInterval(){
     clearInterval(document.dataInterval)
   }
   document.dataInterval = setInterval(function(){
-    filter(true)
-    
-  }, 60000 * 1)
+    // filter(true)
+    runGetData()
+    console.log('data updated ')
+  }, 60000 * 5)
 }
 
 function displayUserInfo(user){

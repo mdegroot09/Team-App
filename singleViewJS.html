@@ -1,7 +1,6 @@
 <script>
 
 function showView(data){
-  console.log('showView()')
   // clear previous values
   clearSingleView()
   
@@ -496,23 +495,21 @@ function runUpdateStage(data){
 
 function updateStatus(val){
   // update Input version
-  var e = document.getElementById('singleStatusInputDD').value = val
+  var e = document.getElementById('singleStatusInputDD').value
   
   var status = getStatusText(val)
   
   // update newTab if 
   var newTab = 'Archive'
-  var stage = ''
-  var newTab = document.user.tab
   if (status == 'Open'){
     // get new stage info
     var stageVal = document.getElementById('singleStageDD').value
     var stageInfo = getStageText(stageVal)
-    stage = stageInfo.stage
+    // var stage = stageInfo.stage
     newTab = stageInfo.newTab
   }
   
-  // update stage on ss
+  // update status on ss
   var url = document.user.url
   var oldTab = document.user.tab
   var row = document.user.row
@@ -523,6 +520,7 @@ function updateStatus(val){
     newTab: newTab,
     status: status
   }
+  console.log(data)
   runUpdateStatus(data)
 }
 
@@ -538,9 +536,7 @@ function getStatusText(val){
 function runUpdateStatus(data){
   showLoading(true, 'updating status')
   document.user.url = data.url
-  if (data.status != 'Lost'){
-    document.user.tab = data.newTab
-  }
+  document.user.tab = data.newTab
   
   google.script.run  
   .withSuccessHandler(function(res){ // if successful

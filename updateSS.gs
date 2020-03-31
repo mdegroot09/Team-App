@@ -16,7 +16,7 @@ function updateStage(data){
   var date = ssOld.getRange('AF' + row).getValue()
   ssOld.getRange('AF' + row).setValue(date)
     
-  // quit if stage name is different than expected
+  // quit if newTab name is falsey
   if (!newTab){
     return {error: true, message: 'Something went wrong. Please refresh the page.'}
   }
@@ -51,9 +51,10 @@ function changeTab(url, row, oldTab, newTab){
 function updateStatus(data){
   var url = data.url
   var row = data.row
-  var oldTab = data.tab
+  var oldTab = data.oldTab
   var newTab = data.newTab
   var status = data.status
+  
   var ssOld = SpreadsheetApp.openByUrl(url).getSheetByName(oldTab)
   
   // update status cell
@@ -64,4 +65,28 @@ function updateStatus(data){
   ssOld.getRange('AF' + row).setNumberFormat('m"/"d" "h":"mma/p')
   var date = ssOld.getRange('AF' + row).getValue()
   ssOld.getRange('AF' + row).setValue(date)
-}
+  
+  // quit if newTab name is falsey
+  if (!newTab){
+    return {error: true, message: 'Something went wrong. Please refresh the page.'}
+  }
+  
+  // move buyer to new tab if applicable
+  if (status == 'Lost' && oldTab != 'Archive'){
+    changeTab(url, row, oldTab, 'Archive')
+    row = 4
+  }
+  else if (status == 'Open' && oldTab != newTab){
+    changeTab(url, row, oldTab, newTab)
+    row = 4
+  }
+  
+  return {
+    error: false, 
+    message: 'Success. Stage updated',
+    url: url,
+    newTab: newTab,
+    row: row,
+    status: status
+  }
+} 

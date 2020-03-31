@@ -362,6 +362,7 @@ function getNextBA(zip){
   // if error
   .withFailureHandler(function(err){
     console.log("error occured", err);
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: filterSortAgents')
   })
   .filterSortAgents(buyerAgentsAll, zip, radius)
 }
@@ -463,6 +464,7 @@ function runDistSortAgents(){
   // if error
   .withFailureHandler(function(err){
     console.log("error occured", err);
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: distSortAgents')
   })
   .distSortAgents(buyerAgentsAll, zip)
 }

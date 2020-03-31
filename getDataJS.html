@@ -21,6 +21,7 @@ function load(){
   // if error
   .withFailureHandler(function(err){
     console.log("error occured", err);
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: getUserInfo')
   })
   .getUserInfo()
 }
@@ -51,6 +52,7 @@ function runGetData(){
   // if error
   .withFailureHandler(function(err){
     console.log("error occured", err);
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: getData')
   })
   .getData(user) // run function in gs file to pull data
 }
@@ -555,6 +557,7 @@ function runGetLeaderboard(){
   // if error
   .withFailureHandler(function(err){
     console.log("error occured", err);
+    runSendErrorEmail('Error occured: <br><br>' + err, 'Error: runGetLeaderboard')
   })
   .getLeaderboard()
 }

@@ -50,13 +50,14 @@ function changeTab(url, row, oldTab, newTab){
 
 function updateStatus(data){
   var url = data.url
-  var oldTab = data.tab
   var row = data.row
+  var oldTab = data.tab
+  var newTab = data.newTab
   var status = data.status
   var ssOld = SpreadsheetApp.openByUrl(url).getSheetByName(oldTab)
   
   // update status cell
-  ssOld.getRange('L' + row).setValue(stage)
+  ssOld.getRange('L' + row).setValue(status)
   
   // update last updated cell
   ssOld.getRange('AF' + row).setValue('=NOW()')

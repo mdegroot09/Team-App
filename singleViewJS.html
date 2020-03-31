@@ -200,10 +200,11 @@ function setStatusDD(id, val){
 function quitView(){
   document.getElementsByClassName('singleView')[0].style.display = 'none'
   document.getElementsByClassName('singleViewQuit')[0].style.display = 'none'
-  clearSingleView()
 }
 
 function clearSingleView(){
+
+  // clear singleViewData elements
   document.getElementById('singleBuyerName').innerHTML = ''
   document.getElementById('singlePhone').innerHTML = ''
   document.getElementById('singleEmail').innerHTML = ''
@@ -233,6 +234,34 @@ function clearSingleView(){
   document.user.url = ''
   document.user.tab = ''
   document.user.row = ''
+  
+  // clear singleViewInputs data
+  document.getElementById('singleBuyerNameInput').innerHTML = ''
+  document.getElementById('singlePhoneInput').innerHTML = ''
+  document.getElementById('singleEmailInput').innerHTML = ''
+  document.getElementById('singleDynamicsLinkInput').innerHTML = ''
+  document.getElementById('singleToolsLinkInput').innerHTML = ''
+  document.getElementById('singleListingAgentInput').innerHTML = ''
+  // document.getElementById('singleStageTextInput').innerHTML = ''
+  // setInnerHTML('singleCommission', data.commission, 'Commission: ')
+  document.getElementById('singleSourceInput').innerHTML = ''
+  document.getElementById('singleExpectedCloseInput').innerHTML = ''
+  document.getElementById('singleBuyerAgentInput').innerHTML = ''
+  // document.getElementById('singleStatusTextInput').innerHTML = ''
+  document.getElementById('singleLossReasonInput').innerHTML = ''
+  // document.getElementById('singleListingAgentManagerInput').innerHTML = ''
+  document.getElementById('singleTagsInput').innerHTML = ''
+  document.getElementById('singleAddressInput').innerHTML = ''
+  document.getElementById('singleListedPriceInput').innerHTML = ''
+  document.getElementById('singleUnderContractDateInput').innerHTML = ''
+  document.getElementById('singleDueDiligenceDateInput').innerHTML = ''
+  document.getElementById('singleFinancingDateInput').innerHTML = ''
+  document.getElementById('singleSettlementDateInput').innerHTML = ''
+  document.getElementById('singleClosedDateInput').innerHTML = ''
+  // document.getElementById('singleDateCreatedInput').innerHTML = ''
+  document.getElementById('singleNotesInput').innerHTML = ''
+  // document.getElementById('singleLastUpdatedInput').innerHTML = ''
+  // document.getElementById('singleCommissionDateInput').innerHTML = ''
 }
 
 function showSingleViewInputs(){
@@ -450,7 +479,7 @@ function runUpdateStage(data){
       showMessage(false, 'Something went wrong. Please refresh the page.')
     }
     else {
-      console.log('success!')
+      console.log('Success. Stage updated')
       showLoading(false, '')
       document.user.row = res.row
       runGetData()
@@ -467,18 +496,31 @@ function runUpdateStage(data){
 
 function updateStatus(val){
   // update Input version
-  var e = document.getElementById('singleStatusInputDD')
-  e.value = val
+  var e = document.getElementById('singleStatusInputDD').value = val
+  
   var status = getStatusText(val)
+  
+  // update newTab if 
+  var newTab = 'Archive'
+  var stage = ''
+  var newTab = document.user.tab
+  if (status == 'Open'){
+    // get new stage info
+    var stageVal = document.getElementById('singleStageDD').value
+    var stageInfo = getStageText(stageVal)
+    stage = stageInfo.stage
+    newTab = stageInfo.newTab
+  }
   
   // update stage on ss
   var url = document.user.url
-  var tab = document.user.tab
+  var oldTab = document.user.tab
   var row = document.user.row
   var data = {
     url: url,
-    tab: tab,
     row: row,
+    oldTab: oldTab,
+    newTab: newTab,
     status: status
   }
   runUpdateStatus(data)
@@ -494,12 +536,28 @@ function getStatusText(val){
 }
 
 function runUpdateStatus(data){
+  showLoading(true, 'updating status')
+  document.user.url = data.url
+  if (data.status != 'Lost'){
+    document.user.tab = data.newTab
+  }
+  
   google.script.run  
   .withSuccessHandler(function(res){ // if successful
-    console.log('success!')
+    if (res.error){
+      showMessage(false, 'Something went wrong. Please refresh the page.')
+    }
+    else {
+      console.log('Success. Status updated.')
+      showLoading(false, '')
+      document.user.row = res.row
+      runGetData()
+    }
   })
   .withFailureHandler(function(err){ // if error
     console.log("error email: ", err);
+    showLoading(false, '')
+    showMessage(false, 'Something went wrong. Please refresh the page.')
     runSendErrorEmail('Error occured: <br><br>' + err, 'Error: updateStatus')
   })
   .updateStatus(data)

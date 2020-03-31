@@ -366,19 +366,26 @@ function updateStage(val){
   var stage = stageInfo.stage
   var newTab = stageInfo.newTab
   
-  // update stage on ss
+  // get status
+  var status = 'Open'
+  var statusVal = document.getElementById('singleStatusDD').value
+  if (statusVal != 0){
+    status = 'Lost'
+  }
+  
+  // get other buyer info
   var url = document.user.url
   var oldTab = document.user.tab
   var row = document.user.row
+  
   var data = {
     url: url,
     row: row,
     oldTab: oldTab,
     newTab: newTab,
-    stage: stage
+    stage: stage,
+    status: status
   }
-  console.log('data:')
-  console.log(data)
   
   runUpdateStage(data)
 }
@@ -432,6 +439,10 @@ function getStageText(val){
 
 function runUpdateStage(data){
   showLoading(true, 'updating stage')
+  document.user.url = data.url
+  if (data.status != 'Lost'){
+    document.user.tab = data.newTab
+  }
 
   google.script.run  
   .withSuccessHandler(function(res){ // if successful
@@ -441,8 +452,8 @@ function runUpdateStage(data){
     else {
       console.log('success!')
       showLoading(false, '')
+      document.user.row = res.row
       runGetData()
-      // **** UPDATE CURRENT SINGLEVIEWDATA ****
     }
   })
   .withFailureHandler(function(err){ // if error

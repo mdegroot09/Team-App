@@ -4,6 +4,7 @@ function updateStage(data){
   var oldTab = data.oldTab
   var newTab = data.newTab
   var stage = data.stage
+  var status = data.status
   var ssOld = SpreadsheetApp.openByUrl(url).getSheetByName(oldTab)
   
   // update stage cell
@@ -21,11 +22,19 @@ function updateStage(data){
   }
   
   // move buyer to new tab if applicable
-  if (newTab != oldTab && oldTab != 'Archive'){
+  if (newTab != oldTab && status != 'Lost'){
     changeTab(url, row, oldTab, newTab)
+    row = 4
   }
   
-  return {error: false, message: 'Success. Stage updated'}
+  return {
+    error: false, 
+    message: 'Success. Stage updated',
+    url: url,
+    newTab: newTab,
+    row: row,
+    status: status
+  }
 }
 
 function changeTab(url, row, oldTab, newTab){

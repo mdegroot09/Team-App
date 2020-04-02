@@ -357,7 +357,8 @@ function getNextBA(zip){
   .withSuccessHandler(function(res){
     var startOver = autoSelectBA(res)
     if (startOver){
-      return updateRadius(40)
+      radius = Number(radius) + 10
+      return updateRadius(radius)
     }
     blockSubmit(false)
     return runDistSortAgents() // update queue miles column

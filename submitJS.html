@@ -18,6 +18,7 @@ function submit(){
   var baSelect = baSelectE.options[baSelectE.selectedIndex].text
   var baInput = document.getElementById('baInput').value
   var checked = document.getElementById('checkbox').checked
+  var sendEmail = document.getElementById('sendEmail').checked
   
   if (!document.submitReady){
     return console.log('Submit not ready.')
@@ -86,7 +87,7 @@ function submit(){
   notes = handleQuotes(notes)
   
   var details = {
-    sendEmail: true,
+    sendEmail: sendEmail,
     buyerName: buyerName,
     buyerPhone: buyerPhone,
     buyerEmail: buyerEmail,

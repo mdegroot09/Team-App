@@ -36,6 +36,8 @@ function runGetData(){
   google.script.run
   // if successful, display the data 
   .withSuccessHandler(function(res){
+    console.log('res:')
+    console.log(res)
     document.data = res.data
     document.citiesZips = res.citiesZips
     showData(res.data) // show the referral data

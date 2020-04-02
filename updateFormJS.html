@@ -314,7 +314,7 @@ function cleanCity(city){
 
 function updateRadius(val){
   // return only numbers from input val
-  var num = val.trim().split('').filter(function(a){
+  var num = val.toString().trim().split('').filter(function(a){
     return ((Number(a) || Number(a) == 0) && a != ' ')
   }).join('')
   
@@ -322,7 +322,7 @@ function updateRadius(val){
   
   var zip = document.getElementById('zipReferral').value
   if (zip) {
-    getNextBA(zip)
+    return getNextBA(zip)
   }
 }
 
@@ -355,9 +355,12 @@ function getNextBA(zip){
   google.script.run  
   // if successful, display the data 
   .withSuccessHandler(function(res){
-    autoSelectBA(res)
+    var startOver = autoSelectBA(res)
+    if (startOver){
+      return updateRadius(40)
+    }
     blockSubmit(false)
-    runDistSortAgents() // update queue miles column
+    return runDistSortAgents() // update queue miles column
   })
   // if error
   .withFailureHandler(function(err){
@@ -438,12 +441,22 @@ function autoSelectBA(filteredAgents){
   e.innerHTML = html
   
   // set dropdown to first filtered agent if any
+  var radius = Number(document.getElementById('radius').value)
+  var udpateRadius = false
   if (filteredAgents.length > 0){
     e.value = 1
+    udpateRadius = false
+  }
+  else if (radius < 40){
+    udpateRadius = true
   }
   else {
     e.value = 0
+    document.getElementById('radius').value = 20
+    udpateRadius = false
   }
+  
+  return udpateRadius
 }
 
 function runDistSortAgents(){

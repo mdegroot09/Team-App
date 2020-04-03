@@ -375,8 +375,6 @@ function blockSubmit(block){
   var e = document.getElementsByClassName('submitReferral')[0]
   
   if (block){
-//    e.style.background = '#ededed'
-//    e.style.background = '#cff9f1'
     e.style.background = '#aeeade'
     e.style.cursor = 'default'
     e.style.color = 'gray'
@@ -400,7 +398,7 @@ function autoSelectBA(filteredAgents){
   }
   var html = '<option ' + selected + ' value="0">choose...</option>'
   
-  // show who the next agent up is, if any
+  // show the next agent up, if any
   if (filteredAgents.length > 0){
     console.log('next agent up: ' + filteredAgents[0].name)
   }
@@ -452,12 +450,52 @@ function autoSelectBA(filteredAgents){
     udpateRadius = true
   }
   else {
-    e.value = 0
+    getNextRemoteAgent()
     document.getElementById('radius').value = 20
     udpateRadius = false
   }
   
   return udpateRadius
+}
+
+function getNextRemoteAgent(){
+  var buyerAgentsAll = document.buyerAgents
+  
+  // sort first by lastReceived then by 7-day total
+  buyerAgentsAll.sort(compareDate)
+  
+  var nextRemoteAgent = ''
+  buyerAgentsAll.forEach(function(a){
+    if (!nextRemoteAgent && (a.name == 'JoAnn Ortega-Petty' || a.name == 'Ben Ellis')){
+      return (
+        nextRemoteAgent = a.name
+      )
+    }
+  })
+  
+  var e = document.getElementById('baSelect')
+  e.value = 0
+  for (var i = 0; i < e.options.length; i++){
+    if (e.options[i].text.includes(nextRemoteAgent)){
+      return (
+        e.value = i
+      )
+    }
+  }
+}
+
+function compareDate(a, b) {
+  // sort based on distance
+  var distA = a.lastReceived
+  var distB = b.lastReceived
+
+  var comparison = 0;
+  if (distA > distB) {
+    comparison = 1;
+  } else if (distA < distB) {
+    comparison = -1;
+  }
+  return comparison;
 }
 
 function runDistSortAgents(){

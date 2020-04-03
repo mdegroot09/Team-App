@@ -1,11 +1,12 @@
  function submit(details) {
   var error, message, zip, loadTime
   var startTime = new Date()
-  var referralExists = checkReferrals(details)
+  var buyerAgentName = checkReferrals(details)
   
-  if (referralExists){
+  if (buyerAgentName){
     error = true
     message = 'Error. Referral has already been received.'
+    sendExistingBuyerEmail(buyerAgentName, details)
     loadTime = getLoadTime(startTime, new Date())
     return {error: error, message: message, loadTime: loadTime}
   }
@@ -101,12 +102,9 @@ function checkReferrals(details){
     return (phone == detailsPhone && phone) || (email.trim() && email.trim() == details.buyerEmail.trim().toLowerCase())
   })
   
-  // if referral was already sent in, return true
+  // if referral was already sent in, return Buyer Agent name
   if (buyerData.length > 0){
-    return true
-    return {
-      buyerAgent: buyerData[0][10]
-    }
+    return (buyerData[0][10])
   }
   else {
     return false

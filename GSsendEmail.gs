@@ -78,7 +78,7 @@ function getBodySubject(buyerAgent, details){
     closingRemarks +
     '<br>' + 
     'Thanks,<br>' +
-    'The Leads Team'
+    'The Leads Team <br>'
   )
   
   return {htmlBody: htmlBody, subject: subject}
@@ -137,20 +137,11 @@ function getPhrases(buyerAgent, details){
     sourceDetails = '' 
   }
   
-  // add referrer's type if not an admin
-  //  if (details.referringType != 'Admin'){
-  //    type = ' (' + details.referringType + ') ' 
-  //  }
-  //  else {
-  //    type = ' ' 
-  //  }
-  
   return {
     subject: subject,
     buyerDetails: buyerDetails,
     locationDetails: locationDetails,
     sourceDetails: sourceDetails
-    // , type: type
   }
 }
 
@@ -165,11 +156,6 @@ function getLinkBtn(details){
         '</div>' +
       '</a>' +
     '</div>'
-//    '<script>' +
-//      'function openPage(){' +
-//        'location.href = "www.google.com"' +
-//      '}' +
-//    '</script>'
   )
 }
 
@@ -189,4 +175,56 @@ function sendErrorEmail(errData){
       linkBtn + '<br>'
     )
   }) 
+}
+
+function sendExistingBuyerEmail(buyerAgentName, details){
+  var allBAs = getAllBAs()
+  var buyerAgent = {name: '', email: ''}
+  allBAs.forEach(function(a){
+    if (a.name == buyerAgentName){
+      return (buyerAgent = a)
+    }
+  })
+  
+  // if assigned agent is not with Black Ops, quit function
+  if (!buyerAgent.name || !buyerAgent.email){
+    return
+  }
+  
+  var location = details.city + ', UT'
+  if (details.street){
+    location = details.street + ', ' + location
+  }
+  
+  // create source section if applicable
+  var sourceDetails = ''
+  if (details.source){
+    sourceDetails = 'Source: ' + details.source
+  }
+  
+  MailApp.sendEmail({
+    to: 'leads@homie.com, ' + buyerAgent.email,
+    subject: details.buyerName + ': New Tour Request', 
+    htmlBody: (
+      'AUTOMATED EMAIL<br>' +
+      '<br>' +
+      buyerAgent.name.split(' ')[0] + ', <br>' +
+      '<br>' + 
+      details.buyerName + ' is an existing lead of yours who requested another tour: <br>' +
+      '<br>' +
+      'Buyer: ' + details.buyerName + '<br>' +
+      'Phone: ' + details.buyerPhone + '<br>' +
+      'Email: ' + details.buyerEmail + '<br>' +
+      'Location: ' + location + '<br>' + 
+      'Lead sent by: ' + details.referringName + '<br>' +
+      'Type: ' + details.type + '<br>' +
+      sourceDetails + '<br>' +
+      'Notes: ' + details.notes + '<br>' +
+      '<br>' +
+      'If there is an issue with this tour request, please email us back immediately at leads@homie.com. <br>' + 
+      '<br>' +
+      'Thanks, <br>' +
+      'The Leads Team <br>'
+    )
+  })
 }

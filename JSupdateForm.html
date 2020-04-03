@@ -464,6 +464,7 @@ function getNextRemoteAgent(){
   // sort first by lastReceived then by 7-day total
   buyerAgentsAll.sort(compareDate)
   
+  // find the remote agent who's waited the longest for a lead
   var nextRemoteAgent = ''
   buyerAgentsAll.forEach(function(a){
     if (!nextRemoteAgent && (a.name == 'JoAnn Ortega-Petty' || a.name == 'Ben Ellis')){
@@ -473,6 +474,7 @@ function getNextRemoteAgent(){
     }
   })
   
+  // update baSelect dropdown to match nextRemoteAgent
   var e = document.getElementById('baSelect')
   e.value = 0
   for (var i = 0; i < e.options.length; i++){

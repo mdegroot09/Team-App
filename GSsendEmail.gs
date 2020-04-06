@@ -203,8 +203,7 @@ function sendExistingBuyerEmail(buyerAgentName, details){
   }
   
   MailApp.sendEmail({
-    //to: 'leads@homie.com, ' + buyerAgent.email,
-    to: 'mike.degroot@homie.com',
+    to: 'leads@homie.com, ' + buyerAgent.email,
     subject: details.buyerName + ': New Tour Request', 
     htmlBody: (
       'AUTOMATED EMAIL<br>' +

@@ -5,7 +5,12 @@
   
   if (buyerAgentName){
     error = true
-    message = 'Error. Referral has already been received.'
+    message = (
+      'This referral, ' + details.buyerName + ', was already submitted and is being worked by ' + buyerAgentName + '. ' + 
+      'An email was just sent to ' + buyerAgentName.split(' ')[0] + ' with details of this new tour request. \n' + 
+      '\n' + 
+      'Thanks for submitting!'
+    )
     sendExistingBuyerEmail(buyerAgentName, details)
     loadTime = getLoadTime(startTime, new Date())
     return {error: error, message: message, loadTime: loadTime}

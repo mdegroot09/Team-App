@@ -128,20 +128,30 @@ function runSubmit(details){
   
   google.script.run  
   .withSuccessHandler(function(res){
-  
+    
+    var message = String(res.message)
     console.log('Done. Time taken: ' + res.loadTime + 's')
   
     // if no error, continue
     if (!res.error){
-      showMessage(true, res.message)
+      showMessage(true, message)
       clearValues() // clear values and dropdowns
       showLoading(false, '')
       runGetData() // reload data to bring in updated info
     }
     
-    // handle errors
+    // handle errors related to existing lead
+    else if (message.includes('was already submitted')){
+      showLoading(false, '')
+      setTimeout(function(){
+        alert(message)
+      },10)
+      clearValues()
+    }
+    
+    // handle all other errors
     else {
-      showMessage(false, res.message)
+      showMessage(false, message)
       showLoading(false, '')
     }
   })

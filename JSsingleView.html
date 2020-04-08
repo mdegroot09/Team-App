@@ -475,7 +475,7 @@ function runUpdateStage(data){
   google.script.run  
   .withSuccessHandler(function(res){ // if successful
     if (res.error){
-      showMessage(false, 'Something went wrong. Please refresh the page.')
+      showAlert(false, 'Something went wrong. Please refresh the page.')
     }
     else {
       console.log('Success. Stage updated')
@@ -487,7 +487,7 @@ function runUpdateStage(data){
   .withFailureHandler(function(err){ // if error
     console.log("error email: ", err);
     showLoading(false, '')
-    showMessage(false, 'Something went wrong. Please refresh the page.')
+    showAlert(false, 'Something went wrong. Please refresh the page.')
     runSendErrorEmail('Error occured: <br><br>' + err, 'Error: updateStage')
   })
   .updateStage(data)
@@ -541,7 +541,7 @@ function runUpdateStatus(data){
   google.script.run  
   .withSuccessHandler(function(res){ // if successful
     if (res.error){
-      showMessage(false, 'Something went wrong. Please refresh the page.')
+      showAlert(false, 'Something went wrong. Please refresh the page.')
     }
     else {
       console.log('Success. Status updated.')
@@ -553,7 +553,7 @@ function runUpdateStatus(data){
   .withFailureHandler(function(err){ // if error
     console.log("error email: ", err);
     showLoading(false, '')
-    showMessage(false, 'Something went wrong. Please refresh the page.')
+    showAlert(false, 'Something went wrong. Please refresh the page.')
     runSendErrorEmail('Error occured: <br><br>' + err, 'Error: updateStatus')
   })
   .updateStatus(data)

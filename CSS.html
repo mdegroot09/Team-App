@@ -104,6 +104,30 @@
     justify-content: center;
   }
   
+  #alertDiv {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  #alert {
+    margin: 20px;
+    border-radius: 5px;
+    padding: 40px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #alertText {
+    font-weight: 900;
+  }
+  
   #message {
     position: fixed;
     top: 0;
@@ -583,6 +607,10 @@
     color: #3e494c;
     border: 1px solid #aaaaaa;
     background-color: #ededed;
+  }
+  
+  .clearForm:active {
+    background-color: #dcdcdc;
   }
  
   .dash {

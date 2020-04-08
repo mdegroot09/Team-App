@@ -134,7 +134,7 @@ function runSubmit(details){
   
     // if no error, continue
     if (!res.error){
-      showMessage(true, message)
+      showAlert(true, message)
       clearValues() // clear values and dropdowns
       showLoading(false, '')
       runGetData() // reload data to bring in updated info
@@ -143,13 +143,13 @@ function runSubmit(details){
     // handle errors related to existing lead
     else if (message.includes('was already submitted')){
       showLoading(false, '')
-      showMessage(true, message)
+      showAlert(true, message)
       clearValues()
     }
     
     // handle all other errors
     else {
-      showMessage(false, message)
+      showAlert(false, message)
       showLoading(false, '')
     }
   })
@@ -158,7 +158,7 @@ function runSubmit(details){
   .withFailureHandler(function(err){
     console.log("error occured", err);
     runSendErrorEmail('Error occured: <br><br>' + err, 'Error: submit')
-    showMessage(false, 'Something went wrong. Please refresh the page.')
+    showAlert(false, 'Something went wrong. Please refresh the page.')
     showLoading(false, '')
   })
   .submit(details)

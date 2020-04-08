@@ -7,7 +7,7 @@
     error = true
     message = (
       'This referral, ' + details.buyerName + ', was already submitted and is being worked by ' + buyerAgentName + '. ' + 
-      'An email was just sent to ' + buyerAgentName.split(' ')[0] + ' with details of this new tour request. \n' + 
+      'An email was just sent to ' + buyerAgentName.split(' ')[0] + ' with the details you provided. \n' + 
       '\n' + 
       'Thanks for submitting!'
     )

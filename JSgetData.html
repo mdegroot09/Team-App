@@ -470,6 +470,42 @@ function showMessage(success, text){
   }, 7000)
 }
 
+function showAlert(success, text){
+  var alertDiv = document.getElementById('alertDiv')
+  alertDiv.style.display = 'flex'
+  
+  var alertText = document.getElementById('alertText')
+  alertText.innerText = text
+  
+  var alert = document.getElementById('alert')
+  
+  // show success message 
+  if (success){
+    alert.style.background = '#cff9f1'
+    alert.style.color = '#45c2aa'
+    alert.style.border = '#45c2aa 1px solid'
+  }
+  
+  // show failure message
+  else {
+    alert.style.background = '#f4cccc'
+    alert.style.color = '#b60000'
+    alert.style.border = '#b60000 1px solid'
+  }
+  
+  // exit alert if "esc" key is pressed
+  document.addEventListener("keydown", function(e) {
+    if(e.which == 27){
+      hideAlert()
+    }
+  })
+}
+
+function hideAlert(){
+  var e = document.getElementById('alertDiv')
+  e.style.display = 'none'
+}
+
 function updateDash(data){
   var submitCount = data.length
   var closedCount = data.filter(function(buyer){
@@ -645,7 +681,7 @@ function runGetAllBAs(){
   .withFailureHandler(function(err){
     console.log("error occured", err);
     runSendErrorEmail('Error occured: <br><br>' + err, 'Error: getAllBAs')
-    showMessage(false, 'Something went wrong. Please refresh the page.')
+    showAlert(false, 'Something went wrong. Please refresh the page.')
   })
   .getAllBAs()
 }

@@ -143,9 +143,7 @@ function runSubmit(details){
     // handle errors related to existing lead
     else if (message.includes('was already submitted')){
       showLoading(false, '')
-      setTimeout(function(){
-        alert(message)
-      },10)
+      showMessage(true, message)
       clearValues()
     }
     

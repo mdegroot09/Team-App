@@ -36,8 +36,8 @@ function runGetData(){
   google.script.run
   // if successful, display the data 
   .withSuccessHandler(function(res){
-    document.data = res.data
     document.citiesZips = res.citiesZips
+    document.data = res.data
     showData(res.data) // show the referral data
     disableFilters(false)
     updateDash(res.data)
@@ -358,8 +358,9 @@ function replaceChars(val){
 function updateListingAgents(listingAgents){
   var dropdownLA = document.getElementById('dropdownLA')
   var html1 = dropdownLA.innerHTML
-  var agentFilter = document.getElementById('la')
-  var html2 = agentFilter.innerHTML
+  var la = document.getElementById('la')
+  var ba = document.getElementById('ba')
+  var html2 = la.innerHTML
   
   for (var i = 0; i < listingAgents.length; i++){
     html1 += '<option value="' + (i + 1) + '">' + listingAgents[i] + '</option>'
@@ -371,10 +372,15 @@ function updateListingAgents(listingAgents){
   
   // update html to show listing agents in dropdown
   dropdownLA.innerHTML = html1
-  agentFilter.innerHTML = html2
+  la.innerHTML = html2
   
   // get user info
   var user = getLocalUserInfo()
+  
+  // if user is not buyer agent, show ba dropdown
+  if (user.userType != 'Buyer Agent'){
+    document.getElementsByClassName('agentFiltersDiv')[0].style.display = 'flex'
+  }
   
   // if user is listing agent, search for name in la dropdown then lock
   if (user.userType == 'Listing Agent'){
@@ -393,7 +399,7 @@ function updateListingAgents(listingAgents){
       dropdownLA.value = value
       
       // update value of agentFilter to logged in la
-      agentFilter.value = value
+      la.value = value
     }
   }
   

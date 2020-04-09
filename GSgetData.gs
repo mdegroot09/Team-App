@@ -61,8 +61,15 @@ function getData(user){
     var buyerDataPerLA = buyerData.filter(function(buyer){
       return buyer.listingAgent == user.userName
     })
-    
     return {data: buyerDataPerLA, citiesZips: citiesZips}
+  }
+  
+  // if userType is Listing Agent, filter for only their stuff
+  if (user.userType == 'Buyer Agent'){
+    var buyerDataPerBA = buyerData.filter(function(buyer){
+      return buyer.buyerAgent == user.userName
+    })
+    return {data: buyerDataPerBA, citiesZips: citiesZips}
   }
   
   // if userType is Admin, send everything

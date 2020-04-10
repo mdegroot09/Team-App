@@ -11,13 +11,15 @@ function generateReports(){
 
 function getReportData(data, buyerAgents){
   // filter data for each ba
-  buyerAgents.forEach(function(agent){
+  buyerAgents.forEach(function(agent, i){
     var baData = data.filter(function(a){
-      return (a.buyerAgent == buyerAgent.name)
+      return (a.buyerAgent == agent.name)
     })
     
     // email current data to each ba
-    emailReports(baData, agent)
+    if (i == 0){
+      emailReports(baData, agent)
+    }
   })
 }
 

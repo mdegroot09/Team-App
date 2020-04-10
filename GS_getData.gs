@@ -1,11 +1,9 @@
 function getData(user){
   
   var referralURL = 'https://docs.google.com/spreadsheets/d/1YENd2ZBjwcIGR3fJSla8Av4WFLddDiCuKqdZAyVNMJA/edit?usp=sharing'
-  var masterURL = 'https://docs.google.com/spreadsheets/d/1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE/edit?usp=sharing'
-  
   var ss = SpreadsheetApp.openByUrl(referralURL)
-  var masterSS = SpreadsheetApp.openByUrl(masterURL)
   
+  var masterURL = 'https://docs.google.com/spreadsheets/d/1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE/edit?usp=sharing'
   var citiesZips = getCitiesZips(masterURL)
   
   var buyerNamesAll = ss.getSheetByName('Data').getRange('A4:A').getValues() // get every value from A4 down

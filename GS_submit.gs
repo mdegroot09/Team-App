@@ -84,10 +84,7 @@
 
 function checkReferrals(details){
   var referralURL = 'https://docs.google.com/spreadsheets/d/1YENd2ZBjwcIGR3fJSla8Av4WFLddDiCuKqdZAyVNMJA/edit?usp=sharing'
-  var masterURL = 'https://docs.google.com/spreadsheets/d/1jHTJbt4FM4WGbHSy0nGF8OEpArik44Qmj0Ba7GfMOnE/edit?usp=sharing'
-  
   var ss = SpreadsheetApp.openByUrl(referralURL)
-  var masterSS = SpreadsheetApp.openByUrl(masterURL)
   
   var buyerNamesAll = ss.getSheetByName('Data').getRange('A4:A').getValues() // get every value from A4 down
   
@@ -104,7 +101,7 @@ function checkReferrals(details){
     var buyerName = buyer[0].trim()
     var phone = simplifyPhone(buyer[3])
     var email = buyer[4].toLowerCase()
-    return (phone == detailsPhone && phone) || (email.trim() && email.trim() == details.buyerEmail.trim().toLowerCase())
+    return ((phone == detailsPhone && phone) || (email.trim() && email.trim() == details.buyerEmail.trim().toLowerCase()))
   })
   
   // if referral was already sent in, return Buyer Agent name

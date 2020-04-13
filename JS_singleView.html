@@ -39,12 +39,15 @@ function showView(data){
   if (user.userType.includes('Listing')){
     setInnerHTML('singleStageText', data.stage, 'Stage: ')
     setInnerHTML('singleStatusText', data.status, 'Status: ')
+    setInnerHTML('singleNotes', data.notes, 'Notes: ')
   }
-  else { // if user is buyer side, show dropdowns
+  else { // if user is buyer side, show dropdowns and add note
     setStageDD('singleStageDiv', data.stage)
     setStageDD('singleStageInputDiv', data.stage)
     setStatusDD('singleStatusDiv', data.status)
     setStatusDD('singleStatusInputDiv', data.status)
+    document.getElementById('addNoteBtn').style.display = 'block'
+    setInnerHTML('singleNotes', data.notes, '')
   }
   
   setInnerHTML('singlePhone', data.phone, 'Phone: ')

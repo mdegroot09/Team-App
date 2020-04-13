@@ -46,7 +46,7 @@ function runGetData(){
     e.style.display = 'block'
     blockSubmit(false) // disallow submit button
     setReloadTimeout()
-    // setDataInterval()
+    setDataInterval()
     filter(false)
   })
   // if error
@@ -99,7 +99,7 @@ function setDataInterval(){
     // filter(true)
     runGetData()
     console.log('data updated ')
-  }, 60000 * 5)
+  }, 60000 * 1)
 }
 
 function displayUserInfo(user){

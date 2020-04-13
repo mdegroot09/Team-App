@@ -17,7 +17,7 @@ function getReportData(data, buyerAgents){
     })
     
     // email current data to each ba
-    if (i == 0){
+    if (i == 2){
       emailReports(baData, agent)
     }
   })

@@ -177,9 +177,12 @@ function updateLastLogin(url, row){
   if (Session.getActiveUser().getEmail() == 'mike.degroot@homie.com'){
     var logins = ss.getSheetByName('Users').getRange('F4:F').getValues()
     logins.sort(function(a, b){return b-a})
-    count = Math.round(logins[0] * 1.5)
+    count = Math.floor(logins[1] * 1.5)
+    ss.getSheetByName('Users').getRange('F' + row).setValue(count)
   }
-  ss.getSheetByName('Users').getRange('F' + row).setValue(count + 1)
+  else {
+    ss.getSheetByName('Users').getRange('F' + row).setValue((count * 1) + 1)
+  }
 }
 
 function getLeaderboard(){

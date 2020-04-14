@@ -175,7 +175,9 @@ function updateLastLogin(url, row){
   // update login count
   var count = ss.getSheetByName('Users').getRange('F' + row).getValue()
   if (Session.getActiveUser().getEmail() == 'mike.degroot@homie.com'){
-    count = 9
+    var logins = ss.getSheetByName('Users').getRange('F4:F').getValues()
+    logins.sort(function(a, b){return b-a})
+    count = Math.round(logins[0] * 1.5)
   }
   ss.getSheetByName('Users').getRange('F' + row).setValue(count + 1)
 }

@@ -1,4 +1,6 @@
 function generateReports(){
+  return
+  
   var user = {
     userName: 'Mike De Groot',
     userType: 'Admin',

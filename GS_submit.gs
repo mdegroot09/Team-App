@@ -100,8 +100,8 @@ function checkReferrals(details){
   var buyerData = buyersAll.filter(function(buyer){
     var buyerName = buyer[0].trim()
     var phone = simplifyPhone(buyer[3])
-    var email = buyer[4]
-    return ((phone == detailsPhone && phone) || (email.trim() && email.trim() == details.buyerEmail.trim().toLowerCase()))
+    var email = String(buyer[4])
+    return ((phone == detailsPhone && phone) || (email && email == details.buyerEmail))
   })
   
   // if referral was already sent in, return Buyer Agent name

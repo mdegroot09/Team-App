@@ -100,7 +100,7 @@ function checkReferrals(details){
   var buyerData = buyersAll.filter(function(buyer){
     var buyerName = buyer[0].trim()
     var phone = simplifyPhone(buyer[3])
-    var email = buyer[4].toLowerCase()
+    var email = buyer[4]
     return ((phone == detailsPhone && phone) || (email.trim() && email.trim() == details.buyerEmail.trim().toLowerCase()))
   })
   

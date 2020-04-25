@@ -26,7 +26,7 @@ function getReportData(data, buyerAgents){
 }
 
 function emailReports(data, agent){
-  var dataHTML = dataDisplay(data)
+  var dataHTML = filterStages(data)
   
   MailApp.sendEmail({
     to: 'mike.degroot@homie.com',
@@ -40,14 +40,32 @@ function emailReports(data, agent){
   })
 }
 
-function dataDisplay(data){
-  var html = ''
-  data.forEach(function(a){
+function filterStages(data){
+  var html = (
+    '<div>' +
+      '' +
+    '</div>'
+  )
+  
+  html += displayStageData(data, 'UC')
+  
+  return html
+}
+
+function displayStageData(data, stage){
+  var html = (
+    '<h3>' + stage + '</h3>'
+  )
+  
+  var stageData = data.filter(function(a){
+    return (a.stage == stage)
+  })
+  
+  stageData.forEach(function(a){
     html += (
-      a.buyerName + '<br>' +
-      a.stage + '<br>' +
-      '<br>'
+      a.buyerName + ': ' + a.stage + '<br>'
     )
   })
-  return html
+  
+  return (html += '<br>')
 }

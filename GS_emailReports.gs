@@ -39,7 +39,8 @@ function getReportData(data, buyerAgents){
 }
 
 function emailReports(data, agent){
-  var dataHTML = filterStages(data)
+  var deadlinesHTML = getSoonDeadlines(data)
+  var stagesHTML = filterStages(data)
   
   MailApp.sendEmail({
     // to: agent.email,
@@ -49,9 +50,54 @@ function emailReports(data, agent){
       'Buyer Agent: ' + agent.name + '<br>' +
       'BA email: ' + agent.email + '<br>' +
       '<br>' +
-      dataHTML
+      deadlinesHTML + '<br>' +
+      '<br>' +
+      stagesHTML
     )
   })
+}
+
+function getSoonDeadlines(data){
+  var deadlinesHTML = filterDeadlines(data)
+  
+  return deadlinesHTML
+}
+
+function filterDeadlines(data){
+  var html = (
+    '<div>' +
+      '' +
+    '</div>'
+  )
+  
+  html += displayDeadlines(data, 'dueDiligenceDate')
+  html += displayDeadlines(data, 'financingDate')
+  html += displayDeadlines(data, 'settlementDate')
+  
+  return html
+}
+
+function displayDeadlines(data, deadline){
+  var daysOut = 3
+  var today = Number(new Date())
+  var soonTimeFrame = today + (1000 * 60 * 60 * 24 * daysOut)
+  
+  var html = (
+    '<h3 style="margin: 0;">' + deadline + '</h3>'
+  )
+  
+  var stageData = data.filter(function(a){
+    var deadlineDate = Number(new Date(Number(a[deadline])))
+    return (deadlineDate <= soonTimeFrame && deadlineDate > Number(new Date()))
+  })
+  
+  stageData.forEach(function(a){
+    html += (
+      a.buyerName + ': ' + a[deadline] + '<br>'
+    )
+  })
+  
+  return (html += '<br>')
 }
 
 function filterStages(data){
@@ -78,7 +124,7 @@ function displayStageData(data, stage){
   
   stageData.forEach(function(a){
     html += (
-      a.buyerName + ': ' + a.stage + '<br>'
+      a.buyerName + '<br>'
     )
   })
   

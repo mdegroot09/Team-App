@@ -1,14 +1,27 @@
 function generateReports(){
-  return
+  return true
   
-  var user = {
+  var user = getUserInfo()
+  var res = getData(user)
+  var buyerAgents = getAllBAs()
+  return getReportData(res.data, buyerAgents)
+}
+
+function test(){
+  var adminInfo = getAdminInfo()
+  var res = getData(adminInfo)
+  var buyerAgents = getAllBAs()
+  return getReportData(res.data, buyerAgents)
+}
+
+function getAdminInfo(){
+  var adminInfo = {
     userName: 'Mike De Groot',
     userType: 'Admin',
     userEmail: 'mike.degroot@homie.com'
   }
-  var res = getData(user)
-  var buyerAgents = getAllBAs()
-  return getReportData(res.data, buyerAgents)
+  
+  return adminInfo
 }
 
 function getReportData(data, buyerAgents){
@@ -19,7 +32,7 @@ function getReportData(data, buyerAgents){
     })
     
     // email current data to each ba
-    if (i == 2){
+    if (i == 2){ // *** REMOVE LINE ***
       emailReports(baData, agent)
     }
   })
@@ -29,6 +42,7 @@ function emailReports(data, agent){
   var dataHTML = filterStages(data)
   
   MailApp.sendEmail({
+    // to: agent.email,
     to: 'mike.degroot@homie.com',
     subject: agent.name + ' Data', 
     htmlBody: (
@@ -48,13 +62,14 @@ function filterStages(data){
   )
   
   html += displayStageData(data, 'UC')
+  html += displayStageData(data, 'Touring')
   
   return html
 }
 
 function displayStageData(data, stage){
   var html = (
-    '<h3>' + stage + '</h3>'
+    '<h3 style="margin: 0;">' + stage + '</h3>'
   )
   
   var stageData = data.filter(function(a){

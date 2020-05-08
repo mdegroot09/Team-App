@@ -1,6 +1,4 @@
 function generateReports(){
-  return true
-  
   // quit if weekend
   let d = new Date().getDay()
   if (d == 6 || d == 0){return}
@@ -50,8 +48,8 @@ function emailReports(data, agent){
   var cmsBtn = getCmsBtn(agent)
   
   MailApp.sendEmail({
-    // to: agent.email,
-    to: 'mike.degroot@homie.com',
+    // to: 'mike.degroot@homie.com',
+    to: agent.email,
     subject: 'CMS Daily Update', 
     htmlBody: (
       agent.name.split(' ')[0] + ',<br>' +

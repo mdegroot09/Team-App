@@ -1,13 +1,21 @@
 function generateReports(){
   return true
   
-  var user = getUserInfo()
-  var res = getData(user)
+  // quit if weekend
+  let d = new Date().getDay()
+  if (d == 6 || d == 0){return}
+  
+  var adminInfo = getAdminInfo()
+  var res = getData(adminInfo)
   var buyerAgents = getAllBAs()
   return getReportData(res.data, buyerAgents)
 }
 
 function test(){
+  // quit if weekend
+  let d = new Date().getDay()
+  if (d == 6 || d == 0){return}
+  
   var adminInfo = getAdminInfo()
   var res = getData(adminInfo)
   var buyerAgents = getAllBAs()
@@ -15,13 +23,11 @@ function test(){
 }
 
 function getAdminInfo(){
-  var adminInfo = {
+  return ({
     userName: 'Mike De Groot',
     userType: 'Admin',
     userEmail: 'mike.degroot@homie.com'
-  }
-  
-  return adminInfo
+  })
 }
 
 function getReportData(data, buyerAgents){
@@ -41,18 +47,23 @@ function getReportData(data, buyerAgents){
 function emailReports(data, agent){
   var deadlinesHTML = getSoonDeadlines(data)
   var stagesHTML = filterStages(data)
+  var cmsBtn = getCmsBtn(agent)
   
   MailApp.sendEmail({
     // to: agent.email,
     to: 'mike.degroot@homie.com',
-    subject: agent.name + ' Data', 
+    subject: 'CMS Daily Update', 
     htmlBody: (
-      'Buyer Agent: ' + agent.name + '<br>' +
-      'BA email: ' + agent.email + '<br>' +
+      agent.name.split(' ')[0] + ',<br>' +
       '<br>' +
-      deadlinesHTML + '<br>' +
+      'Here\'s a brief summary of your current CMS:  <br>' +
+      deadlinesHTML +
+      stagesHTML +
+      'Please update your attached CMS as needed. <br>' +
       '<br>' +
-      stagesHTML
+      'Thanks, <br>' +
+      'Cole and Mike' +
+      cmsBtn 
     )
   })
 }
@@ -64,48 +75,57 @@ function getSoonDeadlines(data){
 }
 
 function filterDeadlines(data){
-  var html = (
-    '<div>' +
-      '' +
-    '</div>'
-  )
-  
-  html += displayDeadlines(data, 'dueDiligenceDate')
-  html += displayDeadlines(data, 'financingDate')
-  html += displayDeadlines(data, 'settlementDate')
+  var daysOut = 3
+  var html = '<h2>Deadlines (Next ' + daysOut + ' days)</h2>'
+ 
+  html += displayDeadlines(data, 'dueDiligenceDate', 'Due Diligence', daysOut)
+  html += displayDeadlines(data, 'financingDate', 'F&A', daysOut)
+  html += displayDeadlines(data, 'settlementDate', 'Settlement', daysOut)
   
   return html
 }
 
-function displayDeadlines(data, deadline){
-  var daysOut = 3
-  var today = Number(new Date())
+function displayDeadlines(data, deadline, title, daysOut){
+  var today = convertDateToNum(new Date())
   var soonTimeFrame = today + (1000 * 60 * 60 * 24 * daysOut)
   
-  var html = (
-    '<h3 style="margin: 0;">' + deadline + '</h3>'
-  )
+  var html = '<div style="font-weight: 600; margin: 0;">' + title + '</div>'
   
-  var stageData = data.filter(function(a){
-    var deadlineDate = Number(new Date(Number(a[deadline])))
-    return (deadlineDate <= soonTimeFrame && deadlineDate > Number(new Date()))
+  var deadlineData = data.filter(function(a){
+    var deadlineDate = convertDateToNum(new Date(Number(a[deadline])))
+    return (deadlineDate <= soonTimeFrame && deadlineDate >= today)
   })
   
-  stageData.forEach(function(a){
-    html += (
-      a.buyerName + ': ' + a[deadline] + '<br>'
-    )
-  })
+  if (deadlineData.length > 0){
+    deadlineData.forEach(function(a){
+      var deadlineDate = convertDateToNum(new Date(Number(a[deadline])))
+      var mm = new Date(deadlineDate).getMonth() + 1
+      var dd = new Date(deadlineDate).getDate()
+      
+      // if deadline is today, make red
+      var color = (deadlineDate == today ? 'red' : 'black')
+      
+      html += '<div style="color: ' + color + '">' + a.buyerName + ': ' + mm + '/' + dd + '</div>'
+    })
+  }
+  else {
+    html += '<div>-</div>'
+  }
   
   return (html += '<br>')
 }
 
+function convertDateToNum(d){
+  // get and return begginning of day timestamp
+  var mm = d.getMonth() + 1
+  var dd = d.getDate()
+  var yyyy = d.getFullYear()
+  var startOfDay = new Date(mm + '/' + dd + '/' + yyyy)
+  return Number(startOfDay)
+}
+
 function filterStages(data){
-  var html = (
-    '<div>' +
-      '' +
-    '</div>'
-  )
+  var html = '<h2>Stages</h2>'
   
   html += displayStageData(data, 'UC')
   html += displayStageData(data, 'Touring')
@@ -115,7 +135,7 @@ function filterStages(data){
 
 function displayStageData(data, stage){
   var html = (
-    '<h3 style="margin: 0;">' + stage + '</h3>'
+    '<div style="font-weight: 600; margin: 0;">' + stage + '</div>'
   )
   
   var stageData = data.filter(function(a){
@@ -123,10 +143,12 @@ function displayStageData(data, stage){
   })
   
   stageData.forEach(function(a){
-    html += (
-      a.buyerName + '<br>'
-    )
+    html += '<div>' + a.buyerName + '</div>'
   })
   
   return (html += '<br>')
+}
+
+function getCmsBtn(agent){
+  return '<a style="display: none;" href="' + agent.url + '">Open My CMS</a>'
 }

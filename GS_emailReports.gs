@@ -1,4 +1,4 @@
-function generateReports(){
+function generateReports(isTest = false){
   // quit if weekend
   let d = new Date().getDay()
   if (d == 6 || d == 0){return}
@@ -6,18 +6,12 @@ function generateReports(){
   var adminInfo = getAdminInfo()
   var res = getData(adminInfo)
   var buyerAgents = getAllBAs()
-  return getReportData(res.data, buyerAgents)
+  return getReportData(res.data, buyerAgents, isTest)
 }
 
-function test(){
-  // quit if weekend
-  let d = new Date().getDay()
-  if (d == 6 || d == 0){return}
-  
-  var adminInfo = getAdminInfo()
-  var res = getData(adminInfo)
-  var buyerAgents = getAllBAs()
-  return getReportData(res.data, buyerAgents)
+function runTest(){
+  var isTest = true
+  generateReports(isTest)
 }
 
 function getAdminInfo(){
@@ -28,7 +22,7 @@ function getAdminInfo(){
   })
 }
 
-function getReportData(data, buyerAgents){
+function getReportData(data, buyerAgents, isTest){
   // filter data for each ba
   buyerAgents.forEach(function(agent, i){
     var baData = data.filter(function(a){
@@ -36,20 +30,21 @@ function getReportData(data, buyerAgents){
     })
     
     // email current data to each ba
-    // if (i == 2){ // *** REMOVE LINE ***
-      emailReports(baData, agent)
-    // }
+    if (i == 2){ // *** REMOVE LINE ***
+      emailReports(baData, agent, isTest)
+    }
   })
 }
 
-function emailReports(data, agent){
+function emailReports(data, agent, isTest){
   var deadlinesHTML = getSoonDeadlines(data)
   var stagesHTML = filterStages(data)
   var cmsBtn = getCmsBtn(agent)
+  var email = isTest ? 'mike.degroot@homie.com' : agent.email
   
   MailApp.sendEmail({
     // to: 'mike.degroot@homie.com',
-    to: agent.email,
+    to: email,
     subject: 'CMS Daily Update', 
     htmlBody: (
       agent.name.split(' ')[0] + ',<br>' +

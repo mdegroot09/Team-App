@@ -36,9 +36,9 @@ function getReportData(data, buyerAgents){
     })
     
     // email current data to each ba
-    if (i == 2){ // *** REMOVE LINE ***
+    // if (i == 2){ // *** REMOVE LINE ***
       emailReports(baData, agent)
-    }
+    // }
   })
 }
 

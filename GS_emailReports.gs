@@ -30,7 +30,7 @@ function getReportData(data, buyerAgents, isTest){
     })
     
     // email current data to each ba
-    if (i == 2){ // *** REMOVE LINE ***
+    if ((!isTest || i == 2) && !agent.name.includes('Taryn')){ 
       emailReports(baData, agent, isTest)
     }
   })

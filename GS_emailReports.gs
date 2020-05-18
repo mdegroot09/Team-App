@@ -1,8 +1,3 @@
-function runTest(){
-  var isTest = true
-  generateReports(isTest)
-}
-
 function generateReports(isTest = false){
   // quit if weekend
   let d = new Date().getDay()
@@ -12,6 +7,11 @@ function generateReports(isTest = false){
   var res = getData(adminInfo)
   var buyerAgents = getAllBAs()
   return getReportData(res.data, buyerAgents, isTest)
+}
+
+function runTest(){
+  var isTest = true
+  generateReports(isTest)
 }
 
 function getAdminInfo(){
@@ -29,8 +29,8 @@ function getReportData(data, buyerAgents, isTest){
       return (a.buyerAgent == agent.name)
     })
     
-    // email current data to each ba
-    if ((!isTest || i == 2) && !agent.name.includes('Taryn')){ 
+    // email current data to each ba (or admin if isTest)
+    if ((!isTest || i == 2) && !agent.name.includes('Taryn') && !agent.name.includes('Eric')){ 
       emailReports(baData, agent, isTest)
     }
   })

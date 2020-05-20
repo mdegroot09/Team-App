@@ -1,4 +1,14 @@
-function generateReports(isTest = false){
+function runReports(){
+  var isTest = false
+  generateReports(isTest)
+}
+
+function runTest(){
+  var isTest = true
+  generateReports(isTest)
+}
+
+function generateReports(isTest){
   // quit if weekend
   let d = new Date().getDay()
   if (d == 6 || d == 0){return}
@@ -7,11 +17,6 @@ function generateReports(isTest = false){
   var res = getData(adminInfo)
   var buyerAgents = getAllBAs()
   return getReportData(res.data, buyerAgents, isTest)
-}
-
-function runTest(){
-  var isTest = true
-  generateReports(isTest)
 }
 
 function getAdminInfo(){

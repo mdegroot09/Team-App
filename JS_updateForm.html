@@ -467,7 +467,8 @@ function getNextRemoteAgent(){
   // find the remote agent who's waited the longest for a lead
   var nextRemoteAgent = ''
   buyerAgentsAll.forEach(function(a){
-    if (!nextRemoteAgent && (a.name == 'JoAnn Ortega-Petty' || a.name == 'Ben Ellis')){
+    // if (!nextRemoteAgent && (a.name == 'JoAnn Ortega-Petty' || a.name == 'Ben Ellis')){
+    if (!nextRemoteAgent && a.name == 'Ben Ellis'){
       return (
         nextRemoteAgent = a.name
       )

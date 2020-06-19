@@ -68,7 +68,7 @@ function filterData(data){
         if (lead.source.toLowerCase().includes(filterInput[i].toLowerCase())){
           include = true
         }
-        else if (lead.email.toLowerCase().includes(filterInput[i].toLowerCase())){
+        else if (lead.email && String(lead.email).toLowerCase().includes(filterInput[i].toLowerCase())){
           include = true
         }
         else if (lead.buyerName.toLowerCase().includes(filterInput[i].toLowerCase())){

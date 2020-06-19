@@ -63,34 +63,34 @@ function filterData(data){
   if (filterInput.length > 0){
     
     var inputFilteredData = filteredData.filter(function(lead){
-      var include = false
+      var includeArr = []
       for (var i = 0; i < filterInput.length; i++){
         if (lead.source.toLowerCase().includes(filterInput[i].toLowerCase())){
-          include = true
+          includeArr.push(true)
         }
         else if (lead.email && String(lead.email).toLowerCase().includes(filterInput[i].toLowerCase())){
-          include = true
+          includeArr.push(true)
         }
         else if (lead.buyerName.toLowerCase().includes(filterInput[i].toLowerCase())){
-          include = true
+          includeArr.push(true)
         }
         else if (lead.tags.toLowerCase().includes(filterInput[i].toLowerCase())){
-          include = true
+          includeArr.push(true)
         }
         else if (lead.stage.toLowerCase().includes(filterInput[i].toLowerCase())){
-          include = true
+          includeArr.push(true)
         }
         else if (String(lead.phone).includes(filterInput[i].toLowerCase())){
-          include = true
+          includeArr.push(true)
         }
         else if (lead.status.toLowerCase().includes(filterInput[i].toLowerCase())){
-          include = true
+          includeArr.push(true)
         }
         else {
-          include = false
+          includeArr.push(false)
         }
       }
-      return include
+      return (!includeArr.includes(false))
     })
     
     return inputFilteredData

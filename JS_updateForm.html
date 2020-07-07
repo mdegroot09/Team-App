@@ -441,21 +441,21 @@ function autoSelectBA(filteredAgents){
   
   // set dropdown to first filtered agent if any
   var radius = Number(document.getElementById('radius').value)
-  var udpateRadius = false
+  var updateRadius = false
   if (filteredAgents.length > 0){
     e.value = 1
-    udpateRadius = false
+    updateRadius = false
   }
   else if (radius < 40){
-    udpateRadius = true
+    updateRadius = true
   }
   else {
     getNextRemoteAgent()
     document.getElementById('radius').value = 20
-    udpateRadius = false
+    updateRadius = false
   }
   
-  return udpateRadius
+  return updateRadius
 }
 
 function getNextRemoteAgent(){

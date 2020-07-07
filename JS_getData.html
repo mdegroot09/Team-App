@@ -12,6 +12,7 @@ function load(){
   // if successful, display the data 
   .withSuccessHandler(function(res){
     blockSubmit(true) // disallow submit button
+    setRemoteStatus(false)
     document.user = res.user
     displayUserInfo(res.user) // display user info on DOM
     updateListingAgents(res.listingAgents) // add listing agents to dropdown options

@@ -18,6 +18,7 @@ function submit(){
   var baSelect = baSelectE.options[baSelectE.selectedIndex].text
   var baInput = document.getElementById('baInput').value
   var checked = document.getElementById('checkbox').checked
+  var remoteStatus = document.remoteStatus
   var sendEmail = document.getElementById('sendEmail').checked
   
   if (!document.submitReady){
@@ -47,8 +48,12 @@ function submit(){
   var baId
   if (checked){
     baId = 'baSelect' // reset buyerAgent dropdown
-    if (baSelect === 'choose...'){
-      buyerAgent = {name: '', email: ''}
+    if (baSelect === 'choose...' && remoteStatus){
+      buyerAgent = {
+        name: 'Team Leads', 
+        email: 'buyteamleads@homie.com', 
+        url: 'https://docs.google.com/spreadsheets/d/1HHuqqbnmW1ihOJDkQW7tfppNovoeELtifjrhSm-Yf1U/edit?usp=sharing'
+      }
     }
     else {
       var buyerAgents = document.buyerAgents
@@ -99,7 +104,8 @@ function submit(){
     source: source,
     referringName: listingAgent,
     referringType: userType,
-    buyerAgent: buyerAgent
+    buyerAgent: buyerAgent,
+    remoteStatus: remoteStatus
   }
   
   var submitReady = checkForBlanks(details)
@@ -125,6 +131,9 @@ function runSubmit(details){
 
   // show loading view
   showLoading(true, 'submitting referral') 
+  
+  // reset remoteStatus
+  setRemoteStatus(false)
   
   google.script.run  
   .withSuccessHandler(function(res){

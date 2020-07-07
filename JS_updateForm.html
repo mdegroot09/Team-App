@@ -445,12 +445,14 @@ function autoSelectBA(filteredAgents){
   if (filteredAgents.length > 0){
     e.value = 1
     updateRadius = false
+    setRemoteStatus(false) // reset remoteStatus when agent is in range
   }
   else if (radius < 40){
     updateRadius = true
   }
   else {
-    getNextRemoteAgent()
+    getNextRemoteAgent() // ** REMOVE **
+    setRemoteStatus(true)
     document.getElementById('radius').value = 20
     updateRadius = false
   }
@@ -484,6 +486,10 @@ function getNextRemoteAgent(){
       )
     }
   }
+}
+
+function setRemoteStatus(isRemote){
+  document.remoteStatus = isRemote
 }
 
 function compareDate(a, b) {

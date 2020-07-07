@@ -3,6 +3,7 @@
   var startTime = new Date()
   var buyerAgentName = checkReferrals(details)
   
+  // if buyer was already assigned to Homie agent
   if (buyerAgentName){
     error = true
     message = (
@@ -48,7 +49,7 @@
   
   var buyerAgent = details.buyerAgent
 
-  // check for valid buyer
+  // check for valid buyer agent
   if (!buyerAgent.name || !buyerAgent.email){
     buyerAgent = getBuyerAgent(details.city, zip)
     if (!buyerAgent){

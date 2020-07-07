@@ -1,7 +1,13 @@
 function sendEmail(buyerAgent, details){
+  var remoteStatus = details.remoteStatus
   var bodySubject = getBodySubject(buyerAgent, details)
   var subject = bodySubject.subject
   var htmlBody = bodySubject.htmlBody
+  
+  // send remote email if necessary
+  if (remoteStatus){
+    return sendRemoteEmail(buyerAgent, details)
+  }
   
   // set up email recipients
   var emailTo = 'leads@homie.com'
@@ -228,4 +234,40 @@ function sendExistingBuyerEmail(buyerAgentName, details){
       'The Leads Team <br>'
     )
   })
+}
+
+function sendRemoteEmail(buyerAgent, details){
+  var remoteStatus = details.remoteStatus
+  var address = details.city + ', UT ' + details.zip
+  if (details.street){
+    address = details.street + ', ' + address
+  }
+  var subject = "New Remote Buyer Lead - " + details.buyerName
+  var htmlBody = (
+    'Team Leads,<br>' + 
+    '<br>' + 
+    details.buyerName + ' is a new remote lead. Here are details provided by ' + details.referringName + ': <br>' +
+    '<br>' +
+    'Buyer: ' + details.buyerName + '<br>' +
+    'Phone: ' + details.buyerPhone + '<br>' +
+    'Email: ' + details.buyerEmail + '<br>' +
+    'Location: ' + address + '<br>' + 
+    'Lead sent by: ' + details.referringName + '<br>' +
+    'Type: ' + details.type + '<br>' +
+    'Notes: ' + details.notes + '<br>' +
+    '<br>'
+  )
+  
+  // set up email recipients
+  var emailTo = 'leads@homie.com, buyteamleads@homie.com'
+  emailTo = 'mike.degroot@homie.com'
+  
+  MailApp.sendEmail({
+    to: emailTo,
+    subject: subject, 
+    htmlBody: 
+      'AUTOMATED EMAIL<br>' +
+      '<br>' + 
+      htmlBody 
+  }) 
 }

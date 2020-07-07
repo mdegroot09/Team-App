@@ -242,7 +242,7 @@ function sendRemoteEmail(buyerAgent, details){
   if (details.street){
     address = details.street + ', ' + address
   }
-  var subject = "New Remote Buyer Lead - " + details.buyerName
+  var subject = "New Remote Buyer - " + details.buyerName
   var htmlBody = (
     'Team Leads,<br>' + 
     '<br>' + 

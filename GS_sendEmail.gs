@@ -260,7 +260,7 @@ function sendRemoteEmail(buyerAgent, details){
   
   // set up email recipients
   var emailTo = 'leads@homie.com, buyteamleads@homie.com'
-  emailTo = 'mike.degroot@homie.com'
+  // emailTo = 'mike.degroot@homie.com' ***UNCOMMENT ONLY FOR TESTING***
   
   MailApp.sendEmail({
     to: emailTo,

@@ -99,7 +99,9 @@ function checkReferrals(details){
   var buyersAll = ss.getSheetByName('Data').getRange('A4:AG' + (count + 3)).getValues()
   
   var buyerData = buyersAll.filter(function(buyer){
-    var buyerName = buyer[0].trim()
+    try {
+      var buyerName = buyer[0].trim()
+    } catch(e){}
     var phone = simplifyPhone(buyer[3])
     var email = String(buyer[4])
     return ((phone == detailsPhone && phone) || (email && email == details.buyerEmail && email.includes('@')))
